@@ -21,6 +21,7 @@ var personatges = [
 let id_JSON = Object.keys(personatges[0]); //guardem en un array els id dels objectes JASON
 let tamany = personatges.length; //guardem la quantitat d'objectes JSON que conte l'array
 
+
 genera_tabla();
 
 function genera_tabla() {
@@ -33,9 +34,7 @@ function genera_tabla() {
     var tabla   = document.createElement("table");
     var tblBody = document.createElement("tbody");
   
-    // Crea las celdas
-    
-        console.log("aqui estamos")
+         // Crea las celdas
         for (var i = 0; i <= tamany; i++) {
             // Crea las hileras de la tabla
             var hilera = document.createElement("tr");
@@ -44,13 +43,34 @@ function genera_tabla() {
               // Crea un elemento <td> y un nodo de texto, haz que el nodo de
               // texto sea el contenido de <td>, ubica el elemento <td> al final
               // de la hilera de la tabla
+
               var celda = document.createElement("td");
               if(i == 0){
                   var textoCelda = document.createTextNode(id_JSON[j]);
               }
               else{
-                  console.log(i);
-                  var textoCelda = document.createTextNode(personatges[0].id);
+                if (j == 0 ){
+                    var textoCelda = document.createTextNode(personatges[i-1].id);
+                }
+                if (j == 1 ){
+                    var textoCelda = document.createTextNode(personatges[i-1].nom);
+                }
+
+                if (j == 2 ){
+                    var textoCelda = document.createTextNode(personatges[i-1].cognom);
+                }
+
+                if (j == 3 ){
+                    var textoCelda = document.createTextNode(personatges[i-1].edat);
+                    
+                }
+                if (j == 4 ){
+                    var textoCelda = document.createElement("img");
+                    textoCelda.setAttribute("src", personatges[i-1].imatge );
+                    textoCelda.setAttribute("width", "50");
+                    textoCelda.setAttribute("height", "50");
+                }
+                  
               }
       
               celda.appendChild(textoCelda);

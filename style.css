@@ -5,3 +5,15 @@ a, a:link, a:visited, a:hover, a:active {
     text-decoration-line: underline;
 
 }
+
+td {
+
+    padding: 10px;
+
+}
+
+table {
+    border: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}

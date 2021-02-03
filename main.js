@@ -81,8 +81,9 @@ function genera_tabla() {
                         
                     case 5: 
                     var textoCelda = document.createElement("a");
-                    textoCelda.innerTe = "hola"
-                    textoCelda.setAttribute("href", "#");
+                    textoCelda.setAttribute("href", "");
+                    textoCelda.appendChild(document.createTextNode("Eliminar"));
+                    
                     break;
                     }
                 }     

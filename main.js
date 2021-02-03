@@ -25,6 +25,26 @@ let tamany = personatges.length; //guardem la quantitat d'objectes JSON que cont
 
 genera_tabla();
 
+let a = document.getElementsByClassName("eliminar");
+
+for(i=0; i<a.length; i++){
+
+    a[i].addEventListener("click", function(){
+        alert("Eliminar");
+    })
+}
+
+let b = document.getElementsByClassName("modificar");
+
+for(i=0; i<b.length; i++){
+
+    a[i].addEventListener("click", function(){
+        alert("Modificar");
+    })
+}
+
+
+
 function genera_tabla() {
 
 
@@ -82,12 +102,15 @@ function genera_tabla() {
                     case 5: 
                     var textoCelda = document.createElement("a");
                     textoCelda.appendChild(document.createTextNode("Eliminar"));
+                    textoCelda.setAttribute("class", "eliminar")
                     
                     break;
 
                     case 6: 
                     var textoCelda = document.createElement("a");
                     textoCelda.appendChild(document.createTextNode("Modificar"));
+                    textoCelda.setAttribute("class", "modificar")
+                    
                     
                     break;
                     }
@@ -106,8 +129,9 @@ function genera_tabla() {
           tabla.appendChild(tblBody);
           // appends <table> into <body>
           div.appendChild(tabla);
-
-          div.appendChild
+          var boto = document.createElement("button");
+          boto.appendChild(document.createTextNode("Nou Personatge"));
+          div.appendChild(boto);
           // modifica el atributo "border" de la tabla y lo fija a "2";        
   }
 

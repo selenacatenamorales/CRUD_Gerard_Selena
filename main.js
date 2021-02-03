@@ -45,14 +45,15 @@ function generar_add_event_listener_eliminar() {
   }
 }
 
+function eliminar_personatge(e){
+    let personatge = e.target.parentNode.parentNode;
+    personatge.parentNode.removeChild(personatge);
+}
 
 function modificar_personatge() {
     let tabla = document.getElementsByTagName("div")[0].firstChild;
     let boton = document.getElementById("nou_personatge");
     boton.parentNode.removeChild(boton);
     tabla.parentNode.removeChild(tabla);
-
-    
-
 }
 

@@ -84,6 +84,7 @@ function genera_tabla() {
           div.appendChild(tabla);
           var boto = document.createElement("button");
           boto.appendChild(document.createTextNode("Nou Personatge"));
+          boto.setAttribute("id", "nou_personatge");
           div.appendChild(boto);
           // modifica el atributo "border" de la tabla y lo fija a "2";
   }

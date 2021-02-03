@@ -24,7 +24,34 @@ let tamany = personatges.length; //guardem la quantitat d'objectes JSON que cont
 
 genera_tabla();
 
-let a = document.getElementsByClassName("eliminar");
+generar_add_event_listener_modifcar();
+
+generar_add_event_listener_eliminar();
+
+
+
+
+
+
+
+
+
+
+
+
+function generar_add_event_listener_modifcar(){
+    let b = document.getElementsByClassName("modificar");
+
+for(i=0; i<b.length; i++){
+
+    b[i].addEventListener("click", function(){
+        alert("Modificar");
+    })
+}
+}
+
+function generar_add_event_listener_eliminar(){
+    let a = document.getElementsByClassName("eliminar");
 
 for(i=0; i<a.length; i++){
 
@@ -32,16 +59,7 @@ for(i=0; i<a.length; i++){
         alert("Eliminar");
     })
 }
-
-let b = document.getElementsByClassName("modificar");
-
-for(i=0; i<b.length; i++){
-
-    a[i].addEventListener("click", function(){
-        alert("Modificar");
-    })
 }
-
 
 
 

@@ -80,8 +80,9 @@ function genera_tabla() {
                     break;
                         
                     case 5: 
-                    var textoCelda = document.createTextNode("Eliminar");
-                    
+                    var textoCelda = document.createElement("a");
+                    textoCelda.innerTe = "hola"
+                    textoCelda.setAttribute("href", "#");
                     break;
                     }
                 }     

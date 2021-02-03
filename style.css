@@ -1,5 +1,7 @@
-a:link, a:visited, a:hover, a:active {
+a, a:link, a:visited, a:hover, a:active {
 
     color: darkblue;
+    cursor: pointer;
+    text-decoration-line: underline;
 
 }

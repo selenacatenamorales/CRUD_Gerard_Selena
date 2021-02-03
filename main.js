@@ -41,16 +41,18 @@ function generar_add_event_listener_eliminar() {
   let a = document.getElementsByClassName("eliminar");
 
   for (i = 0; i < a.length; i++) {
-    a[i].addEventListener("click", function () {
-      alert("Eliminar");
-    });
+    a[i].addEventListener("click", eliminar_personatge);
   }
 }
 
 
-function modificar_personatge(e) {
-    var div = document.getElementsByTagName("div")[0];
-    div.parentNode.removeChild(div);
-  console.log(e.target);
+function modificar_personatge() {
+    let tabla = document.getElementsByTagName("div")[0].firstChild;
+    let boton = document.getElementById("nou_personatge");
+    boton.parentNode.removeChild(boton);
+    tabla.parentNode.removeChild(tabla);
+
+    
+
 }
 

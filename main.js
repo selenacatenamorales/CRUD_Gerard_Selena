@@ -81,14 +81,12 @@ function genera_tabla() {
                         
                     case 5: 
                     var textoCelda = document.createElement("a");
-                    textoCelda.setAttribute("href", "");
                     textoCelda.appendChild(document.createTextNode("Eliminar"));
                     
                     break;
 
                     case 6: 
                     var textoCelda = document.createElement("a");
-                    textoCelda.setAttribute("href", "");
                     textoCelda.appendChild(document.createTextNode("Modificar"));
                     
                     break;

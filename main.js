@@ -108,6 +108,8 @@ function genera_tabla() {
           tabla.appendChild(tblBody);
           // appends <table> into <body>
           div.appendChild(tabla);
+
+          div.appendChild
           // modifica el atributo "border" de la tabla y lo fija a "2";        
   }
 

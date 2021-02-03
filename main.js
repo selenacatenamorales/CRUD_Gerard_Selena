@@ -118,6 +118,28 @@ generar_add_event_listener_eliminar();
 var nou_personatge = document.getElementById("nou_personatge");
 nou_personatge.addEventListener("click", crear_nou_personatge);
 
+function crear_nou_personatge(){
+
+    buidar_taula();
+
+    var master = document.getElementById("Nou_personatge");
+
+    //text nom personatge
+    //etiqueta nom personatge
+
+    //text cognom personatge
+    //etiqueta cognom personatge
+
+    //text edat personatge
+    //etiqueta edat personatge
+
+    //get file from system (imatge default)
+
+    //boto guardar
+    //boto cancel·lar
+
+}
+
 function generar_add_event_listener_modifcar() {
   let b = document.getElementsByClassName("modificar");
 
@@ -140,9 +162,14 @@ function eliminar_personatge(e){
 }
 
 function modificar_personatge() {
+    buidar_taula();
+}
+
+function buidar_taula() {
+
     let tabla = document.getElementsByTagName("div")[0].firstChild;
     let boton = document.getElementById("nou_personatge");
     boton.parentNode.removeChild(boton);
     tabla.parentNode.removeChild(tabla);
-}
 
+}

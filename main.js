@@ -20,6 +20,8 @@ let id_JSON = Object.keys(personatges[0]); //guardem en un array els id dels obj
 
 let tamany = personatges.length; //guardem la quantitat d'objectes JSON que conte l'array
 
+genera_tabla();
+
 function genera_tabla() {
 
     // Obtener la referencia del elemento body
@@ -106,40 +108,71 @@ function genera_tabla() {
     boto.setAttribute("id", "nou_personatge");
     div.appendChild(boto);
     // modifica el atributo "border" de la tabla y lo fija a "2";
+
+    generar_add_event_listener_modifcar();
+
+    generar_add_event_listener_eliminar();
+
+    var nou_personatge = document.getElementById("nou_personatge");
+
+    nou_personatge.addEventListener("click", crear_nou_personatge);
 }
 
-
-genera_tabla();
-
-generar_add_event_listener_modifcar();
-
-generar_add_event_listener_eliminar();
-
-var nou_personatge = document.getElementById("nou_personatge");
-nou_personatge.addEventListener("click", crear_nou_personatge);
 
 function crear_nou_personatge(){
 
+    let crear_div = document.createElement("div");
+
+    let div = document.getElementById("Nou_personatge")
+
+    div.appendChild(crear_div);
+
     buidar_taula();
 
-    var master = document.getElementById("Nou_personatge");
+    for(i=1; i<id_JSON.length; i++){
 
-    //text nom personatge
-    //etiqueta nom personatge
+        let p = document.createElement("p");
+        p.appendChild(document.createTextNode(id_JSON[i].toUpperCase()));
+        crear_div.appendChild(p);
 
-    //text cognom personatge
-    //etiqueta cognom personatge
+        let input = document.createElement("input");
+        crear_div.appendChild(input);
+    }
+    let br = document.createElement("br");
+    let br2 = document.createElement("br");
+    crear_div.appendChild(br);
+    crear_div.appendChild(br2);
+    
+    let boto = document.createElement("button");
+    boto.appendChild(document.createTextNode("Acceptar"));
+    boto.setAttribute("id", "Acceptar");
+    crear_div.appendChild(boto);
 
-    //text edat personatge
-    //etiqueta edat personatge
+    boto.addEventListener("click", acceptar_personatge);
 
-    //get file from system (imatge default)
+    let boto2 = document.createElement("button");
+    boto2.appendChild(document.createTextNode("Cancelar"));
+    boto2.setAttribute("id", "Cancelar");
+    crear_div.appendChild(boto2);
 
-    //boto guardar
-    //boto cancel·lar
+    boto2.addEventListener("click", cancelar_personatge);
 
 }
 
+function acceptar_personatge(){
+    let nom = document.getElementsByTagName("input")[0].value;
+    let cognom = document.getElementsByTagName("input")[1].value;
+    let edat = document.getElementsByTagName("input")[2].value;
+    
+    buidar_personatge();
+    genera_tabla();
+
+    let hilera = document.createElement("tr");
+
+}
+function cancelar_personatge(){
+
+}
 function generar_add_event_listener_modifcar() {
   let b = document.getElementsByClassName("modificar");
 
@@ -171,5 +204,11 @@ function buidar_taula() {
     let boton = document.getElementById("nou_personatge");
     boton.parentNode.removeChild(boton);
     tabla.parentNode.removeChild(tabla);
+
+}
+
+function buidar_personatge() {
+    let div = document.getElementById("Nou_personatge").firstChild;
+    div.parentNode.removeChild(div);
 
 }

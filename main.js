@@ -128,7 +128,12 @@ function crear_nou_personatge(){
     div.appendChild(crear_div);
 
     buidar_taula();
+    
+    crear_formulari(crear_div);
 
+}
+
+function crear_formulari(crear_div){
     for(i=1; i<id_JSON.length; i++){
 
         let p = document.createElement("p");
@@ -156,7 +161,6 @@ function crear_nou_personatge(){
     crear_div.appendChild(boto2);
 
     boto2.addEventListener("click", cancelar_personatge);
-
 }
 
 function acceptar_personatge(){
@@ -167,9 +171,20 @@ function acceptar_personatge(){
     buidar_personatge();
     genera_tabla();
 
-    let hilera = document.createElement("tr");
+    let nou_registre = document.getElementsByTagName("table")[0];
+    let tr = document.createElement("tr");
+    for(i=0; i<id_JSON.length; i++)
+    {
+
+    }
+
+    console.log(nou_registre);
+
+
 
 }
+
+
 function cancelar_personatge(){
 
 }

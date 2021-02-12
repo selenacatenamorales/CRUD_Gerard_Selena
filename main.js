@@ -244,6 +244,7 @@ function generar_add_event_listener_eliminar() {
 function eliminar_personatge(e){
   let personatge = e.target.parentNode.parentNode.firstChild.firstChild;
 
+
   console.log(personatge)
 
   for(i = 0; i< tamany; i++){

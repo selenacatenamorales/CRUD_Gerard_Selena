@@ -121,19 +121,20 @@ function genera_tabla() {
 
 function crear_nou_personatge(){
 
+    buidar_taula();
+
+    crear_formulari();
+
+}
+
+function crear_formulari(){
+
     let crear_div = document.createElement("div");
 
     let div = document.getElementById("Nou_personatge")
 
     div.appendChild(crear_div);
 
-    buidar_taula();
-    
-    crear_formulari(crear_div);
-
-}
-
-function crear_formulari(crear_div){
     for(i=1; i<id_JSON.length; i++){
 
         let p = document.createElement("p");
@@ -211,6 +212,9 @@ function eliminar_personatge(e){
 
 function modificar_personatge() {
     buidar_taula();
+
+    crear_formulari();
+
 }
 
 function buidar_taula() {

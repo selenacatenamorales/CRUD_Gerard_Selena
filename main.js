@@ -16,6 +16,8 @@ var personatges = [
   },
 ];
 
+
+
 let id_JSON = Object.keys(personatges[0]); //guardem en un array els id dels objectes JASON
 
 let tamany = personatges.length; //guardem la quantitat d'objectes JSON que conte l'array
@@ -171,17 +173,51 @@ function acceptar_personatge(){
     buidar_personatge();
     genera_tabla();
 
-    let nou_registre = document.getElementsByTagName("table")[0];
-    let tr = document.createElement("tr");
-    for(i=0; i<id_JSON.length; i++)
+    let nou_registre = document.getElementsByTagName("tbody")[0];
+    let hilera = document.createElement("tr");
+    for(i=0; i<id_JSON.length + 2; i++)
     {
+        let celda = document.createElement("td");
+        switch (i) {
+            case 0:
+                var textoCelda = document.createTextNode("3");
+            break;
 
+            case 1:
+                var textoCelda = document.createTextNode(nom);
+            break;
+
+            case 2:
+                var textoCelda = document.createTextNode(cognom);
+            break;
+
+            case 3:
+                var textoCelda = document.createTextNode(edat);
+            break;
+
+            case 4:
+                var textoCelda = document.createTextNode("imatge");
+            break;
+
+            case 5:
+                var textoCelda = document.createElement("a");
+                textoCelda.appendChild(document.createTextNode("Eliminar"));
+                textoCelda.setAttribute("class", "eliminar")
+
+            break;
+
+            case 6:
+                var textoCelda = document.createElement("a");
+                    textoCelda.appendChild(document.createTextNode("Modificar"));
+                    textoCelda.setAttribute("class", "modificar")
+
+            break;
+
+        }
+        celda.appendChild(textoCelda);
+        hilera.appendChild(celda);
     }
-
-    console.log(nou_registre);
-
-
-
+    nou_registre.appendChild(hilera);
 }
 
 
@@ -205,8 +241,19 @@ function generar_add_event_listener_eliminar() {
 }
 
 function eliminar_personatge(e){
-    let personatge = e.target.parentNode.parentNode;
-    personatge.parentNode.removeChild(personatge);
+  let personatge = e.target.parentNode.parentNode.firstChild.firstChild;
+
+  console.log(personatge)
+
+  for(i = 0; i< tamany; i++){
+      console.log(personatges[i].id == personatge)
+      if (personatges[i].id == personatge){
+          console.log("venggaaaaaa")
+          personatges.splice(i,i)
+          console.log(personatges);
+      }
+  }
+    //personatge.parentNode.removeChild(personatge);
 }
 
 function modificar_personatge() {

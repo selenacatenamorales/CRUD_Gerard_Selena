@@ -144,20 +144,17 @@ var personatges = [
   }
   
   function eliminar_personatge(e){
-      let personatge = e.target.parentNode.parentNode.firstChild.innerText;
+      let personatge = parseInt(e.target.parentNode.parentNode.firstChild.innerText);
     
     
       console.log(personatge)
-    
-      for(i = 0; i< personatges.length; i++){
-          console.log(personatges[i].id == personatge)
-          if (personatges[i].id == personatge){
-              console.log("venggaaaaaa")
-              personatges.splice(i,i)
-              console.log(personatges);
-              
-          }
+      for(i=0; i<personatges.length; i++){
+        if(personatges[i].id == personatge){
+          personatges.splice(i, i+1);
+        }
       }
+    
+
      // personatge.parentNode.removeChild(personatge);
      buidar_taula();
      genera_tabla();
@@ -243,7 +240,7 @@ var personatges = [
     boto.setAttribute("id", "Acceptar");
     crear_div.appendChild(boto);
 
-    boto.addEventListener("click", acceptar_personatge);
+    boto.addEventListener("click", acceptar_modificacio);
 
     let boto2 = document.createElement("button");
     boto2.appendChild(document.createTextNode("Cancelar"));
@@ -273,6 +270,12 @@ function buidar_personatge() {
 
 }
 
+function buidar_modficacio() {
+  let div = document.getElementById("Actualitza").firstChild;
+  div.parentNode.removeChild(div);
+
+}
+
 function acceptar_modificacio(){
 
   let nom = document.getElementsByTagName("input")[1].value;
@@ -287,7 +290,7 @@ function acceptar_modificacio(){
 
   console.log(personatges)
  
-  buidar_personatge();
+  buidar_modficacio();
   genera_tabla();
   
 }

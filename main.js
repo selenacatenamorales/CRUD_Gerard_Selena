@@ -231,12 +231,13 @@ function buidar_personatge() {
 
 }
 
-function acceptar_modificacio(posicio){
+function acceptar_modificacio(e){
   
+  let posicio = parseInt(e.target.parentNode.parentNode.firstChild.innerText)-1;
   let nom = document.getElementsByTagName("input")[1].value;
   let cognom = document.getElementsByTagName("input")[2].value;
   let edat = parseInt(document.getElementsByTagName("input")[3].value);
-  
+  console.log(posicio)
   console.log(nom);
   console.log(posicio)
   personatges[posicio].nom = nom;

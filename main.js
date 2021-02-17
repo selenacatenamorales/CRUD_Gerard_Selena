@@ -18,6 +18,7 @@ var personatges = [
   
    //guardem la quantitat d'objectes JSON que conte l'array
   var contador = personatges[personatges.length-1].id;
+  var id_global = 0;
   
   genera_tabla();
   
@@ -125,11 +126,11 @@ var personatges = [
   
     function modificar_personatge(e) {
       buidar_taula();
-      let id = parseInt(e.target.parentNode.parentNode.firstChild.innerText)-1;
+      var id = parseInt(e.target.parentNode.parentNode.firstChild.innerText)-1;
 
-  
+      id_global = id;
       console.log(e.target.parentNode.parentNode.firstChild.innerText)
-      crear_formulari(id);
+      crear_formulari_modificar(id);
   
   }
   
@@ -162,7 +163,7 @@ var personatges = [
      genera_tabla();
     }
   
-    function crear_formulari(posicio){
+    function crear_formulari(){
   
       let crear_div = document.createElement("div");
   
@@ -181,12 +182,9 @@ var personatges = [
           let input = document.createElement("input");
           crear_div.appendChild(input);
 
-          if(arguments.length==1){
-            input.value = personatges[posicio][propiedad];
-          }
-  
-        
+    
       }
+      
 
   
       let br = document.createElement("br");
@@ -196,10 +194,10 @@ var personatges = [
       
       let boto = document.createElement("button");
       boto.appendChild(document.createTextNode("Acceptar"));
-      boto.setAttribute("id", "Acceptar_Modificacio");
+      boto.setAttribute("id", "Acceptar");
       crear_div.appendChild(boto);
   
-      boto.addEventListener("click", acceptar_modificacio);
+      boto.addEventListener("click", acceptar_personatge);
   
       let boto2 = document.createElement("button");
       boto2.appendChild(document.createTextNode("Cancelar"));
@@ -209,6 +207,51 @@ var personatges = [
       boto2.addEventListener("click", cancelar_personatge);
   }
 
+  function crear_formulari_modificar(posicio){
+  
+    let crear_div = document.createElement("div");
+
+    let div = document.getElementById("Actualitza")
+
+    div.appendChild(crear_div);
+    
+
+    for (let propiedad in personatges[0]){
+
+        let p = document.createElement("p");
+        p.appendChild(document.createTextNode(propiedad.toUpperCase()));
+
+        crear_div.appendChild(p);
+
+        let input = document.createElement("input");
+        crear_div.appendChild(input);
+
+        input.value = personatges[posicio][propiedad]
+
+  
+    }
+    
+
+
+    let br = document.createElement("br");
+    let br2 = document.createElement("br");
+    crear_div.appendChild(br);
+    crear_div.appendChild(br2);
+    
+    let boto = document.createElement("button");
+    boto.appendChild(document.createTextNode("Acceptar"));
+    boto.setAttribute("id", "Acceptar");
+    crear_div.appendChild(boto);
+
+    boto.addEventListener("click", acceptar_personatge);
+
+    let boto2 = document.createElement("button");
+    boto2.appendChild(document.createTextNode("Cancelar"));
+    boto2.setAttribute("id", "Cancelar");
+    crear_div.appendChild(boto2);
+
+    boto2.addEventListener("click", cancelar_personatge);
+}
   
 function crear_nou_personatge(){
 
@@ -218,7 +261,6 @@ function crear_nou_personatge(){
 
   let id = document.getElementsByTagName("input")[0].value = contador+1;
   
-
 }
 
 function cancelar_personatge(){
@@ -231,18 +273,16 @@ function buidar_personatge() {
 
 }
 
-function acceptar_modificacio(e){
-  
-  let posicio = parseInt(e.target.parentNode.parentNode.firstChild.innerText)-1;
+function acceptar_modificacio(){
+
   let nom = document.getElementsByTagName("input")[1].value;
   let cognom = document.getElementsByTagName("input")[2].value;
   let edat = parseInt(document.getElementsByTagName("input")[3].value);
-  console.log(posicio)
-  console.log(nom);
-  console.log(posicio)
-  personatges[posicio].nom = nom;
-  personatges[posicio].cognom = cognom;
-  personatges[posicio].edat = edat;
+  console.log(id_global)
+
+  personatges[id_global].nom = nom;
+  personatges[id_global].cognom = cognom;
+  personatges[id_global].edat = edat;
 
 
   console.log(personatges)

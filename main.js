@@ -16,11 +16,10 @@ var personatges = [
     },
   ];
   
-  let tamany = personatges.length; //guardem la quantitat d'objectes JSON que conte l'array
+   //guardem la quantitat d'objectes JSON que conte l'array
+  var contador = personatges[personatges.length-1].id;
   
   genera_tabla();
-  
-  
   
   function genera_tabla() {
     // Obtener la referencia del elemento body
@@ -31,7 +30,7 @@ var personatges = [
     var tblBody = document.createElement("tbody");
   
     // Crea las celdas
-    for (var i = 0; i <= tamany; i++) {
+    for (var i = 0; i <= personatges.length; i++) {
       // Crea las hileras de la tabla
       var hilera = document.createElement("tr");
   
@@ -126,12 +125,11 @@ var personatges = [
   
     function modificar_personatge(e) {
       buidar_taula();
-      let id = parseInt(e.target.parentNode.parentNode.firstChild.innerText);
-  
-      //for (let propiedad in personatges[]
+      let id = parseInt(e.target.parentNode.parentNode.firstChild.innerText)-1;
+
   
       console.log(e.target.parentNode.parentNode.firstChild.innerText)
-      crear_formulari(posicio);
+      crear_formulari(id);
   
   }
   
@@ -150,7 +148,7 @@ var personatges = [
     
       console.log(personatge)
     
-      for(i = 0; i< tamany; i++){
+      for(i = 0; i< personatges.length; i++){
           console.log(personatges[i].id == personatge)
           if (personatges[i].id == personatge){
               console.log("venggaaaaaa")
@@ -171,9 +169,10 @@ var personatges = [
       let div = document.getElementById("Nou_personatge")
   
       div.appendChild(crear_div);
+      
   
-  
-      for (let propiedad in personatges[posicio]){
+      for (let propiedad in personatges[0]){
+
           let p = document.createElement("p");
           p.appendChild(document.createTextNode(propiedad.toUpperCase()));
   
@@ -181,9 +180,14 @@ var personatges = [
   
           let input = document.createElement("input");
           crear_div.appendChild(input);
+
+          if(arguments.length==1){
+            input.value = personatges[posicio][propiedad];
+          }
   
-          let text = document.personatges[posicio].propiedad
+        
       }
+
   
       let br = document.createElement("br");
       let br2 = document.createElement("br");
@@ -192,10 +196,10 @@ var personatges = [
       
       let boto = document.createElement("button");
       boto.appendChild(document.createTextNode("Acceptar"));
-      boto.setAttribute("id", "Acceptar");
+      boto.setAttribute("id", "Acceptar_Modificacio");
       crear_div.appendChild(boto);
   
-      boto.addEventListener("click", acceptar_personatge);
+      boto.addEventListener("click", acceptar_modificacio);
   
       let boto2 = document.createElement("button");
       boto2.appendChild(document.createTextNode("Cancelar"));
@@ -204,4 +208,70 @@ var personatges = [
   
       boto2.addEventListener("click", cancelar_personatge);
   }
+
+  
+function crear_nou_personatge(){
+
+  buidar_taula();
+
+  crear_formulari();
+
+  let id = document.getElementsByTagName("input")[0].value = contador+1;
+  
+
+}
+
+function cancelar_personatge(){
+
+}
+
+function buidar_personatge() {
+  let div = document.getElementById("Nou_personatge").firstChild;
+  div.parentNode.removeChild(div);
+
+}
+
+function acceptar_modificacio(posicio){
+  
+  let nom = document.getElementsByTagName("input")[1].value;
+  let cognom = document.getElementsByTagName("input")[2].value;
+  let edat = parseInt(document.getElementsByTagName("input")[3].value);
+  
+  console.log(nom);
+  console.log(posicio)
+  personatges[posicio].nom = nom;
+  personatges[posicio].cognom = cognom;
+  personatges[posicio].edat = edat;
+
+
+  console.log(personatges)
+ 
+  buidar_personatge();
+  genera_tabla();
+  
+}
+
+function acceptar_personatge(){
+  contador ++;
+  let id = parseInt(document.getElementsByTagName("input")[0].value);
+  let nom = document.getElementsByTagName("input")[1].value;
+  let cognom = document.getElementsByTagName("input")[2].value;
+  let edat = parseInt(document.getElementsByTagName("input")[3].value);
+  
+
+
+  personatges.push({
+    "id": id,
+    "nom": nom,
+    "cognom": cognom,
+    "edat": edat,
+    "imatge": "imagenes/Monigote.jpeg",
+  });
+
+  console.log(personatges)
+ 
+  buidar_personatge();
+  genera_tabla();
+  
+}
   

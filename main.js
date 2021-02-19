@@ -15,6 +15,15 @@ var personatges = [
       imatge: "imagenes/Monigo.png",
     },
   ];
+
+
+  var solo_num = new RegExp('^\d$');
+
+  var id_personatges = []
+
+  for (propiedad in personatges[0]){
+    id_personatges.push(propiedad)
+  }
   
    //guardem la quantitat d'objectes JSON que conte l'array
   var contador = personatges[personatges.length-1].id;
@@ -144,25 +153,38 @@ var personatges = [
   }
   
   function eliminar_personatge(e){
-      let personatge = parseInt(e.target.parentNode.parentNode.firstChild.innerText);
+      let idpersonatge = parseInt(e.target.parentNode.parentNode.firstChild.innerText);
     
-    
-      console.log(personatge)
       for(i=0; i<personatges.length; i++){
-        if(personatges[i].id == personatge){
+        if(personatges[i].id == idpersonatge){
           personatges.splice(i, i+1);
         }
       }
-    
+      console.log(document.getElementsByTagName("tr").length);
+      if(document.getElementsByTagName("tr").length == 2){
+        buidar_taula();
 
-     // personatge.parentNode.removeChild(personatge);
-     
+        
+        console.log("Hola")
+        let div = document.getElementsByTagName("div")[0];
+        var p = document.createElement("p");
+        var texto = document.createTextNode("Ens hem quedat sense cap registre per mostrar, perque no proves a crear un nou personatge");
+        p.appendChild(texto);
+        div.appendChild(p);
 
-     
+        var boto = document.createElement("button");
+        boto.appendChild(document.createTextNode("Nou Personatge"));
+        boto.setAttribute("id", "nou_personatge");
+        div.appendChild(boto);
+
+        var nou_personatge = document.getElementById("nou_personatge");
+  
+        nou_personatge.addEventListener("click", crear_nou_personatge);
+     }
+     else{
       buidar_taula();
       genera_tabla();
-     
-
+     }
     }
   
     function crear_formulari(){
@@ -170,22 +192,24 @@ var personatges = [
       let crear_div = document.createElement("div");
   
       let div = document.getElementById("Nou_personatge")
-  
+      
+      console.log(div)
       div.appendChild(crear_div);
       
-  
-      for (let propiedad in personatges[0]){
-
+     
+      for (let i = 0; i<id_personatges.length; i++){
           let p = document.createElement("p");
-          p.appendChild(document.createTextNode(propiedad.toUpperCase()));
+          p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
   
           crear_div.appendChild(p);
   
           let input = document.createElement("input");
           crear_div.appendChild(input);
-
-    
       }
+    
+
+  
+
       
 
   
@@ -256,9 +280,9 @@ var personatges = [
 }
   
 function crear_nou_personatge(){
-
+  
   buidar_taula();
-
+  
   crear_formulari();
 
   let id = document.getElementsByTagName("input")[0].value = contador+1;

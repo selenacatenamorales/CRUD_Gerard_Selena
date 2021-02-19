@@ -1,19 +1,19 @@
 var personatges = [
     {
       id: 1,
-      nom: "Selena",
-      cognom: "Catena",
-      edat: 21,
-      estat: "",
+      nom: "Vanessa",
+      cognom: "Enoteca",
+      edat: 24,
+      magia: "Fils",
       imatge: "imagenes/Monigote.jpeg",
     },
   
     {
       id: 2,
-      nom: "Gerard",
-      cognom: "Martinez",
-      edat: 150,
-      estat: "",
+      nom: "Yami",
+      cognom: "Sukehiro",
+      edat: 28,
+      magia: "Obscuritat",
       imatge: "imagenes/Monigo.png",
     },
   ];
@@ -366,4 +366,25 @@ function acceptar_personatge(){
   genera_tabla();
   
 }
-  
+
+function generarImg(){
+
+    document.querySelector('input[type="file"]').addEventListener('change', function(){
+
+        if (this.files && this.files[0]){
+
+            var img = document.querySelector('img');
+
+            img.onload = () => {
+
+                URL.revokeObjectURL(img.src);
+
+            }
+
+            img.src = URL.createObjectURL(this.files[0]);
+
+        }
+
+    });
+
+}

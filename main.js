@@ -17,7 +17,7 @@ var personatges = [
   ];
 
 
-  var solo_num = new RegExp('^\d$');
+  var solo_num = new RegExp('^{1-3}\d$');
 
   var id_personatges = []
 
@@ -310,10 +310,20 @@ function acceptar_modificacio(){
   let nom = document.getElementsByTagName("input")[1].value;
   let cognom = document.getElementsByTagName("input")[2].value;
   let edat = parseInt(document.getElementsByTagName("input")[3].value);
+
+
+  if(!solo_num.test(edat.value)){
+    alert("Indica un numero amb el format correcte");
+  }
+  else{
+    
+  
+
   console.log(id_global)
 
   personatges[id_global].nom = nom;
   personatges[id_global].cognom = cognom;
+  personatges[id_global].edat = edat;
   personatges[id_global].edat = edat;
 
 
@@ -321,6 +331,7 @@ function acceptar_modificacio(){
  
   buidar_modficacio();
   genera_tabla();
+  }
   
 }
 

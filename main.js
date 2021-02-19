@@ -156,8 +156,13 @@ var personatges = [
     
 
      // personatge.parentNode.removeChild(personatge);
-     buidar_taula();
-     genera_tabla();
+     
+
+     
+      buidar_taula();
+      genera_tabla();
+     
+
     }
   
     function crear_formulari(){

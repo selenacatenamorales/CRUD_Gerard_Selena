@@ -4,6 +4,7 @@ var personatges = [
       nom: "Selena",
       cognom: "Catena",
       edat: 21,
+      estat: "",
       imatge: "imagenes/Monigote.jpeg",
     },
   
@@ -12,6 +13,7 @@ var personatges = [
       nom: "Gerard",
       cognom: "Martinez",
       edat: 150,
+      estat: "",
       imatge: "imagenes/Monigo.png",
     },
   ];
@@ -269,7 +271,14 @@ var personatges = [
     boto.setAttribute("id", "Acceptar");
     crear_div.appendChild(boto);
 
-    boto.addEventListener("click", acceptar_modificacio);
+    boto.addEventListener("click", function(){
+      if(document.getElementsByTagName("input")[0].value == ''){
+        document.getElementsByTagName("input")[0].style.backgroundColor = "red";
+      }
+      else{
+        acceptar_modificacio()
+      }
+      });
 
     let boto2 = document.createElement("button");
     boto2.appendChild(document.createTextNode("Cancelar"));
@@ -312,10 +321,10 @@ function acceptar_modificacio(){
   let edat = parseInt(document.getElementsByTagName("input")[3].value);
 
 
-  if(!solo_num.test(edat.value)){
-    alert("Indica un numero amb el format correcte");
-  }
-  else{
+ // if(!solo_num.test(edat.value)){
+   // alert("Indica un numero amb el format correcte");
+ // }
+//  else{
     
   
 
@@ -331,17 +340,16 @@ function acceptar_modificacio(){
  
   buidar_modficacio();
   genera_tabla();
-  }
+//  }
   
 }
 
 function acceptar_personatge(){
   contador ++;
-  let id = parseInt(document.getElementsByTagName("input")[0].value);
+  let id = contador;
   let nom = document.getElementsByTagName("input")[1].value;
   let cognom = document.getElementsByTagName("input")[2].value;
   let edat = parseInt(document.getElementsByTagName("input")[3].value);
-  
 
 
   personatges.push({

@@ -200,39 +200,62 @@ var personatges = [
       
      
       for (let i = 0; i<id_personatges.length; i++){
-          let p = document.createElement("p");
-          p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
-  
-          crear_div.appendChild(p);
-  
-          let input = document.createElement("input");
-          crear_div.appendChild(input);
-      }
-    
 
-  
+          if (i == id_personatges.length-1){
 
-      
+              let br = document.createElement("br");
+              crear_div.appendChild(br);
+              let br2 = document.createElement("br");
+              crear_div.appendChild(br2);
 
-  
-      let br = document.createElement("br");
-      let br2 = document.createElement("br");
-      crear_div.appendChild(br);
-      crear_div.appendChild(br2);
-      
-      let boto = document.createElement("button");
-      boto.appendChild(document.createTextNode("Acceptar"));
-      boto.setAttribute("id", "Acceptar");
-      crear_div.appendChild(boto);
-  
-      boto.addEventListener("click", acceptar_personatge);
-  
-      let boto2 = document.createElement("button");
-      boto2.appendChild(document.createTextNode("Cancelar"));
-      boto2.setAttribute("id", "Cancelar");
-      crear_div.appendChild(boto2);
-  
-      boto2.addEventListener("click", cancelar_personatge);
+              let input = document.createElement("input");
+              input.setAttribute("type", "file");
+              crear_div.appendChild(input);
+
+              let br3 = document.createElement("br");
+              crear_div.appendChild(br3);
+              let br4 = document.createElement("br");
+              crear_div.appendChild(br4);
+
+              let img = document.createElement("img");
+              img.setAttribute("id", "myImg");
+              img.setAttribute("src", "#");
+              crear_div.appendChild(img);
+
+          } else {
+
+              let p = document.createElement("p");
+              p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
+
+              crear_div.appendChild(p);
+
+              let input = document.createElement("input");
+              crear_div.appendChild(input);
+
+          }
+
+        }
+
+        let br = document.createElement("br");
+        let br2 = document.createElement("br");
+        crear_div.appendChild(br);
+        crear_div.appendChild(br2);
+
+        let boto = document.createElement("button");
+        boto.appendChild(document.createTextNode("Acceptar"));
+        boto.setAttribute("id", "Acceptar");
+        crear_div.appendChild(boto);
+
+        boto.addEventListener("click", acceptar_personatge);
+
+        let boto2 = document.createElement("button");
+        boto2.appendChild(document.createTextNode("Cancelar"));
+        boto2.setAttribute("id", "Cancelar");
+        crear_div.appendChild(boto2);
+
+        boto2.addEventListener("click", cancelar_personatge);
+
+        generarImg();
   }
 
   function crear_formulari_modificar(posicio){

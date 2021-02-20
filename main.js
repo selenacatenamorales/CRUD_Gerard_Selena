@@ -298,6 +298,7 @@ function crear_formulari() {
     boto2.addEventListener("click", cancelar_personatge);
 
     generarImg();
+    guardarImg();
 }
 
 function crear_formulari_modificar(posicio) {
@@ -484,6 +485,8 @@ function acceptar_personatge() {
     let magia = document.getElementsByTagName("input")[4].value;
     let caracteristiques = document.getElementsByTagName("input")[5].value;
 
+    let imgURL = localStorage.getItem("novaImatge");
+
     personatges.push({
 
         id: id,
@@ -493,7 +496,7 @@ function acceptar_personatge() {
         magia: magia,
         caracteristiques: caracteristiques,
         //uploaded imatge
-        imatge: "imagenes/Monigote.jpeg",
+        imatge: imgURL,
 
   });
 
@@ -521,8 +524,21 @@ function generarImg() {
     });
 }
 
+//Guardem la imatge dins del Local Storage
 function guardarImg(){
 
+    document.querySelector('input[type="file"]').addEventListener("change", function(){
 
+        let reader = new FileReader();
+
+        reader.addEventListener("load", () => {
+
+            localStorage.setItem("novaImatge", reader.result);
+
+        });
+
+        reader.readAsDataURL(this.files[0]);
+
+    });
 
 }

@@ -1,5 +1,3 @@
-1. Guardar la imagen para que salga en la tabla (Geri)
-
 2. Hacer el menú desplegable (drop-down) (Geri)
 
 3. Al modificar una hilera, si es una de las que hay por default, el campo de magia no cambia
@@ -8,3 +6,4 @@
 
 5. Al querer modificar un nuevo personaje, los botones de Aceptar o cancelar no aparecen
 
+6. Cuando eliminas un personaje creado, se borran los 2 siguientes junto al escogido

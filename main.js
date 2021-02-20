@@ -222,51 +222,61 @@ function crear_formulari() {
             img.setAttribute("id", "myImg");
             img.setAttribute("src", "#");
             crear_div.appendChild(img);
-        } else {
-            if (i == id_personatges.length - 2) {
+        } else if (i == id_personatges.length - 2) {
 
-                let p = document.createElement("p");
-                p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
+            let p = document.createElement("p");
+            p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
 
-                crear_div.appendChild(p);
+            crear_div.appendChild(p);
 
-                for (let i = 0; i < 4; i++) {
-                    switch (i) {
-                        case 0:
-                            caracteristica = "Valiente";
-                        break;
-                        case 1:
-                            caracteristica = "Timido";
-                        break;
-                        case 2:
-                            caracteristica = "Feroz";
-                        break;
-                        case 3:
-                            caracteristica = "Liderazgo";
-                        break;
-                    }
-                    let input = document.createElement("input");
-                    input.setAttribute("type", "checkbox");
-                    input.setAttribute("id", caracteristica);
-                    input.setAttribute("class", "checkbox");
-
-                    let label = document.createElement("label");
-                    label.setAttribute("for", caracteristica);
-                    label.innerText = caracteristica;
-                    crear_div.appendChild(input);
-                    crear_div.appendChild(label);
+            for (let i = 0; i < 4; i++) {
+                switch (i) {
+                    case 0:
+                        caracteristica = "Valiente";
+                    break;
+                    case 1:
+                        caracteristica = "Timido";
+                    break;
+                    case 2:
+                        caracteristica = "Feroz";
+                    break;
+                    case 3:
+                        caracteristica = "Liderazgo";
+                    break;
                 }
-            } else {
-                let p = document.createElement("p");
-                p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
-
-                crear_div.appendChild(p);
-
                 let input = document.createElement("input");
+                input.setAttribute("type", "checkbox");
+                input.setAttribute("id", caracteristica);
+                input.setAttribute("class", "checkbox");
+
+                let label = document.createElement("label");
+                label.setAttribute("for", caracteristica);
+                label.innerText = caracteristica;
                 crear_div.appendChild(input);
+                crear_div.appendChild(label);
             }
+        } else if (i == 0){
+
+            let p = document.createElement("p");
+            p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
+            crear_div.appendChild(p);
+
+            let input = document.createElement("input");
+            input.setAttribute("id", "formId");
+            input.setAttribute("disabled", true);
+            crear_div.appendChild(input);
+
+        } else {
+            let p = document.createElement("p");
+            p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
+
+            crear_div.appendChild(p);
+
+            let input = document.createElement("input");
+            crear_div.appendChild(input);
         }
     }
+
 
     let br = document.createElement("br");
     let br2 = document.createElement("br");
@@ -337,41 +347,47 @@ function crear_formulari_modificar(posicio) {
                 let input = document.getElementById(caractersitcas_marcadas[i]);
                 input.setAttribute("checked", true);
             }
+        } else if (propiedad == "imatge") {
+
+            let img = document.createElement("img");
+            img.setAttribute("id", "myImg");
+            img.setAttribute("src", personatges[posicio][propiedad]);
+            img.setAttribute("width", "100");
+            img.setAttribute("height", "100");
+            crear_div.appendChild(img);
+
+            let br = document.createElement("br");
+            crear_div.appendChild(br);
+
+            let br2 = document.createElement("br");
+            crear_div.appendChild(br2);
+
+            let input = document.createElement("input");
+            input.setAttribute("type", "file");
+            crear_div.appendChild(input);
+
+            let br3 = document.createElement("br");
+            crear_div.appendChild(br3);
+            let br4 = document.createElement("br");
+            crear_div.appendChild(br4);
+
+            generarImg();
+
+        } else if (propiedad == "id"){
+
+            let input = document.createElement("input");
+            input.setAttribute("id", "formID");
+            input.setAttribute("disabled", true);
+            crear_div.appendChild(input);
+
+            input.value = personatges[posicio][propiedad];
         } else {
 
-            if (propiedad == "imatge") {
+            let input = document.createElement("input");
+            crear_div.appendChild(input);
 
-                let img = document.createElement("img");
-                img.setAttribute("id", "myImg");
-                img.setAttribute("src", personatges[posicio][propiedad]);
-                img.setAttribute("width", "100");
-                img.setAttribute("height", "100");
-                crear_div.appendChild(img);
+            input.value = personatges[posicio][propiedad];
 
-                let br = document.createElement("br");
-                crear_div.appendChild(br);
-
-                let br2 = document.createElement("br");
-                crear_div.appendChild(br2);
-
-                let input = document.createElement("input");
-                input.setAttribute("type", "file");
-                crear_div.appendChild(input);
-
-                let br3 = document.createElement("br");
-                crear_div.appendChild(br3);
-                let br4 = document.createElement("br");
-                crear_div.appendChild(br4);
-
-                generarImg();
-
-            } else {
-
-                let input = document.createElement("input");
-                crear_div.appendChild(input);
-
-                input.value = personatges[posicio][propiedad];
-            }
         }
     }
 

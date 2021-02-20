@@ -485,7 +485,13 @@ function acceptar_personatge() {
     let magia = document.getElementsByTagName("input")[4].value;
     let caracteristiques = document.getElementsByTagName("input")[5].value;
 
-    let imgURL = localStorage.getItem("novaImatge");
+    let imgNova = null;
+
+    if (localStorage.getItem("novaImatge")){
+        imgNova = localStorage.getItem("novaImatge");
+    } else {
+        imgNova = "../imagenes/Monigote.jpeg";
+    }
 
     personatges.push({
 
@@ -496,7 +502,7 @@ function acceptar_personatge() {
         magia: magia,
         caracteristiques: caracteristiques,
         //uploaded imatge
-        imatge: imgURL,
+        imatge: imgNova,
 
   });
 
@@ -504,6 +510,7 @@ function acceptar_personatge() {
 
     buidar_personatge();
     genera_tabla();
+    localStorage.removeItem("novaImatge");
 }
 
 function generarImg() {

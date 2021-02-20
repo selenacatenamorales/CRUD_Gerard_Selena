@@ -485,10 +485,12 @@ function acceptar_personatge() {
     let magia = document.getElementsByTagName("input")[4].value;
     let caracteristiques = document.getElementsByTagName("input")[5].value;
 
-    let imgNova = null;
+    let imgNova = "";
 
+    //Si en el localStorage hi ha imatge, mostrem la imatge donada
     if (localStorage.getItem("novaImatge")){
         imgNova = localStorage.getItem("novaImatge");
+    //Si no hi ha res en el localStorage, donem una imatge default
     } else {
         imgNova = "../imagenes/Monigote.jpeg";
     }
@@ -510,13 +512,17 @@ function acceptar_personatge() {
 
     buidar_personatge();
     genera_tabla();
+    //Borrem la imatge dins del LocalStorage, per a que si creem un altre personatge no agafi la mateixi imatge
     localStorage.removeItem("novaImatge");
 }
 
+//Aqui agafem una imatge des dels fitxers propis de l'usuari, i ensenyem per pantalla la imatge seleccionada
 function generarImg() {
 
+    //Busquem un element HTML amb les característiques de pujada de fitxers
     document.querySelector('input[type="file"]').addEventListener("change", function () {
 
+        //Si hem hi ha una imatge pujada, ensenyarà per l'element img el fitxer seleccionat
         if (this.files && this.files[0]) {
         var img = document.querySelector("img");
 
@@ -525,7 +531,6 @@ function generarImg() {
         };
 
         img.src = URL.createObjectURL(this.files[0]);
-        console.log();
 
         }
     });
@@ -534,10 +539,12 @@ function generarImg() {
 //Guardem la imatge dins del Local Storage
 function guardarImg(){
 
+    //Busquem l'input de pujada d'elements, i quan es puji un fitxer, cridem una funció
     document.querySelector('input[type="file"]').addEventListener("change", function(){
 
         let reader = new FileReader();
 
+        //Quan es carregui la imatge, creem un element en localStorage amb la URL de la imatge
         reader.addEventListener("load", () => {
 
             localStorage.setItem("novaImatge", reader.result);

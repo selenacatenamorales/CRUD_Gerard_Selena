@@ -188,6 +188,7 @@ function eliminar_personatge(e) {
 }
 
 function crear_formulari() {
+  let caracteristica = "";
   let crear_div = document.createElement("div");
 
   let div = document.getElementById("Nou_personatge");
@@ -221,17 +222,38 @@ function crear_formulari() {
         p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
 
         crear_div.appendChild(p);
+
+        for(let i=0; i<4;i++){
+
+          switch (i) {
+            case 0: caracteristica = "Valiente";
+              break;
+            case 1: caracteristica = "Timido";
+              break;
+            case 2: caracteristica = "Feroz";
+              break;
+            case 3: caracteristica = "Liderazgo";
+              break;
+
+          }
+          let input = document.createElement("input");
+          input.setAttribute("type", "checkbox");
+          input.setAttribute("id", caracteristica);
+          let label = document.createElement("label");
+          label.setAttribute("for", caracteristica);
+          label.innerText = caracteristica;
+          crear_div.appendChild(input);
+          crear_div.appendChild(label);
+        }
         
-        let input = document.createElement("input");
-        input.setAttribute("type", "checkbox");
-        input.innerText = "Hola"
-        crear_div.appendChild(input);
+
+
       } else {
         let p = document.createElement("p");
         p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
 
         crear_div.appendChild(p);
-
+        
         let input = document.createElement("input");
         crear_div.appendChild(input);
       }

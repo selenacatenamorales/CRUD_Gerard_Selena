@@ -5,7 +5,7 @@ var personatges = [
     cognom: "Enoteca",
     edat: 24,
     magia: "Fils",
-    caracteristiques: "",
+    caracteristiques: "Timido-Feroz",
     imatge: "imagenes/vanessa.jpg",
   },
 
@@ -15,7 +15,7 @@ var personatges = [
     cognom: "Sukehiro",
     edat: 28,
     magia: "Obscuritat",
-    caracteristiques: "",
+    caracteristiques: "Valiente",
     imatge: "imagenes/yami.jpg",
   },
 ];
@@ -223,37 +223,37 @@ function crear_formulari() {
 
         crear_div.appendChild(p);
 
-        for(let i=0; i<4;i++){
-
+        for (let i = 0; i < 4; i++) {
           switch (i) {
-            case 0: caracteristica = "Valiente";
+            case 0:
+              caracteristica = "Valiente";
               break;
-            case 1: caracteristica = "Timido";
+            case 1:
+              caracteristica = "Timido";
               break;
-            case 2: caracteristica = "Feroz";
+            case 2:
+              caracteristica = "Feroz";
               break;
-            case 3: caracteristica = "Liderazgo";
+            case 3:
+              caracteristica = "Liderazgo";
               break;
-
           }
           let input = document.createElement("input");
           input.setAttribute("type", "checkbox");
           input.setAttribute("id", caracteristica);
+          input.setAttribute("class", "checkbox");
           let label = document.createElement("label");
           label.setAttribute("for", caracteristica);
           label.innerText = caracteristica;
           crear_div.appendChild(input);
           crear_div.appendChild(label);
         }
-        
-
-
       } else {
         let p = document.createElement("p");
         p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
 
         crear_div.appendChild(p);
-        
+
         let input = document.createElement("input");
         crear_div.appendChild(input);
       }
@@ -295,10 +295,70 @@ function crear_formulari_modificar(posicio) {
 
     crear_div.appendChild(p);
 
-    let input = document.createElement("input");
-    crear_div.appendChild(input);
+    if (propiedad == "caracteristiques") {
+      let caractersitcas_marcadas = personatges[posicio][propiedad].split("-");
 
-    input.value = personatges[posicio][propiedad];
+      for (let i = 0; i < 4; i++) {
+        switch (i) {
+          case 0:
+            caracteristica = "Valiente";
+            break;
+          case 1:
+            caracteristica = "Timido";
+            break;
+          case 2:
+            caracteristica = "Feroz";
+            break;
+          case 3:
+            caracteristica = "Liderazgo";
+            break;
+        }
+        let input = document.createElement("input");
+        input.setAttribute("type", "checkbox");
+        input.setAttribute("id", caracteristica);
+        input.setAttribute("class", "checkbox");
+        let label = document.createElement("label");
+        label.setAttribute("for", caracteristica);
+        label.innerText = caracteristica;
+        crear_div.appendChild(input);
+        crear_div.appendChild(label);
+      }
+      for (let i = 0; i < caractersitcas_marcadas.length; i++) {
+        let input = document.getElementById(caractersitcas_marcadas[i]);
+        input.setAttribute("checked", true);
+      }
+    } else {
+      if (propiedad == "imatge") {
+        let img = document.createElement("img");
+        img.setAttribute("id", "myImg");
+        img.setAttribute("src", personatges[posicio][propiedad]);
+        img.setAttribute("width", "100");
+        img.setAttribute("height", "100");
+        crear_div.appendChild(img);
+
+        let br = document.createElement("br");
+        crear_div.appendChild(br);
+
+        let br2 = document.createElement("br");
+        crear_div.appendChild(br2);
+
+        let input = document.createElement("input");
+        input.setAttribute("type", "file");
+        crear_div.appendChild(input);
+
+        let br3 = document.createElement("br");
+        crear_div.appendChild(br3);
+        let br4 = document.createElement("br");
+        crear_div.appendChild(br4);
+
+        generarImg();
+      } else {
+        let input = document.createElement("input");
+        crear_div.appendChild(input);
+
+        input.value = personatges[posicio][propiedad];
+      }
+    }
   }
 
   let br = document.createElement("br");
@@ -351,6 +411,20 @@ function acceptar_modificacio() {
   let nom = document.getElementsByTagName("input")[1].value;
   let cognom = document.getElementsByTagName("input")[2].value;
   let edat = parseInt(document.getElementsByTagName("input")[3].value);
+  let caracteristicas = document.getElementsByClassName("checkbox");
+  let caractersitcas_marcadas = "";
+  for (let i = 0; i < caracteristicas.length; i++) {
+    if (caracteristicas[i].checked == true) {
+      caractersitcas_marcadas += caracteristicas[i].id + "-";
+    }
+  }
+  if (
+    caractersitcas_marcadas.charAt(caractersitcas_marcadas.length - 1) == "-"
+  ) {
+    caractersitcas_marcadas = caractersitcas_marcadas.slice(0, -1);
+  }
+
+  let imatge = document.getElementById("myImg").src;
 
   // if(!solo_num.test(edat.value)){
   // alert("Indica un numero amb el format correcte");
@@ -362,7 +436,8 @@ function acceptar_modificacio() {
   personatges[id_global].nom = nom;
   personatges[id_global].cognom = cognom;
   personatges[id_global].edat = edat;
-  personatges[id_global].edat = edat;
+  personatges[id_global].caracteristiques = caractersitcas_marcadas;
+  personatges[id_global].imatge = imatge;
 
   console.log(personatges);
 
@@ -404,6 +479,7 @@ function generarImg() {
         };
 
         img.src = URL.createObjectURL(this.files[0]);
+        console.log();
       }
     });
 }

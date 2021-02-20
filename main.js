@@ -520,3 +520,9 @@ function generarImg() {
         }
     });
 }
+
+function guardarImg(){
+
+
+
+}

@@ -1,34 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Save images to Local Storage</title>
         <meta charset="utf-8">
     </head>
     <body>
 
-        <input type="file" />
-        <br><img id="myImg" src="#">
+        <h1>Save images to Local Storage</h1>
+        <input type="file" id="myFileInput">
+        <img id="imgPreview" src="" alt="preview">
 
         <script>
 
-            window.addEventListener('load', function() {
+            document.getElementById("myFileInput").addEventListener("change", function(){
 
-                document.querySelector('input[type="file"]').addEventListener('change', function() {
+                const reader = new FileReader();
 
-                if (this.files && this.files[0]) {
+                reader.addEventListener("load", () => {
 
-                    var img = document.querySelector('img');
-
-                    img.onload = () => {
-
-                        URL.revokeObjectURL(img.src);  // no longer needed, free memory
-
-                    }
-
-                    img.src = URL.createObjectURL(this.files[0]); // set src to blob url
-
-                    }
+                    localStorage.setItem("recent-image", reader.result);
 
                 });
+
+                reader.readAsDataURL(this.files[0]);
+
+            });
+
+            document.addEventListener("DOMContentLoaded", () => {
+
+                const recentImgDataUrl = localStorage.getItem("recent-image");
+
+                if (recentImgDataUrl){
+                    document.getElementById("imgPreview").setAttribute("src", recentImgDataUrl);
+                }
 
             });
 

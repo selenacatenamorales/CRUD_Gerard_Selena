@@ -414,10 +414,10 @@ function crear_formulari_modificar(posicio) {
             crear_div.appendChild(input);
 
             input.value = personatges[posicio][propiedad];
+
         } else if(propiedad=="magia"){
           let magia_seleccionada = personatges[posicio][propiedad];
           let p = document.createElement("p");
-          p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
           crear_div.appendChild(p);
           
           let select =  document.createElement("select");
@@ -435,7 +435,7 @@ function crear_formulari_modificar(posicio) {
                   magia = "Fuego";
               break;
               case 3:
-                  magia = "Agua";
+                  magia = "Aire";
               break;
               case 4:
                 magia = "Otros";

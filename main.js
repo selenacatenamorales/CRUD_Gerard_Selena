@@ -270,6 +270,7 @@ function crear_formulari() {
             input.setAttribute("id", "formId");
             input.setAttribute("disabled", true);
             crear_div.appendChild(input);
+            input.value = contador+ 1;
 
         } else if(i == id_personatges.length - 3){
           let p = document.createElement("p");

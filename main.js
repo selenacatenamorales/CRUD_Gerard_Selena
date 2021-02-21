@@ -5,7 +5,7 @@ var personatges = [
     nom: "Vanessa",
     cognom: "Enoteca",
     edat: 24,
-    magia: "Aire",
+    magia: "Otros",
     caracteristiques: "Timido-Feroz",
     imatge: "imagenes/vanessa.jpg",
   },
@@ -194,7 +194,6 @@ function eliminar_personatge(e) {
 
 
 function crear_formulari() {
-    let magia = "";
     let caracteristica = "";
     let crear_div = document.createElement("div");
 
@@ -230,7 +229,7 @@ function crear_formulari() {
 
             crear_div.appendChild(p);
 
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 4; i++) {
                 switch (i) {
                     case 0:
                         caracteristica = "Valiente";
@@ -244,10 +243,6 @@ function crear_formulari() {
                     case 3:
                         caracteristica = "Liderazgo";
                     break;
-                    case 4:
-                      caracteristica = "Liderazgo";
-                    break;
-
                 }
                 let input = document.createElement("input");
                 input.setAttribute("type", "checkbox");
@@ -279,19 +274,22 @@ function crear_formulari() {
           let select =  document.createElement("select");
           crear_div.appendChild(select);
 
-          for (i=0; i<4; i++){
+          for (i=0; i<5; i++){
             switch (i) {
               case 0:
-                  magia = "Valiente";
+                  magia = "Agua";
               break;
               case 1:
-                  magia = "Timido";
+                  magia = "Tierra";
               break;
               case 2:
-                  magia = "Feroz";
+                  magia = "Fuego";
               break;
               case 3:
-                  magia = "Liderazgo";
+                  magia = "Agua";
+              break;
+              case 4:
+                magia = "Otros";
               break;
           }
 
@@ -416,7 +414,43 @@ function crear_formulari_modificar(posicio) {
             crear_div.appendChild(input);
 
             input.value = personatges[posicio][propiedad];
-        } else {
+        } else if(propiedad=="magia"){
+          let magia_seleccionada = personatges[posicio][propiedad];
+          let p = document.createElement("p");
+          p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
+          crear_div.appendChild(p);
+          
+          let select =  document.createElement("select");
+          crear_div.appendChild(select);
+
+          for (i=0; i<5; i++){
+            switch (i) {
+              case 0:
+                  magia = "Agua";
+              break;
+              case 1:
+                  magia = "Tierra";
+              break;
+              case 2:
+                  magia = "Fuego";
+              break;
+              case 3:
+                  magia = "Agua";
+              break;
+              case 4:
+                magia = "Otros";
+              break;
+          }
+
+          let option = document.createElement("option");
+          option.appendChild(document.createTextNode(magia));
+          if(magia_seleccionada = magia){
+            option.setAttribute("selected", "true");
+          }
+          select.appendChild(option);
+        }
+
+        }else {
 
             let input = document.createElement("input");
             crear_div.appendChild(input);
@@ -487,6 +521,8 @@ function acceptar_modificacio() {
         caractersitcas_marcadas = caractersitcas_marcadas.slice(0, -1);
     }
 
+
+
     let imatge = document.getElementById("myImg").src;
 
     // if(!solo_num.test(edat.value)){
@@ -516,7 +552,8 @@ function acceptar_personatge() {
     let nom = document.getElementsByTagName("input")[1].value;
     let cognom = document.getElementsByTagName("input")[2].value;
     let edat = parseInt(document.getElementsByTagName("input")[3].value);
-    let magia = document.getElementsByTagName("input")[4].value;
+    let magia = document.getElementsByTagName("select")[0].value
+
     let caracteristicas = document.getElementsByClassName("checkbox");
     let caractersitcas_marcadas = "";
     for (let i = 0; i < caracteristicas.length; i++) {

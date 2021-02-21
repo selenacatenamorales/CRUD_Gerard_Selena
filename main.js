@@ -5,7 +5,7 @@ var personatges = [
     nom: "Vanessa",
     cognom: "Enoteca",
     edat: 24,
-    magia: "Fils",
+    magia: "Aire",
     caracteristiques: "Timido-Feroz",
     imatge: "imagenes/vanessa.jpg",
   },
@@ -15,7 +15,7 @@ var personatges = [
     nom: "Yami",
     cognom: "Sukehiro",
     edat: 28,
-    magia: "Obscuritat",
+    magia: "Agua",
     caracteristiques: "Valiente",
     imatge: "imagenes/yami.jpg",
   },
@@ -194,6 +194,7 @@ function eliminar_personatge(e) {
 
 
 function crear_formulari() {
+    let magia = "";
     let caracteristica = "";
     let crear_div = document.createElement("div");
 
@@ -229,7 +230,7 @@ function crear_formulari() {
 
             crear_div.appendChild(p);
 
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 5; i++) {
                 switch (i) {
                     case 0:
                         caracteristica = "Valiente";
@@ -243,6 +244,10 @@ function crear_formulari() {
                     case 3:
                         caracteristica = "Liderazgo";
                     break;
+                    case 4:
+                      caracteristica = "Liderazgo";
+                    break;
+
                 }
                 let input = document.createElement("input");
                 input.setAttribute("type", "checkbox");
@@ -266,7 +271,36 @@ function crear_formulari() {
             input.setAttribute("disabled", true);
             crear_div.appendChild(input);
 
-        } else {
+        } else if(i == id_personatges.length - 3){
+          let p = document.createElement("p");
+          p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
+          crear_div.appendChild(p);
+          
+          let select =  document.createElement("select");
+          crear_div.appendChild(select);
+
+          for (i=0; i<4; i++){
+            switch (i) {
+              case 0:
+                  magia = "Valiente";
+              break;
+              case 1:
+                  magia = "Timido";
+              break;
+              case 2:
+                  magia = "Feroz";
+              break;
+              case 3:
+                  magia = "Liderazgo";
+              break;
+          }
+
+          let option = document.createElement("option");
+          option.appendChild(document.createTextNode(magia));
+          select.appendChild(option);
+        }
+          
+        }else {
             let p = document.createElement("p");
             p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
 
@@ -483,7 +517,16 @@ function acceptar_personatge() {
     let cognom = document.getElementsByTagName("input")[2].value;
     let edat = parseInt(document.getElementsByTagName("input")[3].value);
     let magia = document.getElementsByTagName("input")[4].value;
-    let caracteristiques = document.getElementsByTagName("input")[5].value;
+    let caracteristicas = document.getElementsByClassName("checkbox");
+    let caractersitcas_marcadas = "";
+    for (let i = 0; i < caracteristicas.length; i++) {
+        if (caracteristicas[i].checked == true) {
+        caractersitcas_marcadas += caracteristicas[i].id + "-";
+        }
+    }
+    if ( caractersitcas_marcadas.charAt(caractersitcas_marcadas.length - 1) == "-" ) {
+        caractersitcas_marcadas = caractersitcas_marcadas.slice(0, -1);
+    }
 
     let imgNova = "";
 
@@ -502,7 +545,7 @@ function acceptar_personatge() {
         cognom: cognom,
         edat: edat,
         magia: magia,
-        caracteristiques: caracteristiques,
+        caracteristiques: caractersitcas_marcadas,
         //uploaded imatge
         imatge: imgNova,
 

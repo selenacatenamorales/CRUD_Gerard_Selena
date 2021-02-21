@@ -404,8 +404,6 @@ function crear_formulari_modificar(posicio) {
             let br4 = document.createElement("br");
             crear_div.appendChild(br4);
 
-            generarImg();
-
         } else if (propiedad == "id"){
 
             let input = document.createElement("input");
@@ -485,6 +483,10 @@ function crear_formulari_modificar(posicio) {
     crear_div.appendChild(boto2);
 
     boto2.addEventListener("click", cancelar_personatge);
+
+    generarImg();
+    guardarImg();
+
 }
 
 function crear_nou_personatge() {
@@ -512,11 +514,13 @@ function acceptar_modificacio() {
     let edat = parseInt(document.getElementsByTagName("input")[3].value);
     let caracteristicas = document.getElementsByClassName("checkbox");
     let caractersitcas_marcadas = "";
+
     for (let i = 0; i < caracteristicas.length; i++) {
         if (caracteristicas[i].checked == true) {
         caractersitcas_marcadas += caracteristicas[i].id + "-";
         }
     }
+
     if ( caractersitcas_marcadas.charAt(caractersitcas_marcadas.length - 1) == "-" ) {
         caractersitcas_marcadas = caractersitcas_marcadas.slice(0, -1);
     }
@@ -524,6 +528,10 @@ function acceptar_modificacio() {
 
 
     let imatge = document.getElementById("myImg").src;
+
+    if (localStorage.getItem("novaImatge")){
+        imatge = localStorage.getItem("novaImatge");
+    }
 
     // if(!solo_num.test(edat.value)){
     // alert("Indica un numero amb el format correcte");
@@ -543,6 +551,9 @@ function acceptar_modificacio() {
     buidar_modficacio();
     genera_tabla();
     //  }
+
+    localStorage.removeItem("novaImatge");
+
 }
 
 function acceptar_personatge() {

@@ -225,7 +225,6 @@ function crear_formulari() {
             let img = document.createElement("img");
             img.setAttribute("id", "myImg");
             img.setAttribute("src", "../imagenes/Monigote.jpeg");
-            //img.setAttribute("src", "#");
             crear_div.appendChild(img);
         } else if (i == id_personatges.length - 2) {
 
@@ -334,9 +333,17 @@ function crear_formulari() {
     crear_div.appendChild(boto2);
 
     boto2.addEventListener("click", cancelar_personatge);
+    let imgSrc = document.getElementById("myImg").src;
 
     generarImg();
     guardarImg();
+
+    document.querySelector("input[type='file']").addEventListener("change", function(){
+
+        imgSrc = localStorage.getItem("novaImatge");
+
+    });
+
 }
 
 function crear_formulari_modificar(posicio) {

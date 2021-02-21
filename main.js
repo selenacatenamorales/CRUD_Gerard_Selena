@@ -508,7 +508,10 @@ function cancelar_modificacio() {
   
 }
 
-
+function cancelar_personatge(){
+    buidar_personatge();
+    genera_tabla();
+}
 
 function buidar_personatge() {
     let div = document.getElementById("Nou_personatge").firstChild;

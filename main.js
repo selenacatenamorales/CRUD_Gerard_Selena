@@ -224,7 +224,8 @@ function crear_formulari() {
 
             let img = document.createElement("img");
             img.setAttribute("id", "myImg");
-            img.setAttribute("src", "#");
+            img.setAttribute("src", "../imagenes/Monigote.jpeg");
+            //img.setAttribute("src", "#");
             crear_div.appendChild(img);
         } else if (i == id_personatges.length - 2) {
 

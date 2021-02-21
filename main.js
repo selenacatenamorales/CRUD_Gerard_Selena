@@ -54,7 +54,7 @@ function genera_tabla() {
             for (let propiedad in personatges[i]) {
                 var celda = document.createElement("td");
 
-                var textoCelda = document.createTextNode(propiedad);
+                var textoCelda = document.createTextNode(propiedad.toUpperCase());
                 celda.appendChild(textoCelda);
                 hilera.appendChild(celda);
             }
@@ -290,7 +290,7 @@ function crear_formulari() {
                   magia = "Fuego";
               break;
               case 3:
-                  magia = "Agua";
+                  magia = "Aire";
               break;
               case 4:
                 magia = "Otros";
@@ -486,7 +486,7 @@ function crear_formulari_modificar(posicio) {
     boto2.setAttribute("id", "Cancelar");
     crear_div.appendChild(boto2);
 
-    boto2.addEventListener("click", cancelar_personatge);
+    boto2.addEventListener("click", cancelar_modificacio);
 
     generarImg();
     guardarImg();
@@ -500,7 +500,13 @@ function crear_nou_personatge() {
     let id = (document.getElementsByTagName("input")[0].value = contador + 1);
 }
 
-function cancelar_personatge() {}
+function cancelar_modificacio() {
+  buidar_modficacio()
+  genera_tabla();
+  
+}
+
+
 
 function buidar_personatge() {
     let div = document.getElementById("Nou_personatge").firstChild;

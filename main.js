@@ -169,7 +169,6 @@ function eliminar_personatge(e) {
     if (document.getElementsByTagName("tr").length == 2) {
         buidar_taula();
 
-        console.log("Hola");
         let div = document.getElementsByTagName("div")[0];
         var p = document.createElement("p");
         var texto = document.createTextNode(
@@ -325,7 +324,34 @@ function crear_formulari() {
     boto.setAttribute("id", "Acceptar");
     crear_div.appendChild(boto);
 
-    boto.addEventListener("click", acceptar_personatge);
+    boto.addEventListener("click", function () {
+
+      let caracteristicas = document.getElementsByClassName("checkbox");
+      let marcats = true;
+      
+      for (let i = 0; i < caracteristicas.length; i++) {
+          if (caracteristicas[i].checked != true) {
+            marcats = false;
+          }
+      }
+      
+        if (document.getElementsByTagName("input")[1].value == "") {
+            document.getElementsByTagName("input")[1].style.borderColor = "red";
+            marcats = false;
+        }
+        if(document.getElementsByTagName("input")[2].value == ""){
+          document.getElementsByTagName("input")[2].style.borderColor = "red";
+          marcats = false;
+        } 
+        if(marcats==false){
+         alert("HAS DE MARCAR ALGUNA OPCIO EN EL CHECKBOX");
+        }else {
+          acceptar_personatge();
+        }
+    });
+
+ 
+  
 
     let boto2 = document.createElement("button");
     boto2.appendChild(document.createTextNode("Cancelar"));
@@ -480,12 +506,31 @@ function crear_formulari_modificar(posicio) {
     boto.appendChild(document.createTextNode("Acceptar"));
     boto.setAttribute("id", "Acceptar");
     crear_div.appendChild(boto);
+    
 
     boto.addEventListener("click", function () {
-        if (document.getElementsByTagName("input")[0].value == "") {
-            document.getElementsByTagName("input")[0].style.backgroundColor = "red";
-        } else {
-            acceptar_modificacio();
+
+      let caracteristicas = document.getElementsByClassName("checkbox");
+      let marcats = true;
+      
+      for (let i = 0; i < caracteristicas.length; i++) {
+          if (caracteristicas[i].checked != true) {
+            marcats = false;
+          }
+      }
+      
+        if (document.getElementsByTagName("input")[1].value == "") {
+            document.getElementsByTagName("input")[1].style.borderColor = "red";
+            marcats = false;
+        }
+        if(document.getElementsByTagName("input")[2].value == ""){
+          document.getElementsByTagName("input")[2].style.borderColor = "red";
+          marcats = false;
+        } 
+        if(marcats==false){
+         alert("HAS DE MARCAR ALGUNA OPCIO EN EL CHECKBOX");
+        }else {
+          acceptar_modificacio();
         }
     });
 
@@ -510,13 +555,24 @@ function crear_nou_personatge() {
 }
 
 function cancelar_modificacio() {
-  buidar_modficacio()
+  buidar_modficacio();
+  
   genera_tabla();
   
 }
 
 function cancelar_personatge(){
     buidar_personatge();
+    if(personatges.length == 0){
+    let div = document.getElementsByTagName("div")[0];
+    var p = document.createElement("p");
+    var texto = document.createTextNode(
+    "Ens hem quedat sense cap registre per mostrar, perque no proves a crear un nou personatge"
+    );
+    p.appendChild(texto);
+    div.appendChild(p);
+    }
+
     genera_tabla();
 }
 

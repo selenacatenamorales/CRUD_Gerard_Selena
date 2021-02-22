@@ -179,29 +179,32 @@ function aconseguir_posicio(e){
 }
 
 
-function buidar_taula() { //funcio que ens serveix per buidar el primer div on tenim emagatzemada la taula
+function buidar_taula() { //funcio que ens serveix per buidar el primer div on tenim emmagatzemada la taula
   let tabla = document.getElementsByTagName("div")[0].firstChild;
   let boton = document.getElementById("nou_personatge");
   boton.parentNode.removeChild(boton);
   tabla.parentNode.removeChild(tabla);
 }
 
-function eliminar_personatge(e) { //funcio per eliminar un personatge de la taula
-  let posicio = 0; 
-  posicio = aconseguir_posicio(e);
-
-  personatges.splice(posicio, posicio + 1);
-
-  if (document.getElementsByTagName("tr").length == 2) {
-    buidar_taula();
-
-    let div = document.getElementsByTagName("div")[0];
+function sin_registros(div){ //funcion que nos muestra por pantalla unt exto cuando no tenemos personajes en el array
     var p = document.createElement("p");
     var texto = document.createTextNode(
       "Ens hem quedat sense cap registre per mostrar, perque no proves a crear un nou personatge"
     );
     p.appendChild(texto);
     div.appendChild(p);
+}
+
+function eliminar_personatge(e) { //funcio per eliminar un personatge de la taula
+  let posicio = 0; 
+  posicio = aconseguir_posicio(e); //en aquets part del codi aconseguim la posicio en la que estem 
+
+  personatges.splice(posicio, 1); //eliminem el personatge de la posicio seleccionada
+
+  buidar_taula();
+  if (personatges.length==0) { //comprovem si no tenim cap persontage a l'array
+    let div = document.getElementsByTagName("div")[0]; //
+    sin_registros(div);
 
     var boto = document.createElement("button");
     boto.appendChild(document.createTextNode("Nou Personatge"));
@@ -212,7 +215,6 @@ function eliminar_personatge(e) { //funcio per eliminar un personatge de la taul
 
     nou_personatge.addEventListener("click", crear_nou_personatge);
   } else {
-    buidar_taula();
     genera_tabla();
   }
 }
@@ -573,12 +575,7 @@ function cancelar_personatge() {
   buidar_personatge();
   if (personatges.length == 0) {
     let div = document.getElementsByTagName("div")[0];
-    var p = document.createElement("p");
-    var texto = document.createTextNode(
-      "Ens hem quedat sense cap registre per mostrar, perque no proves a crear un nou personatge"
-    );
-    p.appendChild(texto);
-    div.appendChild(p);
+    sin_registros(div)
   }
 
   genera_tabla();
@@ -644,8 +641,8 @@ function acceptar_modificacio() {
 }
 
 function acceptar_personatge() {
-  contador++;
-  let id = contador;
+  
+  let id = document.getElementsByTagName("input")[0].value;
   let nom = document.getElementsByTagName("input")[1].value;
   let cognom = document.getElementsByTagName("input")[2].value;
   let edat = parseInt(document.getElementsByTagName("input")[3].value);
@@ -680,6 +677,7 @@ function acceptar_personatge() {
     } else {
       imgNova = "../imagenes/Monigote.jpeg";
     }
+    contador++;
     personatges.push({
       id: id,
       nom: nom,

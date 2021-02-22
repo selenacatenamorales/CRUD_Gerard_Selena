@@ -39,7 +39,7 @@ for (propiedad in personatges[0]) {
 var contador = personatges[personatges.length - 1].id;
 
 //variable on guardarem l'id del persontage que hem de modificar
-var id_global = 0;
+var posicio_global = 0;
 
 //cridem a la funcio per generar la taula
 genera_tabla();
@@ -140,48 +140,57 @@ function genera_tabla() {
 }
 
 function generar_add_event_listener_modifcar() {
+  //guardem en un array tots els elements que son de classe modificar
   let b = document.getElementsByClassName("modificar");
 
-  for (i = 0; i < b.length; i++) {
+  for (i = 0; i < b.length; i++) { //per cada element de l'array li assignem un event de click
     b[i].addEventListener("click", modificar_personatge);
   }
 }
 
 function generar_add_event_listener_eliminar() {
+  //guardem en un array tots els elements que son de classe eliminar
   let a = document.getElementsByClassName("eliminar");
 
-  for (i = 0; i < a.length; i++) {
+  for (i = 0; i < a.length; i++) { //per cada element de l'array li assignem un event de click
     a[i].addEventListener("click", eliminar_personatge);
   }
 }
 
 function modificar_personatge(e) {
-  buidar_taula();
-  var id = parseInt(e.target.parentNode.parentNode.firstChild.innerText) - 1;
 
-  id_global = id;
-  console.log(e.target.parentNode.parentNode.firstChild.innerText);
-  crear_formulari_modificar(id);
+  buidar_taula(); //primer de tot buidem el primer div on tenem situada la taula
+  posicio_global = aconseguir_posicio(e); //assignem a la variable global la posicio en la que ens trobem 
+  
+  crear_formulari_modificar(posicio_global); //cridem a la funcio que ens cree el formulari per modificar, on li passem la posicio en la que ens trobem
 }
 
-function buidar_taula() {
+
+//a partir del event i de la id, busquem la poscio del personatge que hem de modifcar. Primerament busquem el id 
+  //del personatge que anem a modificar i seguidament l'anem comparant amb tots els persontages de l'array per saber la seva posicio
+function aconseguir_posicio(e){
+  let posicio = 0;
+  for(let i =0; i<personatges.length; i++){
+    if(parseInt(e.target.parentNode.parentNode.firstChild.innerText) == personatges[i].id){
+      posicio = i;
+    }
+  }
+  return posicio;
+}
+
+
+function buidar_taula() { //funcio que ens serveix per buidar el primer div on tenim emagatzemada la taula
   let tabla = document.getElementsByTagName("div")[0].firstChild;
   let boton = document.getElementById("nou_personatge");
   boton.parentNode.removeChild(boton);
   tabla.parentNode.removeChild(tabla);
 }
 
-function eliminar_personatge(e) {
-  let idpersonatge = parseInt(
-    e.target.parentNode.parentNode.firstChild.innerText
-  );
+function eliminar_personatge(e) { //funcio per eliminar un personatge de la taula
+  let posicio = 0; 
+  posicio = aconseguir_posicio(e);
 
-  for (let i = 0; i < personatges.length; i++) {
-    if (personatges[i].id == idpersonatge) {
-      console.log(personatges.splice(i, i));
-      personatges.splice(i, i + 1);
-    }
-  }
+  personatges.splice(posicio, posicio + 1);
 
   if (document.getElementsByTagName("tr").length == 2) {
     buidar_taula();
@@ -617,13 +626,13 @@ function acceptar_modificacio() {
       "Indica un nom amb el format correcte. Enrecorda't que la priemra lletra ha der ser majuscula"
     );
   } else {
-    console.log(id_global);
+    console.log(posicio_global);
 
-    personatges[id_global].nom = nom;
-    personatges[id_global].cognom = cognom;
-    personatges[id_global].edat = edat;
-    personatges[id_global].caracteristiques = caractersitcas_marcadas;
-    personatges[id_global].imatge = imatge;
+    personatges[posicio_global].nom = nom;
+    personatges[posicio_global].cognom = cognom;
+    personatges[posicio_global].edat = edat;
+    personatges[posicio_global].caracteristiques = caractersitcas_marcadas;
+    personatges[posicio_global].imatge = imatge;
 
     console.log(personatges);
 

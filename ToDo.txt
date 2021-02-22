@@ -1,9 +1,1 @@
-2. Hacer el menú desplegable (drop-down) (Geri)
-
-3. Al modificar una hilera, si es una de las que hay por default, el campo de magia no cambia
-
-4. Cuando creas un personaje nuevo, y le pones las características, sale "on" en vez del campo
-
-5. Al querer modificar un nuevo personaje, los botones de Aceptar o cancelar no aparecen
-
-6. Cuando eliminas un personaje creado, se borran los 2 siguientes junto al escogido
+1. Cuando eliminas un personaje creado, se borran los 2 siguientes junto al escogido

@@ -22,7 +22,7 @@ var personatges = [
 ];
 
 //Expressió
-var solo_num = new RegExp("^{1-3}d$");
+var solo_num = new RegExp("\b\d{1,3}\b");
 
 var id_personatges = [];
 
@@ -328,12 +328,17 @@ function crear_formulari() {
 
       let caracteristicas = document.getElementsByClassName("checkbox");
       let marcats = true;
+      let contador = 0;
       
       for (let i = 0; i < caracteristicas.length; i++) {
-          if (caracteristicas[i].checked != true) {
-            marcats = false;
+          if (caracteristicas[i].checked == false) {
+            contador++;
           }
       }
+      if(contador == 4){
+        marcats = false;
+        alert("HAS DE MARCAR ALGUNA OPCIO EN EL CHECKBOX");
+       }
       
         if (document.getElementsByTagName("input")[1].value == "") {
             document.getElementsByTagName("input")[1].style.borderColor = "red";
@@ -343,9 +348,8 @@ function crear_formulari() {
           document.getElementsByTagName("input")[2].style.borderColor = "red";
           marcats = false;
         } 
-        if(marcats==false){
-         alert("HAS DE MARCAR ALGUNA OPCIO EN EL CHECKBOX");
-        }else {
+        if(marcats == true){
+
           acceptar_personatge();
         }
     });
@@ -512,12 +516,17 @@ function crear_formulari_modificar(posicio) {
 
       let caracteristicas = document.getElementsByClassName("checkbox");
       let marcats = true;
+      let contador = 0;
       
       for (let i = 0; i < caracteristicas.length; i++) {
-          if (caracteristicas[i].checked != true) {
-            marcats = false;
+          if (caracteristicas[i].checked == false) {
+            contador++;
           }
       }
+      if(contador == 4){
+        marcats = false;
+        alert("HAS DE MARCAR ALGUNA OPCIO EN EL CHECKBOX");
+       }
       
         if (document.getElementsByTagName("input")[1].value == "") {
             document.getElementsByTagName("input")[1].style.borderColor = "red";
@@ -527,9 +536,8 @@ function crear_formulari_modificar(posicio) {
           document.getElementsByTagName("input")[2].style.borderColor = "red";
           marcats = false;
         } 
-        if(marcats==false){
-         alert("HAS DE MARCAR ALGUNA OPCIO EN EL CHECKBOX");
-        }else {
+        if(marcats == true){
+
           acceptar_modificacio();
         }
     });
@@ -611,10 +619,10 @@ function acceptar_modificacio() {
         imatge = localStorage.getItem("novaImatge");
     }
 
-    // if(!solo_num.test(edat.value)){
-    // alert("Indica un numero amb el format correcte");
-    // }
-    //  else{
+     if(!solo_num.test(edat.value)){
+     alert("Indica un numero amb el format correcte");
+   }
+      else{
 
     console.log(id_global);
 
@@ -628,7 +636,7 @@ function acceptar_modificacio() {
 
     buidar_modficacio();
     genera_tabla();
-    //  }
+     }
 
     localStorage.removeItem("novaImatge");
 

@@ -57,9 +57,7 @@ function genera_tabla() {
     // Crea les celes de la fila
     var hilera = document.createElement("tr");
 
-      if (i == 0){
-          hilera.setAttribute("class", "firstTr");
-      } else {
+      if (i != 0){
           hilera.setAttribute("class", "defTr");
       }
 
@@ -147,7 +145,6 @@ function genera_tabla() {
   nou_personatge.addEventListener("click", crear_nou_personatge);
 
     set_eliminar_imatge();
-    //set_toggle_row();
     document.getElementById("Taula").classList.add("Taula");
     document.getElementById("Nou_personatge").classList.remove("nou_personatge");
     document.getElementById("Actualitza").classList.remove("actualitza");
@@ -779,39 +776,10 @@ function eliminar_imatge(e){
     console.log("Es vol eliminar la imatge");
 
     let posicio = 0;
-    posicio = aconseguir_posicio(e); //en aquets part del codi aconseguim la posicio en la que estem
+    posicio = aconseguir_posicio(e);
     let img = document.getElementsByClassName("classImg")[posicio];
     img.src = "";
 
     personatges[posicio].imatge = "";
 
 }
-/*
-function set_toggle_row(){
-
-    let row = document.getElementsByClassName("defTr");
-
-    for (let i = 0; i < row.length; i++){
-        row[i].addEventListener("mouseover", trOver);
-        row[i].addEventListener("mouseout", trOut);
-    }
-
-}
-
-function trOver(e){
-
-    let posicio = 0;
-    posicio = aconseguir_posicio(e);
-    console.log(posicio);
-    //document.getElementsByClassName("defTr")[posicio].classList.add("tr-change");
-
-}
-
-function trOut(e){
-
-    let posicio = 0;
-    posicio = aconseguir_posicio(e);
-    //document.getElementsByClassName("defTr")[posicio].classList.remove("tr-change");
-
-}
-*/

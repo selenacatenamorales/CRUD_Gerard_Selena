@@ -1,3 +1,2 @@
-- Fer doble clic en l'imatge i eliminar-la
 - DOM de ratolí extra
 - DOM de teclat extra

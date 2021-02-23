@@ -60,7 +60,7 @@ table {
 
 button{
 
-    padding: 12px 16px;
+    padding: 11px 13px;
     background-color: white;
     border-radius: 2px;
     border: 3px solid white;
@@ -69,6 +69,12 @@ button{
     font-size: 15px;
 
     cursor: pointer;
+
+}
+
+.Taula button{
+
+    margin-top: 10px;
 
 }
 
@@ -86,10 +92,16 @@ th {
 
 }
 
-.tr-change {
+.defTr:hover{
 
     background-color: grey;
     color: black;
+
+}
+
+.defTr:hover a {
+
+    color: white;
 
 }
 
@@ -103,7 +115,7 @@ th {
 
 }
 
-.nou_personatge button{
+.nou_personatge button, .actualitza button{
 
     margin-left: 20%;
 

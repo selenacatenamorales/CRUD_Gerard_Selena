@@ -76,6 +76,7 @@ function genera_tabla() {
           var celda = document.createElement("td");
           var textoCelda = document.createElement("img");
           textoCelda.setAttribute("src", personatges[i - 1][propiedad]);
+            textoCelda.setAttribute("class", "classImg");
           textoCelda.setAttribute("width", "50");
           textoCelda.setAttribute("height", "50");
           celda.appendChild(textoCelda);
@@ -137,6 +138,9 @@ function genera_tabla() {
 
   //afegim un event de click al boto de crear nou personatge
   nou_personatge.addEventListener("click", crear_nou_personatge);
+
+    set_eliminar_imatge();
+
 }
 
 function generar_add_event_listener_modifcar() {
@@ -440,6 +444,7 @@ function crear_formulari_modificar(posicio) {
     } else if (propiedad == "imatge") {
       let img = document.createElement("img");
       img.setAttribute("id", "myImg");
+      img.setAttribute("class", "classImg");
       img.setAttribute("src", personatges[posicio][propiedad]);
       img.setAttribute("width", "100");
       img.setAttribute("height", "100");
@@ -732,4 +737,27 @@ function guardarImg() {
 
       reader.readAsDataURL(this.files[0]);
     });
+}
+
+function set_eliminar_imatge(){
+
+    let event_imatge = document.getElementsByClassName("classImg");
+
+    for (let i = 0; i < event_imatge.length; i++){
+        event_imatge[i].addEventListener("dblclick", eliminar_imatge);
+    }
+
+}
+
+function eliminar_imatge(e){
+
+    console.log("Es vol eliminar la imatge");
+
+    let posicio = 0;
+    posicio = aconseguir_posicio(e); //en aquets part del codi aconseguim la posicio en la que estem
+    let img = document.getElementsByClassName("classImg")[posicio];
+    img.src = "";
+
+    personatges[posicio].imatge = "";
+
 }

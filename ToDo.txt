@@ -1,1 +1,3 @@
-1. Cuando eliminas un personaje creado, se borran los 2 siguientes junto al escogido
+- Fer doble clic en l'imatge i eliminar-la
+- DOM de ratolí extra
+- DOM de teclat extra

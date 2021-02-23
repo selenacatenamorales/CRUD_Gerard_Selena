@@ -1,2 +1,8 @@
 - DOM de ratolí extra
 - DOM de teclat extra
+
+Idees per als esdeveniments:
+
+    - Usar l'esc per a triggerejar el mètode de cancel·lar (key DOM)
+    - Al passar per una imatge, fer un comentari de "fes doble click per a eliminar la imatge" (mouse DOM)
+    - Al fer clic en la imatge fer una burla a l'usuari en que no sap fer doble click (mouse DOM)

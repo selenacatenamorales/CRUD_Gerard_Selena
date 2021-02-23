@@ -200,27 +200,34 @@ function sin_registros(div){ //funcion que nos muestra por pantalla unt exto cua
 }
 
 function eliminar_personatge(e) { //funcio per eliminar un personatge de la taula
-  let posicio = 0; 
-  posicio = aconseguir_posicio(e); //en aquets part del codi aconseguim la posicio en la que estem 
 
-  personatges.splice(posicio, 1); //eliminem el personatge de la posicio seleccionada
+    let pregunta = confirm("Estas segur que vols eliminar aquest personatge?");
 
-  buidar_taula();
-  if (personatges.length==0) { //comprovem si no tenim cap persontage a l'array
-    let div = document.getElementsByTagName("div")[0]; //
-    sin_registros(div);
+    if (pregunta){
 
-    var boto = document.createElement("button");
-    boto.appendChild(document.createTextNode("Nou Personatge"));
-    boto.setAttribute("id", "nou_personatge");
-    div.appendChild(boto);
+        let posicio = 0;
+        posicio = aconseguir_posicio(e); //en aquets part del codi aconseguim la posicio en la que estem
 
-    var nou_personatge = document.getElementById("nou_personatge");
+        personatges.splice(posicio, 1); //eliminem el personatge de la posicio seleccionada
 
-    nou_personatge.addEventListener("click", crear_nou_personatge);
-  } else {
-    genera_tabla();
-  }
+        buidar_taula();
+        if (personatges.length==0) { //comprovem si no tenim cap persontage a l'array
+        let div = document.getElementsByTagName("div")[0]; //
+        sin_registros(div);
+
+        var boto = document.createElement("button");
+        boto.appendChild(document.createTextNode("Nou Personatge"));
+        boto.setAttribute("id", "nou_personatge");
+        div.appendChild(boto);
+
+        var nou_personatge = document.getElementById("nou_personatge");
+
+        nou_personatge.addEventListener("click", crear_nou_personatge);
+        } else {
+        genera_tabla();
+        }
+
+    }
 }
 
 function crear_formulari() {

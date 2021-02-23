@@ -57,11 +57,17 @@ function genera_tabla() {
     // Crea les celes de la fila
     var hilera = document.createElement("tr");
 
+      if (i == 0){
+          hilera.setAttribute("class", "firstTr");
+      } else {
+          hilera.setAttribute("class", "defTr");
+      }
+
     //comprovem si estem en la primera
     if (i == 0) {
       //si es aixi, el que fem es indicar les claus dels objectes JSON
       for (let propiedad in personatges[i]) {
-        var celda = document.createElement("td");
+        var celda = document.createElement("th");
 
         var textoCelda = document.createTextNode(propiedad.toUpperCase());
         celda.appendChild(textoCelda);
@@ -126,6 +132,7 @@ function genera_tabla() {
   var boto = document.createElement("button");
   boto.appendChild(document.createTextNode("Nou Personatge"));
   boto.setAttribute("id", "nou_personatge");
+    boto.setAttribute("class", "lc");
   div.appendChild(boto);
 
   //funcio que serveix per afegir a cada boto de modificar el seu event de click
@@ -140,6 +147,9 @@ function genera_tabla() {
   nou_personatge.addEventListener("click", crear_nou_personatge);
 
     set_eliminar_imatge();
+    //set_toggle_row();
+    document.getElementById("Taula").classList.add("Taula");
+    document.getElementById("Nou_personatge").classList.remove("nou_personatge");
 
 }
 
@@ -188,6 +198,8 @@ function buidar_taula() { //funcio que ens serveix per buidar el primer div on t
   let boton = document.getElementById("nou_personatge");
   boton.parentNode.removeChild(boton);
   tabla.parentNode.removeChild(tabla);
+    document.getElementById("Taula").classList.remove("Taula");
+    document.getElementById("Nou_personatge").classList.add("nou_personatge");
 }
 
 function sin_registros(div){ //funcion que nos muestra por pantalla unt exto cuando no tenemos personajes en el array
@@ -768,3 +780,32 @@ function eliminar_imatge(e){
     personatges[posicio].imatge = "";
 
 }
+/*
+function set_toggle_row(){
+
+    let row = document.getElementsByClassName("defTr");
+
+    for (let i = 0; i < row.length; i++){
+        row[i].addEventListener("mouseover", trOver);
+        row[i].addEventListener("mouseout", trOut);
+    }
+
+}
+
+function trOver(e){
+
+    let posicio = 0;
+    posicio = aconseguir_posicio(e);
+    console.log(posicio);
+    //document.getElementsByClassName("defTr")[posicio].classList.add("tr-change");
+
+}
+
+function trOut(e){
+
+    let posicio = 0;
+    posicio = aconseguir_posicio(e);
+    //document.getElementsByClassName("defTr")[posicio].classList.remove("tr-change");
+
+}
+*/

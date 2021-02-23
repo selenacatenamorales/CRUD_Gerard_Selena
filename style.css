@@ -1,6 +1,27 @@
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.cc {
+    align-items: center;
+    justify-content: center;
+}
+
 body {
 
+    background-image: url(imagenes/wallpaper.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100%;
 
+    color: white;
+    font-family: sans-serif;
 
 }
 
@@ -28,3 +49,41 @@ table {
 
 }
 
+.Taula{
+    margin: auto;
+    margin-top: 5%;
+    padding: 25px;
+
+    border: 5px solid black;
+    background-color: rgb(0, 0, 0, 0.94);
+}
+
+th {
+
+    padding: 10px;
+    font-size: 20px;
+
+}
+
+.tr-change {
+
+    background-color: grey;
+    color: black;
+
+}
+
+.nou_personatge {
+
+    margin: auto;
+    padding: 10px;
+    border: 5px solid black;
+
+    background-color: rgb(0, 0, 0, 0.93);
+
+}
+
+.nou_personatge button{
+
+    margin-left: 25%;
+
+}

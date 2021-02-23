@@ -83,8 +83,8 @@ function genera_tabla() {
           var textoCelda = document.createElement("img");
           textoCelda.setAttribute("src", personatges[i - 1][propiedad]);
             textoCelda.setAttribute("class", "classImg");
-          textoCelda.setAttribute("width", "50");
-          textoCelda.setAttribute("height", "50");
+          textoCelda.setAttribute("width", "75");
+          textoCelda.setAttribute("height", "75");
           celda.appendChild(textoCelda);
           hilera.appendChild(celda);
 

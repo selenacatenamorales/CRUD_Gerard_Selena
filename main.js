@@ -150,6 +150,7 @@ function genera_tabla() {
     //set_toggle_row();
     document.getElementById("Taula").classList.add("Taula");
     document.getElementById("Nou_personatge").classList.remove("nou_personatge");
+    document.getElementById("Actualitza").classList.remove("actualitza");
 
 }
 
@@ -199,6 +200,7 @@ function buidar_taula() { //funcio que ens serveix per buidar el primer div on t
   boton.parentNode.removeChild(boton);
   tabla.parentNode.removeChild(tabla);
     document.getElementById("Taula").classList.remove("Taula");
+    document.getElementById("Taula").classList.remove("actualitza");
     document.getElementById("Nou_personatge").classList.add("nou_personatge");
 }
 
@@ -421,6 +423,9 @@ function crear_formulari_modificar(posicio) {
 
   div.appendChild(crear_div);
 
+    document.getElementById("Actualitza").classList.add("actualitza");
+    document.getElementById("Nou_personatge").classList.remove("nou_personatge");
+
   for (let propiedad in personatges[0]) {
     let p = document.createElement("p");
     p.appendChild(document.createTextNode(propiedad.toUpperCase()));
@@ -580,6 +585,7 @@ function crear_formulari_modificar(posicio) {
 
   generarImg();
   guardarImg();
+
 }
 
 function crear_nou_personatge() {

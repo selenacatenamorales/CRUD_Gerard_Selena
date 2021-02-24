@@ -199,6 +199,13 @@ function buidar_taula() { //funcio que ens serveix per buidar el primer div on t
     document.getElementById("Taula").classList.remove("Taula");
     document.getElementById("Taula").classList.remove("actualitza");
     document.getElementById("Nou_personatge").classList.add("nou_personatge");
+
+    document.addEventListener("keydown", function(event){
+        if (event.key == "Escape"){
+            cancelar_personatge();
+        }
+    });
+
 }
 
 function sin_registros(div){ //funcion que nos muestra por pantalla unt exto cuando no tenemos personajes en el array
@@ -586,6 +593,12 @@ function crear_formulari_modificar(posicio) {
 
   generarImg();
   guardarImg();
+
+    document.addEventListener("keydown", function(event){
+        if (event.key == "Escape"){
+            cancelar_modificacio();
+        }
+    });
 
 }
 

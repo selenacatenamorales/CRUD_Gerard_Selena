@@ -213,7 +213,68 @@ function generar_add_event_listener_eliminar() {
 }
 
 function generar_taula_habilitat(){
+  let id_hablitat = []
   buidar_taula();
+  for (propiedad in personatges[0].habilitat[0]) {
+    id_hablitat.push(propiedad);
+  }
+  genera_tabla_habilitat()
+
+}
+
+function genera_tabla_habilitat(){
+
+    // Obtener la referencia del elemento body
+    var div = document.getElementsByTagName("div")[0];
+  
+    // Crea un elemento <table> y un elemento <tbody>
+    var tabla = document.createElement("table");
+    var tblBody = document.createElement("tbody");
+  
+    // Crea les files
+    for (var i = 0; i <= personatges.length; i++) {
+      // Crea les celes de la fila
+      var hilera = document.createElement("tr");
+  
+        if (i != 0){
+            hilera.setAttribute("class", "defTr");
+        }
+  
+      //comprovem si estem en la primera
+      if (i == 0) {
+        //si es aixi, el que fem es indicar les claus dels objectes JSON
+        for (let propiedad in personatges[i].habilitat[0]) {
+          var celda = document.createElement("th");
+  
+          var textoCelda = document.createTextNode(propiedad.toUpperCase());
+          celda.appendChild(textoCelda);
+          hilera.appendChild(celda);
+        }
+      } else {
+        //si no estem en la primera fila, comencem a intruidir les dades de cada paersoantge
+        for (let propiedad in personatges[i - 1].habilitat[0]) {
+            //la resta de celes son nomes td amb la informació que esta guardad en l'objecte JSON
+            var celda = document.createElement("td");
+  
+            var textoCelda = document.createTextNode(
+              
+              personatges[i - 1].habilitat[0][propiedad]
+            );
+            console.log(propiedad);
+  
+          celda.appendChild(textoCelda);
+          hilera.appendChild(celda);
+        }
+      }
+  
+      // agrega la hilera al final de la tabla (al final del elemento tblbody)
+      tblBody.appendChild(hilera);
+    }
+  
+    // posiciona el <tbody> debajo del elemento <table>
+    tabla.appendChild(tblBody);
+    // appends <table> into <body>
+    div.appendChild(tabla);
 }
 
 function modificar_personatge(e) {

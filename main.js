@@ -13,7 +13,13 @@ var personatges = [
         tipus: "Magico",
         efecte: "Suport",
       },
+      {
+        nom: "Espada del destino",
+        tipus: "Fisico",
+        efecte: "Daño",
+      }
     ],
+
     imatge: "imagenes/vanessa.jpg",
   },
 
@@ -264,7 +270,7 @@ function genera_tabla_habilitat() {
   var tblBody = document.createElement("tbody");
 
   // Crea les files
-  for (var i = 0; i <= 1; i++) {
+  for (var i = 0; i <= personatges[posicio_global].habilitat.length; i++) {
     // Crea les celes de la fila
     var hilera = document.createElement("tr");
 
@@ -284,14 +290,14 @@ function genera_tabla_habilitat() {
       }
     } else {
       //si no estem en la primera fila, comencem a intruidir les dades de cada paersoantge
-      for (let propiedad in personatges[posicio_global].habilitat[0]) {
+      for (let propiedad in personatges[posicio_global].habilitat[i-1]) {
         //la resta de celes son nomes td amb la informació que esta guardad en l'objecte JSON
         var celda = document.createElement("td");
 
         var textoCelda = document.createTextNode(
-          personatges[posicio_global].habilitat[0][propiedad]
+          personatges[posicio_global].habilitat[i-1][propiedad]
         );
-        console.log(propiedad);
+
 
         celda.appendChild(textoCelda);
         hilera.appendChild(celda);

@@ -240,19 +240,8 @@ function eliminar_personatge(e) { //funcio per eliminar un personatge de la taul
 
     }
 }
-
-function crear_formulari() {
-  let caracteristica = "";
-  let crear_div = document.createElement("div");
-
-  let div = document.getElementById("Nou_personatge");
-
-  console.log(div);
-  div.appendChild(crear_div);
-
-  for (let i = 0; i < id_personatges.length; i++) {
-    if (i == id_personatges.length - 1) {
-      let br = document.createElement("br");
+function crear_imagen(crear_div){
+  let br = document.createElement("br");
       crear_div.appendChild(br);
 
       let p = document.createElement("p");
@@ -273,6 +262,21 @@ function crear_formulari() {
       img.setAttribute("id", "myImg");
       img.setAttribute("src", "../imagenes/Monigote.jpeg");
       crear_div.appendChild(img);
+}
+
+function crear_formulari() {
+  let caracteristica = "";
+  let crear_div = document.createElement("div");
+
+  let div = document.getElementById("Nou_personatge");
+
+  console.log(div);
+  div.appendChild(crear_div);
+
+  for (let i = 0; i < id_personatges.length; i++) {
+    if (i == id_personatges.length - 1) {
+      crear_imagen(crear_div);
+      
     } else if (i == id_personatges.length - 2) {
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));

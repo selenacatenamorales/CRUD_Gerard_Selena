@@ -149,6 +149,14 @@ function genera_tabla() {
     document.getElementById("Nou_personatge").classList.remove("nou_personatge");
     document.getElementById("Actualitza").classList.remove("actualitza");
 
+    document.addEventListener("keydown", function(event){
+
+        if (event.key == "n"){
+            crear_nou_personatge();
+        }
+
+    });
+
 }
 
 function generar_add_event_listener_modifcar() {

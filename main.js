@@ -162,7 +162,7 @@ function genera_tabla(personatges) {
     }
   });
 
-    setLinkPressed();
+    //setLinkPressed();
 
 }
 

@@ -73,6 +73,10 @@ function genera_tabla(personatges) {
     // Crea les celes de la fila
     var hilera = document.createElement("tr");
 
+      if (i != 0){
+          hilera.setAttribute("class", "defTr");
+      }
+
     //comprovem si estem en la primera
     if (i == 0) {
       //si es aixi, el que fem es indicar les claus dels objectes JSON
@@ -173,6 +177,9 @@ function genera_tabla(personatges) {
       crear_nou_personatge();
     }
   });
+
+    //setLinkPressed();
+
 }
 
 function generar_add_event_listener_modifcar() {
@@ -799,19 +806,20 @@ function eliminar_imatge(e) {
 
   personatges[posicio].imatge = "";
 }
-
+/*
 function setLinkPressed(){
 
-    let txtName = document.getElementsByClassName("nomPersonatge");
+    let hab = document.getElementsByClassName("habilitat");
     let txtMod = document.getElementsByClassName("modificar");
     let txtDel = document.getElementsByClassName("eliminar");
 
-    for (let i = 0; i < txtName.length; i++){
+    for (let i = 0; i < txtMod.length; i++){
 
-        txtName[i].addEventListener("click", function(){
-            alert("hola");
+        txtMod[i].addEventListener("mousedown", function(){
+            txtMod[i].classList.add("aPressed");
         });
 
     }
 
 }
+*/

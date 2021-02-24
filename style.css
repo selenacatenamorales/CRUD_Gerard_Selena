@@ -135,10 +135,3 @@ table {
 
 }
 
-.nomPersonatge:hover {
-
-    text-decoration: underline;
-    color: white;
-    cursor: pointer;
-
-}

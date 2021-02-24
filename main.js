@@ -145,19 +145,16 @@ function genera_tabla() {
   //afegim un event de click al boto de crear nou personatge
   nou_personatge.addEventListener("click", crear_nou_personatge);
 
-    set_eliminar_imatge();
-    document.getElementById("Taula").classList.add("Taula");
-    document.getElementById("Nou_personatge").classList.remove("nou_personatge");
-    document.getElementById("Actualitza").classList.remove("actualitza");
+  set_eliminar_imatge();
+  document.getElementById("Taula").classList.add("Taula");
+  document.getElementById("Nou_personatge").classList.remove("nou_personatge");
+  document.getElementById("Actualitza").classList.remove("actualitza");
 
-    document.addEventListener("keydown", function(event){
-
-        if (event.key == "n"){
-            crear_nou_personatge();
-        }
-
-    });
-
+  document.addEventListener("keydown", function (event) {
+    if (event.key == "n") {
+      crear_nou_personatge();
+    }
+  });
 }
 
 function generar_add_event_listener_modifcar() {
@@ -338,42 +335,40 @@ function crear_magia(i) {
       magia = "Otros";
       break;
   }
-  return magia; 
+  return magia;
 }
 
-function comprovar_dades(){
-  
-    let caracteristicas = document.getElementsByClassName("checkbox");
-    let errors = false;
-    let cadena = ""
-    cadena_errors = "";
-    let contador = 0;
+function comprovar_dades() {
+  let caracteristicas = document.getElementsByClassName("checkbox");
+  let errors = false;
+  let cadena = "";
+  cadena_errors = "";
+  let contador = 0;
 
-    for (let i = 0; i < caracteristicas.length; i++) {
-      if (caracteristicas[i].checked == false) {
-        contador++;
-      }
+  for (let i = 0; i < caracteristicas.length; i++) {
+    if (caracteristicas[i].checked == false) {
+      contador++;
     }
-    if (contador == 4) {
-      errors = true;
-      cadena += "HAS DE MARCAR ALGUNA OPCIO EN EL CHECKBOX";
-    }
+  }
+  if (contador == 4) {
+    errors = true;
+    cadena += "HAS DE MARCAR ALGUNA OPCIO EN EL CHECKBOX";
+  }
 
-    if (document.getElementsByTagName("input")[1].value == "") {
-      document.getElementsByTagName("input")[1].style.borderColor = "red";
-      cadena += "\n El nom no pot estar en blanc";
-      errors = true;
-    }
-    if (document.getElementsByTagName("input")[2].value == "") {
-      document.getElementsByTagName("input")[2].style.borderColor = "red";
-      cadena += "\n El cognom no pot estar en blanc";
-      errors = true;
-    }
+  if (document.getElementsByTagName("input")[1].value == "") {
+    document.getElementsByTagName("input")[1].style.borderColor = "red";
+    cadena += "\n El nom no pot estar en blanc";
+    errors = true;
+  }
+  if (document.getElementsByTagName("input")[2].value == "") {
+    document.getElementsByTagName("input")[2].style.borderColor = "red";
+    cadena += "\n El cognom no pot estar en blanc";
+    errors = true;
+  }
 
-    cadena_errors = cadena;
+  cadena_errors = cadena;
 
-    return (errors)
-   
+  return errors;
 }
 
 function crear_botones_aceptar(crear_div) {
@@ -386,7 +381,6 @@ function crear_botones_aceptar(crear_div) {
   boto.appendChild(document.createTextNode("Acceptar"));
   boto.setAttribute("id", "Acceptar");
   crear_div.appendChild(boto);
-  
 }
 
 function crear_formulari() {
@@ -443,17 +437,15 @@ function crear_formulari() {
 
   boto = document.getElementById("Acceptar");
 
-  boto.addEventListener("click", function(){
+  boto.addEventListener("click", function () {
     errors = comprovar_dades();
     if (errors == false) {
       acceptar_personatge();
-    }
-    else{
+    } else {
       alert(cadena_errors);
     }
   });
 
-  
   let boto2 = document.createElement("button");
   boto2.appendChild(document.createTextNode("Cancelar"));
   boto2.setAttribute("id", "Cancelar");
@@ -553,16 +545,14 @@ function crear_formulari_modificar(posicio) {
 
   boto = document.getElementById("Acceptar");
 
-  boto.addEventListener("click", function(){
+  boto.addEventListener("click", function () {
     errors = comprovar_dades();
     if (errors == false) {
       acceptar_modificacio();
-    }
-    else{
+    } else {
       alert(cadena_errors);
     }
   });
-
 
   let boto2 = document.createElement("button");
 
@@ -615,6 +605,21 @@ function buidar_modficacio() {
   div.parentNode.removeChild(div);
 }
 
+function comrpovar_exprreg(edat, nom) {
+  let error = false;
+  if (solo_num.test(edat) == false) {
+    alert("Indica un numero amb el format correcte");
+    error = true;
+  } else if (solo_letra.test(nom) == false) {
+    error = true;
+    alert(
+      "Indica un nom amb el format correcte. Enrecorda't que la priemra lletra ha der ser majuscula"
+    );
+  }
+  console.log(error);
+  return error;
+}
+
 function acceptar_modificacio() {
   let nom = document.getElementsByTagName("input")[1].value;
   let cognom = document.getElementsByTagName("input")[2].value;
@@ -640,28 +645,16 @@ function acceptar_modificacio() {
     imatge = localStorage.getItem("novaImatge");
   }
 
-  if (solo_num.test(edat) == false) {
-    alert("Indica un numero amb el format correcte");
-  } else if (solo_letra.test(nom) == false) {
-    alert(
-      "Indica un nom amb el format correcte. Enrecorda't que la priemra lletra ha der ser majuscula"
-    );
-  } else {
-    console.log(posicio_global);
-
+  if (comrpovar_exprreg(edat, nom) == false) {
     personatges[posicio_global].nom = nom;
     personatges[posicio_global].cognom = cognom;
     personatges[posicio_global].edat = edat;
     personatges[posicio_global].caracteristiques = caractersitcas_marcadas;
     personatges[posicio_global].imatge = imatge;
-
-    console.log(personatges);
-
     buidar_modficacio();
     genera_tabla();
+    localStorage.removeItem("novaImatge");
   }
-
-  localStorage.removeItem("novaImatge");
 }
 
 function acceptar_personatge() {
@@ -684,13 +677,7 @@ function acceptar_personatge() {
     caractersitcas_marcadas = caractersitcas_marcadas.slice(0, -1);
   }
 
-  if (solo_num.test(edat) == false) {
-    alert("Indica un numero amb el format correcte");
-  } else if (solo_letra.test(nom) == false) {
-    alert(
-      "Indica un nom amb el format correcte. Enrecorda't que la priemra lletra ha der ser majuscula"
-    );
-  } else {
+  if (comrpovar_exprreg(edat, nom) == false) {
     let imgNova = "";
 
     //Si en el localStorage hi ha imatge, mostrem la imatge donada

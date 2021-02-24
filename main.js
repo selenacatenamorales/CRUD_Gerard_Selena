@@ -43,9 +43,9 @@ var contador = personatges[personatges.length - 1].id;
 var posicio_global = 0;
 
 //cridem a la funcio per generar la taula
-genera_tabla();
+genera_tabla(personatges);
 
-function genera_tabla() {
+function genera_tabla(personatges) {
   // Obtener la referencia del elemento body
   var div = document.getElementsByTagName("div")[0];
 

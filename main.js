@@ -8,6 +8,9 @@ var personatges = [
     magia: "Otros",
     caracteristiques: "Timido-Feroz",
     habilitat:[{
+      nom: "Hilo rojo del destino",
+      tipus: "Magico",
+      efecte: "Suport"
 
     }
     ] ,
@@ -21,7 +24,13 @@ var personatges = [
     edat: 28,
     magia: "Agua",
     caracteristiques: "Valiente",
-    habilitat: "casa",
+    habilitat:[{
+      nom: "Corte apagado",
+      tipus: "Magico",
+      efecte: "Ataque"
+
+    }
+    ],
     imatge: "imagenes/yami.jpg",
     
   },
@@ -106,7 +115,12 @@ function genera_tabla(personatges) {
 
           celda.appendChild(textoCelda);
           hilera.appendChild(celda);
-        } else {
+        } else if(propiedad == "habilitat"){
+          var celda = document.createElement("td");
+          var textoCelda = document.createElement("a");
+          textoCelda.appendChild(document.createTextNode("Veure habilitat"));
+          textoCelda.setAttribute("class", "habilitat");
+        } else{
           //la resta de celes son nomes td amb la informació que esta guardad en l'objecte JSON
           var celda = document.createElement("td");
 
@@ -142,6 +156,8 @@ function genera_tabla(personatges) {
   //funcio que serveix per afegir a cada boto de modificar el seu event de click
   generar_add_event_listener_eliminar();
 
+  generar_add_event_listener_habilitat();
+
   var nou_personatge = document.getElementById("nou_personatge");
 
   //afegim un event de click al boto de crear nou personatge
@@ -169,6 +185,16 @@ function generar_add_event_listener_modifcar() {
   }
 }
 
+function generar_add_event_listener_habilitat() {
+  //guardem en un array tots els elements que son de classe modificar
+  let b = document.getElementsByClassName("habilitat");
+
+  for (i = 0; i < b.length; i++) {
+    //per cada element de l'array li assignem un event de click
+    b[i].addEventListener("click", generar_taula_habilitat);
+  }
+}
+
 function generar_add_event_listener_eliminar() {
   //guardem en un array tots els elements que son de classe eliminar
   let a = document.getElementsByClassName("eliminar");
@@ -177,6 +203,10 @@ function generar_add_event_listener_eliminar() {
     //per cada element de l'array li assignem un event de click
     a[i].addEventListener("click", eliminar_personatge);
   }
+}
+
+function generar_taula_habilitat(){
+  buidar_taula();
 }
 
 function modificar_personatge(e) {
@@ -257,7 +287,7 @@ function eliminar_personatge(e) {
   }
 }
 
-function crear_imagen(crear_div) {
+function crear_imagen(crear_div,i) {
   let br = document.createElement("br");
   crear_div.appendChild(br);
 
@@ -393,10 +423,13 @@ function crear_formulari() {
   console.log(div);
   div.appendChild(crear_div);
 
+  console.log(id_personatges.length)
+
   for (let i = 0; i < id_personatges.length; i++) {
+
     if (i == id_personatges.length - 1) {
-      crear_imagen(crear_div);
-    } else if (i == id_personatges.length - 2) {
+      crear_imagen(crear_div,i);
+    } else if (i == id_personatges.length - 3) {
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
 
@@ -409,7 +442,7 @@ function crear_formulari() {
       crear_div.appendChild(p);
 
       crear_id(contador + 1, crear_div);
-    } else if (i == id_personatges.length - 3) {
+    } else if (i == id_personatges.length - 4) {
       let magia = "";
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
@@ -424,6 +457,8 @@ function crear_formulari() {
         option.appendChild(document.createTextNode(magia));
         select.appendChild(option);
       }
+    } else if(i == id_personatges.length - 2){
+
     } else {
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
@@ -704,7 +739,7 @@ function acceptar_personatge() {
     console.log(personatges);
 
     buidar_personatge();
-    genera_tabla(personatge);
+    genera_tabla(personatges);
     //Borrem la imatge dins del LocalStorage, per a que si creem un altre personatge no agafi la mateixi imatge
     localStorage.removeItem("novaImatge");
   }

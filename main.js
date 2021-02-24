@@ -145,10 +145,19 @@ function genera_tabla() {
   //afegim un event de click al boto de crear nou personatge
   nou_personatge.addEventListener("click", crear_nou_personatge);
 
-  set_eliminar_imatge();
-  document.getElementById("Taula").classList.add("Taula");
-  document.getElementById("Nou_personatge").classList.remove("nou_personatge");
-  document.getElementById("Actualitza").classList.remove("actualitza");
+    set_eliminar_imatge();
+    document.getElementById("Taula").classList.add("Taula");
+    document.getElementById("Nou_personatge").classList.remove("nou_personatge");
+    document.getElementById("Actualitza").classList.remove("actualitza");
+
+    document.addEventListener("keydown", function(event){
+
+        if (event.key == "n"){
+            crear_nou_personatge();
+        }
+
+    });
+
 }
 
 function generar_add_event_listener_modifcar() {

@@ -806,20 +806,3 @@ function eliminar_imatge(e) {
 
   personatges[posicio].imatge = "";
 }
-/*
-function setLinkPressed(){
-
-    let hab = document.getElementsByClassName("habilitat");
-    let txtMod = document.getElementsByClassName("modificar");
-    let txtDel = document.getElementsByClassName("eliminar");
-
-    for (let i = 0; i < txtMod.length; i++){
-
-        txtMod[i].addEventListener("mousedown", function(){
-            txtMod[i].classList.add("aPressed");
-        });
-
-    }
-
-}
-*/

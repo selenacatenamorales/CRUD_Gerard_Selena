@@ -7,6 +7,10 @@ var personatges = [
     edat: 24,
     magia: "Otros",
     caracteristiques: "Timido-Feroz",
+    habilitat:[{
+
+    }
+    ] ,
     imatge: "imagenes/vanessa.jpg",
   },
 
@@ -17,7 +21,9 @@ var personatges = [
     edat: 28,
     magia: "Agua",
     caracteristiques: "Valiente",
+    habilitat: "casa",
     imatge: "imagenes/yami.jpg",
+    
   },
 ];
 var cadena_errors = "";
@@ -254,7 +260,7 @@ function eliminar_personatge(e) {
 
       nou_personatge.addEventListener("click", crear_nou_personatge);
     } else {
-      genera_tabla();
+      genera_tabla(personatges);
     }
   }
 }
@@ -586,7 +592,7 @@ function crear_nou_personatge() {
 function cancelar_modificacio() {
   buidar_modficacio();
 
-  genera_tabla();
+  genera_tabla(personatges);
 }
 
 function cancelar_personatge() {
@@ -596,7 +602,7 @@ function cancelar_personatge() {
     sin_registros(div);
   }
 
-  genera_tabla();
+  genera_tabla(personatges);
 }
 
 function buidar_personatge() {
@@ -656,7 +662,7 @@ function acceptar_modificacio() {
     personatges[posicio_global].caracteristiques = caractersitcas_marcadas;
     personatges[posicio_global].imatge = imatge;
     buidar_modficacio();
-    genera_tabla();
+    genera_tabla(personatges);
     localStorage.removeItem("novaImatge");
   }
 }
@@ -706,7 +712,7 @@ function acceptar_personatge() {
     console.log(personatges);
 
     buidar_personatge();
-    genera_tabla();
+    genera_tabla(personatge);
     //Borrem la imatge dins del LocalStorage, per a que si creem un altre personatge no agafi la mateixi imatge
     localStorage.removeItem("novaImatge");
   }

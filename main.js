@@ -177,7 +177,8 @@ function genera_tabla(personatges) {
     }
   });
 
-  //setLinkPressed();
+    set_multicolor_th();
+
 }
 
 function generar_add_event_listener_modifcar() {
@@ -919,3 +920,32 @@ function eliminar_imatge(e) {
 
   personatges[posicio].imatge = "";
 }
+
+function set_multicolor_th(){
+
+    let th = document.getElementsByTagName("th");
+
+    for (let i = 0; i < th.length; i++){
+        th[i].setAttribute("class", "th");
+    }
+
+    let cc = document.getElementsByClassName("th");
+
+    for (let i = 0; i < cc.length; i++){
+        cc[i].addEventListener("mouseover", canviColor);
+        cc[i].addEventListener("mouseout", colorDef);
+    }
+
+}
+
+function canviColor(e){
+
+    let colors = ["pink", "red", "orange", "yellow", "green", "blue", "violet"];
+    let rand = Math.floor(Math.random() * (colors.length - 0));
+
+    let pos = e.target;
+    pos.style.color = colors[rand];
+
+}
+
+function colorDef(e){ e.target.style.color = "white"; }

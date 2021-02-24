@@ -7,13 +7,13 @@ var personatges = [
     edat: 24,
     magia: "Otros",
     caracteristiques: "Timido-Feroz",
-    habilitat:[{
-      nom: "Hilo rojo del destino",
-      tipus: "Magico",
-      efecte: "Suport"
-
-    }
-    ] ,
+    habilitat: [
+      {
+        nom: "Hilo rojo del destino",
+        tipus: "Magico",
+        efecte: "Suport",
+      },
+    ],
     imatge: "imagenes/vanessa.jpg",
   },
 
@@ -24,15 +24,14 @@ var personatges = [
     edat: 28,
     magia: "Agua",
     caracteristiques: "Valiente",
-    habilitat:[{
-      nom: "Corte apagado",
-      tipus: "Magico",
-      efecte: "Ataque"
-
-    }
+    habilitat: [
+      {
+        nom: "Corte apagado",
+        tipus: "Magico",
+        efecte: "Ataque",
+      },
     ],
     imatge: "imagenes/yami.jpg",
-    
   },
 ];
 var cadena_errors = "";
@@ -73,9 +72,9 @@ function genera_tabla(personatges) {
     // Crea les celes de la fila
     var hilera = document.createElement("tr");
 
-      if (i != 0){
-          hilera.setAttribute("class", "defTr");
-      }
+    if (i != 0) {
+      hilera.setAttribute("class", "defTr");
+    }
 
     //comprovem si estem en la primera
     if (i == 0) {
@@ -119,12 +118,12 @@ function genera_tabla(personatges) {
 
           celda.appendChild(textoCelda);
           hilera.appendChild(celda);
-        } else if(propiedad == "habilitat"){
+        } else if (propiedad == "habilitat") {
           var celda = document.createElement("td");
           var textoCelda = document.createElement("a");
           textoCelda.appendChild(document.createTextNode("Veure habilitat"));
           textoCelda.setAttribute("class", "habilitat");
-        } else{
+        } else {
           //la resta de celes son nomes td amb la informació que esta guardad en l'objecte JSON
           var celda = document.createElement("td");
 
@@ -178,8 +177,7 @@ function genera_tabla(personatges) {
     }
   });
 
-    //setLinkPressed();
-
+  //setLinkPressed();
 }
 
 function generar_add_event_listener_modifcar() {
@@ -189,6 +187,16 @@ function generar_add_event_listener_modifcar() {
   for (i = 0; i < b.length; i++) {
     //per cada element de l'array li assignem un event de click
     b[i].addEventListener("click", modificar_personatge);
+  }
+}
+
+function generar_add_event_listener_modifcar_habilitat() {
+  //guardem en un array tots els elements que son de classe modificar
+  let b = document.getElementsByClassName("modificar");
+
+  for (i = 0; i < b.length; i++) {
+    //per cada element de l'array li assignem un event de click
+    b[i].addEventListener("click", modificar_habilitat);
   }
 }
 
@@ -202,6 +210,29 @@ function generar_add_event_listener_habilitat() {
   }
 }
 
+function generar_add_event_listener_eliminar_hablitat() {
+  //guardem en un array tots els elements que son de classe eliminar
+  let a = document.getElementsByClassName("eliminar");
+
+  for (i = 0; i < a.length; i++) {
+    //per cada element de l'array li assignem un event de click
+    a[i].addEventListener("click", eliminar_habilitat);
+  }
+}
+
+function modificar_habilitat(){
+
+}
+
+function eliminar_habilitat(){
+  console.log("Hola")
+  let pregunta = confirm("Estas segur que vols eliminar aquest personatge?");
+  if (pregunta) {
+    personatges[posicio_global].habilitat[posicio_global].splice(posicio_global,1); //eliminem el personatge de la posicio seleccionada
+}
+
+}
+
 function generar_add_event_listener_eliminar() {
   //guardem en un array tots els elements que son de classe eliminar
   let a = document.getElementsByClassName("eliminar");
@@ -212,69 +243,92 @@ function generar_add_event_listener_eliminar() {
   }
 }
 
-function generar_taula_habilitat(){
-  let id_hablitat = []
+function generar_taula_habilitat(e) {
+  let id_hablitat = [];
   buidar_taula();
   for (propiedad in personatges[0].habilitat[0]) {
     id_hablitat.push(propiedad);
   }
-  genera_tabla_habilitat()
+  posicio_global = aconseguir_posicio(e);
 
+  genera_tabla_habilitat(posicio_global);
 }
 
-function genera_tabla_habilitat(){
+function genera_tabla_habilitat() {
+  // Obtener la referencia del elemento body
+  var div = document.getElementsByTagName("div")[0];
 
-    // Obtener la referencia del elemento body
-    var div = document.getElementsByTagName("div")[0];
-  
-    // Crea un elemento <table> y un elemento <tbody>
-    var tabla = document.createElement("table");
-    var tblBody = document.createElement("tbody");
-  
-    // Crea les files
-    for (var i = 0; i <= personatges.length; i++) {
-      // Crea les celes de la fila
-      var hilera = document.createElement("tr");
-  
-        if (i != 0){
-            hilera.setAttribute("class", "defTr");
-        }
-  
-      //comprovem si estem en la primera
-      if (i == 0) {
-        //si es aixi, el que fem es indicar les claus dels objectes JSON
-        for (let propiedad in personatges[i].habilitat[0]) {
-          var celda = document.createElement("th");
-  
-          var textoCelda = document.createTextNode(propiedad.toUpperCase());
-          celda.appendChild(textoCelda);
-          hilera.appendChild(celda);
-        }
-      } else {
-        //si no estem en la primera fila, comencem a intruidir les dades de cada paersoantge
-        for (let propiedad in personatges[i - 1].habilitat[0]) {
-            //la resta de celes son nomes td amb la informació que esta guardad en l'objecte JSON
-            var celda = document.createElement("td");
-  
-            var textoCelda = document.createTextNode(
-              
-              personatges[i - 1].habilitat[0][propiedad]
-            );
-            console.log(propiedad);
-  
-          celda.appendChild(textoCelda);
-          hilera.appendChild(celda);
-        }
-      }
-  
-      // agrega la hilera al final de la tabla (al final del elemento tblbody)
-      tblBody.appendChild(hilera);
+  // Crea un elemento <table> y un elemento <tbody>
+  var tabla = document.createElement("table");
+  var tblBody = document.createElement("tbody");
+
+  // Crea les files
+  for (var i = 0; i <= 1; i++) {
+    // Crea les celes de la fila
+    var hilera = document.createElement("tr");
+
+    if (i != 0) {
+      hilera.setAttribute("class", "defTr");
     }
-  
-    // posiciona el <tbody> debajo del elemento <table>
-    tabla.appendChild(tblBody);
-    // appends <table> into <body>
-    div.appendChild(tabla);
+
+    //comprovem si estem en la primera
+    if (i == 0) {
+      //si es aixi, el que fem es indicar les claus dels objectes JSON
+      for (let propiedad in personatges[posicio_global].habilitat[0]) {
+        var celda = document.createElement("th");
+
+        var textoCelda = document.createTextNode(propiedad.toUpperCase());
+        celda.appendChild(textoCelda);
+        hilera.appendChild(celda);
+      }
+    } else {
+      //si no estem en la primera fila, comencem a intruidir les dades de cada paersoantge
+      for (let propiedad in personatges[posicio_global].habilitat[0]) {
+        //la resta de celes son nomes td amb la informació que esta guardad en l'objecte JSON
+        var celda = document.createElement("td");
+
+        var textoCelda = document.createTextNode(
+          personatges[posicio_global].habilitat[0][propiedad]
+        );
+        console.log(propiedad);
+
+        celda.appendChild(textoCelda);
+        hilera.appendChild(celda);
+      }
+      //creem tambe els enllaços de eliminar
+      var celda = document.createElement("td");
+      var textoCelda = document.createElement("a");
+      textoCelda.appendChild(document.createTextNode("Eliminar"));
+      textoCelda.setAttribute("class", "eliminar");
+
+      celda.appendChild(textoCelda);
+      hilera.appendChild(celda);
+
+      //creem tambe els enllaços de modificar
+      var celda = document.createElement("td");
+      var textoCelda = document.createElement("a");
+      textoCelda.appendChild(document.createTextNode("Modificar"));
+      textoCelda.setAttribute("class", "modificar");
+
+      celda.appendChild(textoCelda);
+      hilera.appendChild(celda);
+    }
+
+    // agrega la hilera al final de la tabla (al final del elemento tblbody)
+    tblBody.appendChild(hilera);
+  }
+
+  // posiciona el <tbody> debajo del elemento <table>
+  tabla.appendChild(tblBody);
+  // appends <table> into <body>
+  div.appendChild(tabla);
+
+  generar_add_event_listener_modifcar_habilitat();
+
+  //funcio que serveix per afegir a cada boto de modificar el seu event de click
+  generar_add_event_listener_eliminar_hablitat();
+
+
 }
 
 function modificar_personatge(e) {
@@ -355,7 +409,7 @@ function eliminar_personatge(e) {
   }
 }
 
-function crear_imagen(crear_div,i) {
+function crear_imagen(crear_div, i) {
   let br = document.createElement("br");
   crear_div.appendChild(br);
 
@@ -491,12 +545,11 @@ function crear_formulari() {
   console.log(div);
   div.appendChild(crear_div);
 
-  console.log(id_personatges.length)
+  console.log(id_personatges.length);
 
   for (let i = 0; i < id_personatges.length; i++) {
-
     if (i == id_personatges.length - 1) {
-      crear_imagen(crear_div,i);
+      crear_imagen(crear_div, i);
     } else if (i == id_personatges.length - 3) {
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
@@ -525,8 +578,7 @@ function crear_formulari() {
         option.appendChild(document.createTextNode(magia));
         select.appendChild(option);
       }
-    } else if(i == id_personatges.length - 2){
-
+    } else if (i == id_personatges.length - 2) {
     } else {
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));

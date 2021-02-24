@@ -80,7 +80,7 @@ function genera_tabla() {
           var celda = document.createElement("td");
           var textoCelda = document.createElement("img");
           textoCelda.setAttribute("src", personatges[i - 1][propiedad]);
-            textoCelda.setAttribute("class", "classImg");
+          textoCelda.setAttribute("class", "classImg");
           textoCelda.setAttribute("width", "75");
           textoCelda.setAttribute("height", "75");
           celda.appendChild(textoCelda);
@@ -211,9 +211,7 @@ function sin_registros(div){ //funcion que nos muestra por pantalla unt exto cua
 }
 
 function eliminar_personatge(e) { //funcio per eliminar un personatge de la taula
-
     let pregunta = confirm("Estas segur que vols eliminar aquest personatge?");
-
     if (pregunta){
 
         let posicio = 0;
@@ -240,6 +238,7 @@ function eliminar_personatge(e) { //funcio per eliminar un personatge de la taul
 
     }
 }
+
 function crear_imagen(crear_div){
   let br = document.createElement("br");
       crear_div.appendChild(br);
@@ -264,8 +263,45 @@ function crear_imagen(crear_div){
       crear_div.appendChild(img);
 }
 
-function crear_formulari() {
+function crear_estadisticas(crear_div){
   let caracteristica = "";
+  for (let i = 0; i < 4; i++) {
+    switch (i) {
+      case 0:
+        caracteristica = "Valiente";
+        break;
+      case 1:
+        caracteristica = "Timido";
+        break;
+      case 2:
+        caracteristica = "Feroz";
+        break;
+      case 3:
+        caracteristica = "Liderazgo";
+        break;
+    }
+    let input = document.createElement("input");
+    input.setAttribute("type", "checkbox");
+    input.setAttribute("id", caracteristica);
+    input.setAttribute("class", "checkbox");
+
+    let label = document.createElement("label");
+    label.setAttribute("for", caracteristica);
+    label.innerText = caracteristica;
+    crear_div.appendChild(input);
+    crear_div.appendChild(label);
+  }
+}
+
+function crear_id(numero){
+  let input = document.createElement("input");
+  input.setAttribute("id", "formId");
+  input.setAttribute("disabled", true);
+  crear_div.appendChild(input);
+  input.value = numero;
+}
+
+function crear_formulari() {
   let crear_div = document.createElement("div");
 
   let div = document.getElementById("Nou_personatge");
@@ -283,42 +319,20 @@ function crear_formulari() {
 
       crear_div.appendChild(p);
 
-      for (let i = 0; i < 4; i++) {
-        switch (i) {
-          case 0:
-            caracteristica = "Valiente";
-            break;
-          case 1:
-            caracteristica = "Timido";
-            break;
-          case 2:
-            caracteristica = "Feroz";
-            break;
-          case 3:
-            caracteristica = "Liderazgo";
-            break;
-        }
-        let input = document.createElement("input");
-        input.setAttribute("type", "checkbox");
-        input.setAttribute("id", caracteristica);
-        input.setAttribute("class", "checkbox");
+      crear_estadisticas(crear_div);
 
-        let label = document.createElement("label");
-        label.setAttribute("for", caracteristica);
-        label.innerText = caracteristica;
-        crear_div.appendChild(input);
-        crear_div.appendChild(label);
-      }
     } else if (i == 0) {
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
       crear_div.appendChild(p);
 
+      crear_id(contador+1);
+
       let input = document.createElement("input");
       input.setAttribute("id", "formId");
       input.setAttribute("disabled", true);
       crear_div.appendChild(input);
-      input.value = contador + 1;
+      input.value = contador;
     } else if (i == id_personatges.length - 3) {
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
@@ -436,32 +450,8 @@ function crear_formulari_modificar(posicio) {
     if (propiedad == "caracteristiques") {
       let caractersitcas_marcadas = personatges[posicio][propiedad].split("-");
 
-      for (let i = 0; i < 4; i++) {
-        switch (i) {
-          case 0:
-            caracteristica = "Valiente";
-            break;
-          case 1:
-            caracteristica = "Timido";
-            break;
-          case 2:
-            caracteristica = "Feroz";
-            break;
-          case 3:
-            caracteristica = "Liderazgo";
-            break;
-        }
-        let input = document.createElement("input");
-        input.setAttribute("type", "checkbox");
-        input.setAttribute("id", caracteristica);
-        input.setAttribute("class", "checkbox");
+      crear_estadisticas(crear_div);
 
-        let label = document.createElement("label");
-        label.setAttribute("for", caracteristica);
-        label.innerText = caracteristica;
-        crear_div.appendChild(input);
-        crear_div.appendChild(label);
-      }
       for (let i = 0; i < caractersitcas_marcadas.length; i++) {
         let input = document.getElementById(caractersitcas_marcadas[i]);
         input.setAttribute("checked", true);
@@ -490,12 +480,9 @@ function crear_formulari_modificar(posicio) {
       let br4 = document.createElement("br");
       crear_div.appendChild(br4);
     } else if (propiedad == "id") {
-      let input = document.createElement("input");
-      input.setAttribute("id", "formID");
-      input.setAttribute("disabled", true);
-      crear_div.appendChild(input);
 
-      input.value = personatges[posicio][propiedad];
+      crear_id(personatges[posicio][propiedad]);
+
     } else if (propiedad == "magia") {
       let magia_seleccionada = personatges[posicio][propiedad];
       let p = document.createElement("p");
@@ -525,7 +512,7 @@ function crear_formulari_modificar(posicio) {
 
         let option = document.createElement("option");
         option.appendChild(document.createTextNode(magia));
-        if ((magia_seleccionada = magia)) {
+        if ((magia_seleccionada == magia)) {
           option.setAttribute("selected", "true");
         }
         select.appendChild(option);

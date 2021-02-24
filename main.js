@@ -293,7 +293,7 @@ function crear_estadisticas(crear_div){
   }
 }
 
-function crear_id(numero){
+function crear_id(numero, crear_div){
   let input = document.createElement("input");
   input.setAttribute("id", "formId");
   input.setAttribute("disabled", true);
@@ -326,13 +326,8 @@ function crear_formulari() {
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
       crear_div.appendChild(p);
 
-      crear_id(contador+1);
+      crear_id(contador+1, crear_div);
 
-      let input = document.createElement("input");
-      input.setAttribute("id", "formId");
-      input.setAttribute("disabled", true);
-      crear_div.appendChild(input);
-      input.value = contador;
     } else if (i == id_personatges.length - 3) {
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
@@ -481,7 +476,7 @@ function crear_formulari_modificar(posicio) {
       crear_div.appendChild(br4);
     } else if (propiedad == "id") {
 
-      crear_id(personatges[posicio][propiedad]);
+      crear_id(personatges[posicio][propiedad], crear_div);
 
     } else if (propiedad == "magia") {
       let magia_seleccionada = personatges[posicio][propiedad];

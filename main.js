@@ -64,10 +64,6 @@ function genera_tabla(personatges) {
     // Crea les celes de la fila
     var hilera = document.createElement("tr");
 
-    if (i != 0) {
-      hilera.setAttribute("class", "defTr");
-    }
-
     //comprovem si estem en la primera
     if (i == 0) {
       //si es aixi, el que fem es indicar les claus dels objectes JSON
@@ -113,10 +109,6 @@ function genera_tabla(personatges) {
         } else {
           //la resta de celes son nomes td amb la informació que esta guardad en l'objecte JSON
           var celda = document.createElement("td");
-
-            if (propiedad == "nom"){
-                celda.setAttribute("class", "nomPersonatge");
-            }
 
           var textoCelda = document.createTextNode(
             personatges[i - 1][propiedad]

@@ -1,5 +1,3 @@
-- DOM de ratolí extra
-    
 SubJSON:
 
     Habilitats:

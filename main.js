@@ -219,7 +219,7 @@ function generar_add_event_listener_habilitat() {
 
 function generar_add_event_listener_eliminar_hablitat() {
   //guardem en un array tots els elements que son de classe eliminar
-  let a = document.getElementsByClassName("eliminar");
+  let a = document.getElementsByClassName("eliminar_habilitat");
 
   for (i = 0; i < a.length; i++) {
     //per cada element de l'array li assignem un event de click
@@ -231,12 +231,17 @@ function modificar_habilitat(){
 
 }
 
-function eliminar_habilitat(){
-  console.log("Hola")
+function eliminar_habilitat(e){
   let pregunta = confirm("Estas segur que vols eliminar aquest personatge?");
   if (pregunta) {
-    personatges[posicio_global].habilitat[posicio_global].splice(posicio_global,1); //eliminem el personatge de la posicio seleccionada
+    personatges[posicio_global].habilitat.splice(0,1); //eliminem el personatge de la posicio seleccionada
 }
+let tabla = document.getElementsByTagName("div")[0].firstChild;
+tabla.parentNode.removeChild(tabla);
+
+genera_tabla_habilitat(posicio_global);
+
+
 
 }
 
@@ -306,7 +311,7 @@ function genera_tabla_habilitat() {
       var celda = document.createElement("td");
       var textoCelda = document.createElement("a");
       textoCelda.appendChild(document.createTextNode("Eliminar"));
-      textoCelda.setAttribute("class", "eliminar");
+      textoCelda.setAttribute("class", "eliminar_habilitat");
 
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);

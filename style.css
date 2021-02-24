@@ -134,3 +134,11 @@ table {
     text-align: center;
 
 }
+
+.nomPersonatge:hover {
+
+    text-decoration: underline;
+    color: white;
+    cursor: pointer;
+
+}

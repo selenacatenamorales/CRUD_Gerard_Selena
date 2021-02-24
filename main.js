@@ -108,6 +108,10 @@ function genera_tabla() {
           //la resta de celes son nomes td amb la informació que esta guardad en l'objecte JSON
           var celda = document.createElement("td");
 
+            if (propiedad == "nom"){
+                celda.setAttribute("class", "nomPersonatge");
+            }
+
           var textoCelda = document.createTextNode(
             personatges[i - 1][propiedad]
           );
@@ -761,4 +765,20 @@ function eliminar_imatge(e) {
   img.src = "";
 
   personatges[posicio].imatge = "";
+}
+
+function setLinkPressed(){
+
+    let txtName = document.getElementsByClassName("nomPersonatge");
+    let txtMod = document.getElementsByClassName("modificar");
+    let txtDel = document.getElementsByClassName("eliminar");
+
+    for (let i = 0; i < txtName.length; i++){
+
+        txtName[i].addEventListener("click", function(){
+            alert("hola");
+        });
+
+    }
+
 }

@@ -25,7 +25,7 @@ body {
 
 }
 
-a, a:link, a:visited, a:hover, a:active {
+a, a:link, a:visited, a:hover {
 
     color: cornflowerblue;
     cursor: pointer;
@@ -103,6 +103,10 @@ th {
 
     color: white;
 
+}
+
+.defTr:hover a:active {
+    color: black;
 }
 
 .actualitza, .nou_personatge {

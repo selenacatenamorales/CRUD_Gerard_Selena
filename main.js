@@ -893,9 +893,19 @@ function generar_add_event_listener_eliminar_hablitat() {
 
 
 function eliminar_habilitat(e){
+ 
+    let posicio = 0;
+    for (let i = 0; i < personatges[posicio_global].habilitat.length; i++) {
+      if (
+        parseInt(e.target.parentNode.parentNode.firstChild.innerText) ==
+        personatges[posicio_global].habilitat[i].id
+      ) {
+        posicio = i;
+      }
+    }
   let pregunta = confirm("Estas segur que vols eliminar aquest personatge?");
   if (pregunta) {
-    personatges[posicio_global].habilitat.splice(0,1); //eliminem el personatge de la posicio seleccionada
+    personatges[posicio_global].habilitat.splice(posicio,1); //eliminem el personatge de la posicio seleccionada
 }
 let boto = document.getElementById("tornar");
 boto.parentNode.removeChild(boto);
@@ -1056,7 +1066,22 @@ function cancelar_habilitat(){
 }
 
 function acceptar_habilitat(){
+  let id = document.getElementsByTagName("input")[0].value;
+  let nom = document.getElementsByTagName("input")[1].value;
+  let tipus = document.getElementsByTagName("input")[2].value;;
+  let efecte = document.getElementsByTagName("input")[3].value;
 
+  personatges[posicio_global].habilitat.push({
+    id: id,
+    nom: nom,
+    tipus: tipus, 
+    efecte: efecte
+  });
+
+  let taula = document.getElementById("Nou_personatge").firstChild;
+  taula.parentNode.removeChild(taula); 
+
+  genera_tabla_habilitat();
 }
 
 function tornar(){
@@ -1070,19 +1095,26 @@ function tornar(){
 }
 
 function modificar_habilitat(e){
-  let pos = parseInt(e.target.parentNode.parentNode.firstChild.innerText);
-  console.log(pos);
+  let posicio = 0;
+  for (let i = 0; i < personatges[posicio_global].habilitat.length; i++) {
+    if (
+      parseInt(e.target.parentNode.parentNode.firstChild.innerText) ==
+      personatges[i].id
+    ) {
+      posicio = i;
+    }
+  }
   let boto = document.getElementById("tornar");
   boto.parentNode.removeChild(boto);
   let boto2 = document.getElementById("nova_habilitat");
   boto2.parentNode.removeChild(boto2);
   let taula = document.getElementById("Taula").firstChild;
   taula.parentNode.removeChild(taula); 
-  taula_modificar_habilitat(pos);
+  taula_modificar_habilitat(posicio);
 }
 
 
-function taula_modificar_habilitat(pos){
+function taula_modificar_habilitat(posicio){
   let crear_div = document.createElement("div");
 
   let div = document.getElementById("Actualitza");
@@ -1090,7 +1122,7 @@ function taula_modificar_habilitat(pos){
   div.appendChild(crear_div);
   console.log(posicio_global);
 
-  for (let propiedad in personatges[posicio_global].habilitat[pos - 1]){
+  for (let propiedad in personatges[posicio_global].habilitat[posicio]){
     let p = document.createElement("p");
     p.appendChild(document.createTextNode(propiedad.toUpperCase()));
 
@@ -1098,7 +1130,7 @@ function taula_modificar_habilitat(pos){
     let input = document.createElement("input");
     crear_div.appendChild(input);
 
-    input.value = personatges[posicio_global].habilitat[pos-1][propiedad];
+    input.value = personatges[posicio_global].habilitat[posicio][propiedad];
 
   }
 
@@ -1108,7 +1140,7 @@ function taula_modificar_habilitat(pos){
   boto.setAttribute("id", "Acceptar");
   crear_div.appendChild(boto);
   
-  pos_global = pos;
+  pos_global = posicio;
 
   boto.addEventListener("click", acceptar_modificacio_habilitat);
 
@@ -1123,13 +1155,15 @@ function taula_modificar_habilitat(pos){
 }
 
 function acceptar_modificacio_habilitat(){
+  let id = document.getElementsByTagName("input")[0].value;
   let nom = document.getElementsByTagName("input")[1].value;
   let tipus = document.getElementsByTagName("input")[2].value;;
   let efecte = document.getElementsByTagName("input")[3].value;
 
-  personatges[posicio_global].habilitat[pos_global-1].nom = nom;
-  personatges[posicio_global].habilitat[pos_global-1].tipus = tipus;
-  personatges[posicio_global].habilitat[pos_global-1].efecte = efecte;
+  personatges[posicio_global].habilitat[pos_global].id = id;
+  personatges[posicio_global].habilitat[pos_global].nom = nom;
+  personatges[posicio_global].habilitat[pos_global].tipus = tipus;
+  personatges[posicio_global].habilitat[pos_global].efecte = efecte;
 
   let taula = document.getElementById("Actualitza").firstChild;
   taula.parentNode.removeChild(taula); 

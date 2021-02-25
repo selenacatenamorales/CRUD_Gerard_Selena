@@ -43,6 +43,8 @@ var personatges = [
     imatge: "imagenes/yami.jpg",
   },
 ];
+
+// ***** VARIABLES GLOBALS *******
 var cadena_errors = "";
 
 //Expressió que valida la edat. Permet fins a un maxim de 3 digits
@@ -68,7 +70,13 @@ var posicio_global = 0;
 var pos_global = 0;
 
 //cridem a la funcio per generar la taula
+
+// ****** INICI PROGRAMA ******
 genera_tabla(personatges);
+
+
+
+// ***** FUNCIONS PERSONATGES *****
 
 function genera_tabla(personatges) {
   // Obtener la referencia del elemento body
@@ -202,54 +210,6 @@ function generar_add_event_listener_modifcar() {
   }
 }
 
-function generar_add_event_listener_modifcar_habilitat() {
-  //guardem en un array tots els elements que son de classe modificar
-  let b = document.getElementsByClassName("modificar_habilitat");
-
-  for (i = 0; i < b.length; i++) {
-    //per cada element de l'array li assignem un event de click
-    b[i].addEventListener("click", modificar_habilitat);
-  }
-}
-
-function generar_add_event_listener_habilitat() {
-  //guardem en un array tots els elements que son de classe modificar
-  let b = document.getElementsByClassName("habilitat");
-
-  for (i = 0; i < b.length; i++) {
-    //per cada element de l'array li assignem un event de click
-    b[i].addEventListener("click", generar_taula_habilitat);
-  }
-}
-
-function generar_add_event_listener_eliminar_hablitat() {
-  //guardem en un array tots els elements que son de classe eliminar
-  let a = document.getElementsByClassName("eliminar_habilitat");
-
-  for (i = 0; i < a.length; i++) {
-    //per cada element de l'array li assignem un event de click
-    a[i].addEventListener("click", eliminar_habilitat);
-  }
-}
-
-
-
-function eliminar_habilitat(e){
-  let pregunta = confirm("Estas segur que vols eliminar aquest personatge?");
-  if (pregunta) {
-    personatges[posicio_global].habilitat.splice(0,1); //eliminem el personatge de la posicio seleccionada
-}
-let boto = document.getElementById("tornar");
-boto.parentNode.removeChild(boto);
-let tabla = document.getElementsByTagName("div")[0].firstChild;
-tabla.parentNode.removeChild(tabla);
-
-genera_tabla_habilitat(posicio_global);
-
-
-
-}
-
 function generar_add_event_listener_eliminar() {
   //guardem en un array tots els elements que son de classe eliminar
   let a = document.getElementsByClassName("eliminar");
@@ -258,181 +218,6 @@ function generar_add_event_listener_eliminar() {
     //per cada element de l'array li assignem un event de click
     a[i].addEventListener("click", eliminar_personatge);
   }
-}
-
-function generar_taula_habilitat(e) {
-  let id_hablitat = [];
-  buidar_taula();
-  for (propiedad in personatges[0].habilitat[0]) {
-    id_hablitat.push(propiedad);
-  }
-  posicio_global = aconseguir_posicio(e);
-
-  genera_tabla_habilitat();
-}
-
-function genera_tabla_habilitat() {
-  // Obtener la referencia del elemento body
-  var div = document.getElementsByTagName("div")[0];
-
-  // Crea un elemento <table> y un elemento <tbody>
-  var tabla = document.createElement("table");
-  var tblBody = document.createElement("tbody");
-
-  // Crea les files
-  for (var i = 0; i <= personatges[posicio_global].habilitat.length; i++) {
-    // Crea les celes de la fila
-    var hilera = document.createElement("tr");
-
-    if (i != 0) {
-      hilera.setAttribute("class", "defTr");
-    }
-
-    //comprovem si estem en la primera
-    if (i == 0) {
-      //si es aixi, el que fem es indicar les claus dels objectes JSON
-      for (let propiedad in personatges[posicio_global].habilitat[0]) {
-        var celda = document.createElement("th");
-
-        var textoCelda = document.createTextNode(propiedad.toUpperCase());
-        celda.appendChild(textoCelda);
-        hilera.appendChild(celda);
-      }
-    } else {
-      //si no estem en la primera fila, comencem a intruidir les dades de cada paersoantge
-      for (let propiedad in personatges[posicio_global].habilitat[i-1]) {
-        //la resta de celes son nomes td amb la informació que esta guardad en l'objecte JSON
-        var celda = document.createElement("td");
-
-        var textoCelda = document.createTextNode(
-          personatges[posicio_global].habilitat[i-1][propiedad]
-        );
-
-
-        celda.appendChild(textoCelda);
-        hilera.appendChild(celda);
-      }
-      //creem tambe els enllaços de eliminar
-      var celda = document.createElement("td");
-      var textoCelda = document.createElement("a");
-      textoCelda.appendChild(document.createTextNode("Eliminar"));
-      textoCelda.setAttribute("class", "eliminar_habilitat");
-
-      celda.appendChild(textoCelda);
-      hilera.appendChild(celda);
-
-      //creem tambe els enllaços de modificar
-      var celda = document.createElement("td");
-      var textoCelda = document.createElement("a");
-      textoCelda.appendChild(document.createTextNode("Modificar"));
-      textoCelda.setAttribute("class", "modificar_habilitat");
-
-      celda.appendChild(textoCelda);
-      hilera.appendChild(celda);
-    }
-
-    // agrega la hilera al final de la tabla (al final del elemento tblbody)
-    tblBody.appendChild(hilera);
-  }
-
-  // posiciona el <tbody> debajo del elemento <table>
-  tabla.appendChild(tblBody);
-  // appends <table> into <body>
-  div.appendChild(tabla);
-
-  generar_add_event_listener_modifcar_habilitat();
-
-  //funcio que serveix per afegir a cada boto de modificar el seu event de click
-  generar_add_event_listener_eliminar_hablitat();
-
-  var boto = document.createElement("button");
-  boto.appendChild(document.createTextNode("Tornar"));
-  boto.setAttribute("id", "tornar");
-  div.appendChild(boto);
-
-  boto.addEventListener("click", tornar)
-
-}
-
-function tornar(){
-  let boto = document.getElementById("tornar");
-  boto.parentNode.removeChild(boto);
-  let taula = document.getElementById("Taula").firstChild;
-  taula.parentNode.removeChild(taula); 
-  genera_tabla(personatges);
-}
-
-function modificar_habilitat(e){
-  let pos = parseInt(e.target.parentNode.parentNode.firstChild.innerText);
-  console.log(pos);
-  let boto = document.getElementById("tornar");
-  boto.parentNode.removeChild(boto);
-  let taula = document.getElementById("Taula").firstChild;
-  taula.parentNode.removeChild(taula); 
-  taula_modificar_habilitat(pos);
-}
-
-
-function taula_modificar_habilitat(pos){
-  let crear_div = document.createElement("div");
-
-  let div = document.getElementById("Actualitza");
-
-  div.appendChild(crear_div);
-  console.log(posicio_global);
-
-  for (let propiedad in personatges[posicio_global].habilitat[pos - 1]){
-    let p = document.createElement("p");
-    p.appendChild(document.createTextNode(propiedad.toUpperCase()));
-
-    crear_div.appendChild(p);
-    let input = document.createElement("input");
-    crear_div.appendChild(input);
-
-    input.value = personatges[posicio_global].habilitat[pos-1][propiedad];
-
-  }
-
-  let boto = document.createElement("button");
-
-  boto.appendChild(document.createTextNode("Acceptar"));
-  boto.setAttribute("id", "Acceptar");
-  crear_div.appendChild(boto);
-  
-  pos_global = pos;
-
-  boto.addEventListener("click", acceptar_modificacio_habilitat);
-
-  let boto2 = document.createElement("button");
-
-  boto2.appendChild(document.createTextNode("Cancelar"));
-  boto2.setAttribute("id", "Cancelar");
-  crear_div.appendChild(boto2);
-
-  boto2.addEventListener("click", cancelar_modificacio_habilitat);
-
-}
-
-function acceptar_modificacio_habilitat(){
-  let nom = document.getElementsByTagName("input")[1].value;
-  let tipus = document.getElementsByTagName("input")[2].value;;
-  let efecte = document.getElementsByTagName("input")[3].value;
-
-  personatges[posicio_global].habilitat[pos_global-1].nom = nom;
-  personatges[posicio_global].habilitat[pos_global-1].tipus = tipus;
-  personatges[posicio_global].habilitat[pos_global-1].efecte = efecte;
-
-  let taula = document.getElementById("Actualitza").firstChild;
-  taula.parentNode.removeChild(taula); 
-
-  genera_tabla_habilitat();
-}
-
-function cancelar_modificacio_habilitat(){
-  let taula = document.getElementById("Actualitza").firstChild;
-  taula.parentNode.removeChild(taula); 
-
-  genera_tabla_habilitat();
 }
 
 
@@ -1053,3 +838,228 @@ function canviColor(e){
 }
 
 function colorDef(e){ e.target.style.color = "white"; }
+
+
+// ***** FUNCIONS HABILITATS ******
+
+function generar_add_event_listener_modifcar_habilitat() {
+  //guardem en un array tots els elements que son de classe modificar
+  let b = document.getElementsByClassName("modificar_habilitat");
+
+  for (i = 0; i < b.length; i++) {
+    //per cada element de l'array li assignem un event de click
+    b[i].addEventListener("click", modificar_habilitat);
+  }
+}
+
+function generar_add_event_listener_habilitat() {
+  //guardem en un array tots els elements que son de classe modificar
+  let b = document.getElementsByClassName("habilitat");
+
+  for (i = 0; i < b.length; i++) {
+    //per cada element de l'array li assignem un event de click
+    b[i].addEventListener("click", generar_taula_habilitat);
+  }
+}
+
+function generar_add_event_listener_eliminar_hablitat() {
+  //guardem en un array tots els elements que son de classe eliminar
+  let a = document.getElementsByClassName("eliminar_habilitat");
+
+  for (i = 0; i < a.length; i++) {
+    //per cada element de l'array li assignem un event de click
+    a[i].addEventListener("click", eliminar_habilitat);
+  }
+}
+
+
+function eliminar_habilitat(e){
+  let pregunta = confirm("Estas segur que vols eliminar aquest personatge?");
+  if (pregunta) {
+    personatges[posicio_global].habilitat.splice(0,1); //eliminem el personatge de la posicio seleccionada
+}
+let boto = document.getElementById("tornar");
+boto.parentNode.removeChild(boto);
+let tabla = document.getElementsByTagName("div")[0].firstChild;
+tabla.parentNode.removeChild(tabla);
+
+genera_tabla_habilitat(posicio_global);
+
+}
+
+
+function generar_taula_habilitat(e) {
+  let id_hablitat = [];
+  buidar_taula();
+  for (propiedad in personatges[0].habilitat[0]) {
+    id_hablitat.push(propiedad);
+  }
+  posicio_global = aconseguir_posicio(e);
+
+  genera_tabla_habilitat();
+}
+
+function genera_tabla_habilitat() {
+  // Obtener la referencia del elemento body
+  var div = document.getElementsByTagName("div")[0];
+
+  // Crea un elemento <table> y un elemento <tbody>
+  var tabla = document.createElement("table");
+  var tblBody = document.createElement("tbody");
+
+  // Crea les files
+  for (var i = 0; i <= personatges[posicio_global].habilitat.length; i++) {
+    // Crea les celes de la fila
+    var hilera = document.createElement("tr");
+
+    if (i != 0) {
+      hilera.setAttribute("class", "defTr");
+    }
+
+    //comprovem si estem en la primera
+    if (i == 0) {
+      //si es aixi, el que fem es indicar les claus dels objectes JSON
+      for (let propiedad in personatges[posicio_global].habilitat[0]) {
+        var celda = document.createElement("th");
+
+        var textoCelda = document.createTextNode(propiedad.toUpperCase());
+        celda.appendChild(textoCelda);
+        hilera.appendChild(celda);
+      }
+    } else {
+      //si no estem en la primera fila, comencem a intruidir les dades de cada paersoantge
+      for (let propiedad in personatges[posicio_global].habilitat[i-1]) {
+        //la resta de celes son nomes td amb la informació que esta guardad en l'objecte JSON
+        var celda = document.createElement("td");
+
+        var textoCelda = document.createTextNode(
+          personatges[posicio_global].habilitat[i-1][propiedad]
+        );
+
+
+        celda.appendChild(textoCelda);
+        hilera.appendChild(celda);
+      }
+      //creem tambe els enllaços de eliminar
+      var celda = document.createElement("td");
+      var textoCelda = document.createElement("a");
+      textoCelda.appendChild(document.createTextNode("Eliminar"));
+      textoCelda.setAttribute("class", "eliminar_habilitat");
+
+      celda.appendChild(textoCelda);
+      hilera.appendChild(celda);
+
+      //creem tambe els enllaços de modificar
+      var celda = document.createElement("td");
+      var textoCelda = document.createElement("a");
+      textoCelda.appendChild(document.createTextNode("Modificar"));
+      textoCelda.setAttribute("class", "modificar_habilitat");
+
+      celda.appendChild(textoCelda);
+      hilera.appendChild(celda);
+    }
+
+    // agrega la hilera al final de la tabla (al final del elemento tblbody)
+    tblBody.appendChild(hilera);
+  }
+
+  // posiciona el <tbody> debajo del elemento <table>
+  tabla.appendChild(tblBody);
+  // appends <table> into <body>
+  div.appendChild(tabla);
+
+  generar_add_event_listener_modifcar_habilitat();
+
+  //funcio que serveix per afegir a cada boto de modificar el seu event de click
+  generar_add_event_listener_eliminar_hablitat();
+
+  var boto = document.createElement("button");
+  boto.appendChild(document.createTextNode("Tornar"));
+  boto.setAttribute("id", "tornar");
+  div.appendChild(boto);
+
+  boto.addEventListener("click", tornar)
+
+}
+
+function tornar(){
+  let boto = document.getElementById("tornar");
+  boto.parentNode.removeChild(boto);
+  let taula = document.getElementById("Taula").firstChild;
+  taula.parentNode.removeChild(taula); 
+  genera_tabla(personatges);
+}
+
+function modificar_habilitat(e){
+  let pos = parseInt(e.target.parentNode.parentNode.firstChild.innerText);
+  console.log(pos);
+  let boto = document.getElementById("tornar");
+  boto.parentNode.removeChild(boto);
+  let taula = document.getElementById("Taula").firstChild;
+  taula.parentNode.removeChild(taula); 
+  taula_modificar_habilitat(pos);
+}
+
+
+function taula_modificar_habilitat(pos){
+  let crear_div = document.createElement("div");
+
+  let div = document.getElementById("Actualitza");
+
+  div.appendChild(crear_div);
+  console.log(posicio_global);
+
+  for (let propiedad in personatges[posicio_global].habilitat[pos - 1]){
+    let p = document.createElement("p");
+    p.appendChild(document.createTextNode(propiedad.toUpperCase()));
+
+    crear_div.appendChild(p);
+    let input = document.createElement("input");
+    crear_div.appendChild(input);
+
+    input.value = personatges[posicio_global].habilitat[pos-1][propiedad];
+
+  }
+
+  let boto = document.createElement("button");
+
+  boto.appendChild(document.createTextNode("Acceptar"));
+  boto.setAttribute("id", "Acceptar");
+  crear_div.appendChild(boto);
+  
+  pos_global = pos;
+
+  boto.addEventListener("click", acceptar_modificacio_habilitat);
+
+  let boto2 = document.createElement("button");
+
+  boto2.appendChild(document.createTextNode("Cancelar"));
+  boto2.setAttribute("id", "Cancelar");
+  crear_div.appendChild(boto2);
+
+  boto2.addEventListener("click", cancelar_modificacio_habilitat);
+
+}
+
+function acceptar_modificacio_habilitat(){
+  let nom = document.getElementsByTagName("input")[1].value;
+  let tipus = document.getElementsByTagName("input")[2].value;;
+  let efecte = document.getElementsByTagName("input")[3].value;
+
+  personatges[posicio_global].habilitat[pos_global-1].nom = nom;
+  personatges[posicio_global].habilitat[pos_global-1].tipus = tipus;
+  personatges[posicio_global].habilitat[pos_global-1].efecte = efecte;
+
+  let taula = document.getElementById("Actualitza").firstChild;
+  taula.parentNode.removeChild(taula); 
+
+  genera_tabla_habilitat();
+}
+
+function cancelar_modificacio_habilitat(){
+  let taula = document.getElementById("Actualitza").firstChild;
+  taula.parentNode.removeChild(taula); 
+
+  genera_tabla_habilitat();
+}
+

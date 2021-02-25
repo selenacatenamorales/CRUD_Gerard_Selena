@@ -522,10 +522,15 @@ function crear_formulari_modificar(posicio) {
   document.getElementById("Nou_personatge").classList.remove("nou_personatge");
 
   for (let propiedad in personatges[0]) {
+    if(propiedad == "habilitat"){
+
+    }
+    else{
     let p = document.createElement("p");
     p.appendChild(document.createTextNode(propiedad.toUpperCase()));
 
     crear_div.appendChild(p);
+    }
 
     if (propiedad == "caracteristiques") {
       let caractersitcas_marcadas = personatges[posicio][propiedad].split("-");
@@ -580,7 +585,9 @@ function crear_formulari_modificar(posicio) {
         }
         select.appendChild(option);
       }
-    } else {
+    } else if(propiedad == "habilitat"){
+
+    }else {
       let input = document.createElement("input");
       crear_div.appendChild(input);
 
@@ -671,6 +678,7 @@ function acceptar_modificacio() {
   let nom = document.getElementsByTagName("input")[1].value;
   let cognom = document.getElementsByTagName("input")[2].value;
   let edat = parseInt(document.getElementsByTagName("input")[3].value);
+  let magia = document.getElementsByTagName("select")[0].value;
   let caracteristicas = document.getElementsByClassName("checkbox");
   let caractersitcas_marcadas = "";
 
@@ -698,6 +706,8 @@ function acceptar_modificacio() {
     personatges[posicio_global].edat = edat;
     personatges[posicio_global].caracteristiques = caractersitcas_marcadas;
     personatges[posicio_global].imatge = imatge;
+    personatges[posicio_global].magia = magia;
+
     buidar_modficacio();
     genera_tabla(personatges);
     localStorage.removeItem("novaImatge");
@@ -880,6 +890,8 @@ function eliminar_habilitat(e){
 }
 let boto = document.getElementById("tornar");
 boto.parentNode.removeChild(boto);
+let boto2 = document.getElementById("nova_habilitat");
+boto2.parentNode.removeChild(boto2);
 let tabla = document.getElementsByTagName("div")[0].firstChild;
 tabla.parentNode.removeChild(tabla);
 
@@ -980,11 +992,69 @@ function genera_tabla_habilitat() {
 
   boto.addEventListener("click", tornar)
 
+  var boto2 = document.createElement("button");
+  boto2.appendChild(document.createTextNode("Nova Habilitat"));
+  boto2.setAttribute("id", "nova_habilitat");
+  div.appendChild(boto2);
+
+  boto2.addEventListener("click", nova_habilitat);
+
+}
+
+function nova_habilitat(){
+
+let boto = document.getElementById("tornar");
+boto.parentNode.removeChild(boto);
+let boto2 = document.getElementById("nova_habilitat");
+boto2.parentNode.removeChild(boto2);
+let tabla = document.getElementsByTagName("div")[0].firstChild;
+tabla.parentNode.removeChild(tabla);
+
+  let crear_div = document.createElement("div");
+
+  let div = document.getElementById("Nou_personatge");
+
+
+  div.appendChild(crear_div);
+  for (let propiedad in personatges[posicio_global].habilitat[0]){
+    let p = document.createElement("p");
+    p.appendChild(document.createTextNode(propiedad.toUpperCase()));
+
+    crear_div.appendChild(p);
+
+    let input = document.createElement("input");
+    crear_div.appendChild(input);
+  }
+
+  let boto3 = document.createElement("button");
+  boto3.appendChild(document.createTextNode("Acceptar"));
+  boto3.setAttribute("id", "accceptar_habilitat");
+  boto3.addEventListener("click", acceptar_habilitat)
+  crear_div.appendChild(boto3);
+
+  let boto4 = document.createElement("button");
+  boto4.appendChild(document.createTextNode("Cancelar"));
+  boto4.addEventListener("click", cancelar_habilitat)
+  boto4.setAttribute("id", "cancelar_habilitat");
+  crear_div.appendChild(boto4);
+}
+
+function cancelar_habilitat(){
+  let div = document.getElementById("Nou_personatge").firstChild;
+  div.parentNode.removeChild(div);
+  genera_tabla_habilitat();
+
+}
+
+function acceptar_habilitat(){
+
 }
 
 function tornar(){
   let boto = document.getElementById("tornar");
   boto.parentNode.removeChild(boto);
+  let boto2 = document.getElementById("nova_habilitat");
+  boto2.parentNode.removeChild(boto2);
   let taula = document.getElementById("Taula").firstChild;
   taula.parentNode.removeChild(taula); 
   genera_tabla(personatges);
@@ -995,6 +1065,8 @@ function modificar_habilitat(e){
   console.log(pos);
   let boto = document.getElementById("tornar");
   boto.parentNode.removeChild(boto);
+  let boto2 = document.getElementById("nova_habilitat");
+  boto2.parentNode.removeChild(boto2);
   let taula = document.getElementById("Taula").firstChild;
   taula.parentNode.removeChild(taula); 
   taula_modificar_habilitat(pos);

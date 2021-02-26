@@ -755,7 +755,7 @@ function acceptar_personatge() {
       caracteristiques: caractersitcas_marcadas,
       habilitat: [
         {
-          id: "-------",
+          id: "0",
           nom: "----------",
           tipus: "---------",
           efecte: "----------",

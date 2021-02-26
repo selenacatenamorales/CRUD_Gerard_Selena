@@ -402,12 +402,12 @@ function comprovar_dades() {
 
   if (document.getElementsByTagName("input")[1].value == "") {
     document.getElementsByTagName("input")[1].style.borderColor = "red";
-    cadena += "\n El nom no pot estar en blanc";
+    cadena += "\nEl nom no pot estar en blanc";
     errors = true;
   }
   if (document.getElementsByTagName("input")[2].value == "") {
     document.getElementsByTagName("input")[2].style.borderColor = "red";
-    cadena += "\n El cognom no pot estar en blanc";
+    cadena += "\nEl cognom no pot estar en blanc";
     errors = true;
   }
 
@@ -439,22 +439,30 @@ function crear_formulari() {
   console.log(id_personatges.length);
 
   for (let i = 0; i < id_personatges.length; i++) {
+
     if (i == id_personatges.length - 1) {
+
       crear_imagen(crear_div, i);
+
     } else if (i == id_personatges.length - 3) {
+
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
 
       crear_div.appendChild(p);
 
       crear_estadisticas(crear_div);
+
     } else if (i == 0) {
+
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
       crear_div.appendChild(p);
 
       crear_id(contador + 1, crear_div);
+
     } else if (i == id_personatges.length - 4) {
+
       let magia = "";
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
@@ -469,7 +477,7 @@ function crear_formulari() {
         option.appendChild(document.createTextNode(magia));
         select.appendChild(option);
       }
-    } else if (i == id_personatges.length - 2) {
+
     } else {
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
@@ -486,12 +494,14 @@ function crear_formulari() {
   boto = document.getElementById("Acceptar");
 
   boto.addEventListener("click", function () {
+
     errors = comprovar_dades();
     if (errors == false) {
       acceptar_personatge();
     } else {
       alert(cadena_errors);
     }
+
   });
 
   let boto2 = document.createElement("button");
@@ -668,7 +678,7 @@ function comrpovar_exprreg(edat, nom) {
   } else if (solo_letra.test(nom) == false) {
     error = true;
     alert(
-      "Indica un nom amb el format correcte. Enrecorda't que la priemra lletra ha der ser majuscula"
+      "Indica un nom amb el format correcte. Enrecorda't que la priemra lletra ha der ser majuscula i les següents minúscules"
     );
   }
   console.log(error);
@@ -716,6 +726,7 @@ function acceptar_modificacio() {
 }
 
 function acceptar_personatge() {
+
   let id = document.getElementsByTagName("input")[0].value;
   let nom = document.getElementsByTagName("input")[1].value;
   let cognom = document.getElementsByTagName("input")[2].value;
@@ -724,11 +735,13 @@ function acceptar_personatge() {
 
   let caracteristicas = document.getElementsByClassName("checkbox");
   let caractersitcas_marcadas = "";
+
   for (let i = 0; i < caracteristicas.length; i++) {
     if (caracteristicas[i].checked == true) {
       caractersitcas_marcadas += caracteristicas[i].id + "-";
     }
   }
+
   if (
     caractersitcas_marcadas.charAt(caractersitcas_marcadas.length - 1) == "-"
   ) {
@@ -902,7 +915,7 @@ let boto = document.getElementById("tornar");
 boto.parentNode.removeChild(boto);
 let boto2 = document.getElementById("nova_habilitat");
 boto2.parentNode.removeChild(boto2);
-let tabla = document.getElementsByTagName("div")[0].firstChild;
+let tabla = document.getElementById("TaulaH").firstChild;
 tabla.parentNode.removeChild(tabla);
 
 genera_tabla_habilitat(posicio_global);
@@ -1030,7 +1043,13 @@ function nova_habilitat(){
     let tabla = document.getElementById("TaulaH").firstChild;
     tabla.parentNode.removeChild(tabla);
 
-  let crear_div = document.createElement("div");
+    crear_formulari_habilitats();
+
+}
+
+function crear_formulari_habilitats(){
+
+    let crear_div = document.createElement("div");
 
   let div = document.getElementById("Nou_personatge");
 
@@ -1046,6 +1065,7 @@ function nova_habilitat(){
 
           let rad1 = document.createElement("input");
           rad1.setAttribute("type", "radio");
+          rad1.setAttribute("class", "radio");
           rad1.setAttribute("id", "fisic");
           crear_div.appendChild(rad1);
 
@@ -1056,6 +1076,7 @@ function nova_habilitat(){
 
           let rad2 = document.createElement("input");
           rad2.setAttribute("type", "radio");
+          rad2.setAttribute("class", "radio");
           rad2.setAttribute("id", "magic");
           crear_div.appendChild(rad2);
 
@@ -1069,6 +1090,7 @@ function nova_habilitat(){
 
           let check1 = document.createElement("input");
           check1.setAttribute("type", "checkbox");
+          check1.setAttribute("class", "checkbox");
           check1.setAttribute("id", "atac");
           crear_div.appendChild(check1);
 
@@ -1079,6 +1101,7 @@ function nova_habilitat(){
 
           let check2 = document.createElement("input");
           check2.setAttribute("type", "checkbox");
+          check2.setAttribute("class", "checkbox");
           check2.setAttribute("id", "defensa");
           crear_div.appendChild(check2);
 
@@ -1089,6 +1112,7 @@ function nova_habilitat(){
 
           let check3 = document.createElement("input");
           check3.setAttribute("type", "checkbox");
+          check3.setAttribute("class", "checkbox");
           check3.setAttribute("id", "suport");
           crear_div.appendChild(check3);
 
@@ -1099,6 +1123,7 @@ function nova_habilitat(){
 
           let check4 = document.createElement("input");
           check4.setAttribute("type", "checkbox");
+          check4.setAttribute("class", "checkbox");
           check4.setAttribute("id", "cura");
           crear_div.appendChild(check4);
 
@@ -1139,6 +1164,47 @@ function nova_habilitat(){
   boto4.addEventListener("click", cancelar_habilitat)
   boto4.setAttribute("id", "cancelar_habilitat");
   crear_div.appendChild(boto4);
+
+}
+
+function acceptar_habilitat(){
+
+    let id = document.getElementsByTagName("input")[0].value;
+    let nom = document.getElementsByTagName("input")[1].value;
+    let tipus = document.getElementsByClassName("radio");
+
+    let efecte = document.getElementsByClassName("checkbox");
+    let efectes_marcats = "";
+
+    for (let i = 0; i < efecte.length; i++) {
+
+        if (efecte[i].checked == true) {
+            efectes_marcats += efecte[i].id + "-";
+        }
+    }
+
+    if (
+        efectes_marcats.charAt(efectes_marcats.length - 1) == "-"
+    ) {
+        efectes_marcats = efectes_marcats.slice(0, -1);
+    }
+
+
+    contador++;
+    personatges[posicio_global].habilitat.push({
+
+        id: id,
+        nom: nom,
+        tipus: tipus,
+        efecte: efectes_marcats,
+
+    });
+
+    console.log(personatges);
+
+    buidar_personatge();
+    genera_tabla(personatges);
+
 }
 
 function cancelar_habilitat(){

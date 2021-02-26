@@ -45,6 +45,8 @@ var personatges = [
 ];
 
 // ***** VARIABLES GLOBALS *******
+
+//Cadena que utilizamos para mostrar los errores al validar los inputs con las expressiones regulares
 var cadena_errors = "";
 
 //Expressió que valida la edat. Permet fins a un maxim de 3 digits
@@ -67,18 +69,27 @@ var contador = personatges[personatges.length - 1].id;
 //variable on guardarem l'id del persontage que hem de modificar
 var posicio_global = 0;
 
+//variable global para controlar pos del array de habilidad que hay que modifcar o eliminar
 var pos_global = 0;
 
-//cridem a la funcio per generar la taula
+//variable global para controlar el id de las habilidades
+var contador_habilitat_global = 0;
+
+
 
 // ****** INICI PROGRAMA ******
+
+//cridem a la funcio per generar la taula
 genera_tabla(personatges);
 
 
 
 // ***** FUNCIONS PERSONATGES *****
 
+
+//funcion para generar la tabla con la info del array json
 function genera_tabla(personatges) {
+
   // Obtener la referencia del elemento body
   var div = document.getElementsByTagName("div")[0];
 
@@ -91,11 +102,11 @@ function genera_tabla(personatges) {
     // Crea les celes de la fila
     var hilera = document.createElement("tr");
 
-    if (i != 0) {
+    if (i != 0) { //comprovamos la hilera para incluir el css
       hilera.setAttribute("class", "defTr");
     }
 
-    //comprovem si estem en la primera
+    //comprovem si estem en la primera fila
     if (i == 0) {
       //si es aixi, el que fem es indicar les claus dels objectes JSON
       for (let propiedad in personatges[i]) {
@@ -138,6 +149,8 @@ function genera_tabla(personatges) {
           celda.appendChild(textoCelda);
           hilera.appendChild(celda);
         } else if (propiedad == "habilitat") {
+          //si la propietat correspon a la habilitat, el que fem es crear uu enllaç que ens portara a una altre taula, 
+          //on podrem veure l'habilitat
           var celda = document.createElement("td");
           var textoCelda = document.createElement("a");
           textoCelda.appendChild(document.createTextNode("Veure habilitat"));
@@ -175,27 +188,29 @@ function genera_tabla(personatges) {
   //funcio que serveix per afegir a cada boto de modificar el seu event de click
   generar_add_event_listener_modifcar();
 
-  //funcio que serveix per afegir a cada boto de modificar el seu event de click
+  //funcio que serveix per afegir a cada boto de eliminar el seu event de click
   generar_add_event_listener_eliminar();
 
+  //funcio que serveix per afegir a cada boto de veure habilitat el seu event de click
   generar_add_event_listener_habilitat();
 
-  var nou_personatge = document.getElementById("nou_personatge");
-
   //afegim un event de click al boto de crear nou personatge
+  var nou_personatge = document.getElementById("nou_personatge");
   nou_personatge.addEventListener("click", crear_nou_personatge);
+
 
   set_eliminar_imatge();
   document.getElementById("Taula").classList.add("Taula");
   document.getElementById("Nou_personatge").classList.remove("nou_personatge");
   document.getElementById("Actualitza").classList.remove("actualitza");
 
+  //realitzem un evente que al fer click a la n del teclat, creem un personatge nou
   document.addEventListener("keydown", function (event) {
     if (event.key == "n") {
       crear_nou_personatge();
     }
   });
-
+    //funcio per cambiar el color de les capceleres de cada columna
     set_multicolor_th();
 
 }
@@ -244,7 +259,7 @@ function aconseguir_posicio(e) {
 }
 
 function buidar_taula() {
-  //funcio que ens serveix per buidar el primer div on tenim emmagatzemada la taula
+  //funcio que ens serveix per buidar el primer div on tenim emmagatzemada la taula, tame s'encarrega de gestionar el css
   let tabla = document.getElementsByTagName("div")[0].firstChild;
   let boton = document.getElementById("nou_personatge");
   boton.parentNode.removeChild(boton);
@@ -253,6 +268,7 @@ function buidar_taula() {
   document.getElementById("Taula").classList.remove("actualitza");
   document.getElementById("Nou_personatge").classList.add("nou_personatge");
 
+  //realitzem un event listener, que prement la tecla esc cridem a cancelar personatge i per tant cancelem la seva creació
   document.addEventListener("keydown", function (event) {
     if (event.key == "Escape") {
       cancelar_personatge();
@@ -906,6 +922,15 @@ function eliminar_habilitat(e){
   if (pregunta) {
     personatges[posicio_global].habilitat.splice(posicio,1); //eliminem el personatge de la posicio seleccionada
 }
+if (personatges[posicio_global].habilitat.length == 0) {
+  //comprovem si no tenim cap persontage a l'array
+  let div = document.getElementsByTagName("div")[0]; //
+  sin_registros(div);
+
+  let tabla = document.getElementsByTagName("div")[0].firstChild;
+  tabla.parentNode.removeChild(tabla);
+
+}else{
 let boto = document.getElementById("tornar");
 boto.parentNode.removeChild(boto);
 let boto2 = document.getElementById("nova_habilitat");
@@ -914,10 +939,11 @@ let tabla = document.getElementsByTagName("div")[0].firstChild;
 tabla.parentNode.removeChild(tabla);
 
 genera_tabla_habilitat(posicio_global);
+}
 
 }
 
-var contador_habilitat_global = 0;
+
 
 function generar_taula_habilitat(e) {
   let contador_habilitat = 0;
@@ -927,7 +953,12 @@ function generar_taula_habilitat(e) {
     id_hablitat.push(propiedad);
   }
   posicio_global = aconseguir_posicio(e);
+  if(personatges[posicio_global].habilitat.length == 0){
+    contador_habilitat = 0;
+  }
+  else{
   contador_habilitat = parseInt(personatges[posicio_global].habilitat[personatges[posicio_global].habilitat.length-1].id); 
+  }
   contador_habilitat_global =  contador_habilitat;
   genera_tabla_habilitat();
 }
@@ -1010,6 +1041,10 @@ function genera_tabla_habilitat() {
 
   //funcio que serveix per afegir a cada boto de modificar el seu event de click
   generar_add_event_listener_eliminar_hablitat();
+
+  if(contador_habilitat_global == 0){
+    sin_registros(div);
+  }
 
   var boto = document.createElement("button");
   boto.appendChild(document.createTextNode("Tornar"));

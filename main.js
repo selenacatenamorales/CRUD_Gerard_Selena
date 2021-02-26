@@ -8,7 +8,7 @@ var personatges = [
     magia: "Otros",
     caracteristiques: "Timido-Feroz",
     habilitat: [
-      { 
+      {
         id: 1,
         nom: "Hilo rojo del destino",
         tipus: "Magic",
@@ -19,7 +19,7 @@ var personatges = [
         nom: "Espada del destino",
         tipus: "Fisic-Magic",
         efecte: "Atac",
-      }
+      },
     ],
 
     imatge: "imagenes/vanessa.jpg",
@@ -34,7 +34,7 @@ var personatges = [
     caracteristiques: "Valiente",
     habilitat: [
       {
-        id:1,
+        id: 1,
         nom: "Corte apagado",
         tipus: "Magico",
         efecte: "Ataque",
@@ -75,21 +75,15 @@ var pos_global = 0;
 //variable global para controlar el id de las habilidades
 var contador_habilitat_global = 0;
 
-
-
 // ****** INICI PROGRAMA ******
 
 //cridem a la funcio per generar la taula
 genera_tabla(personatges);
 
-
-
 // ***** FUNCIONS PERSONATGES *****
-
 
 //funcion para generar la tabla con la info del array json
 function genera_tabla(personatges) {
-
   // Obtener la referencia del elemento body
   var div = document.getElementsByTagName("div")[0];
 
@@ -102,7 +96,8 @@ function genera_tabla(personatges) {
     // Crea les celes de la fila
     var hilera = document.createElement("tr");
 
-    if (i != 0) { //comprovamos la hilera para incluir el css
+    if (i != 0) {
+      //comprovamos la hilera para incluir el css
       hilera.setAttribute("class", "defTr");
     }
 
@@ -149,7 +144,7 @@ function genera_tabla(personatges) {
           celda.appendChild(textoCelda);
           hilera.appendChild(celda);
         } else if (propiedad == "habilitat") {
-          //si la propietat correspon a la habilitat, el que fem es crear uu enllaç que ens portara a una altre taula, 
+          //si la propietat correspon a la habilitat, el que fem es crear uu enllaç que ens portara a una altre taula,
           //on podrem veure l'habilitat
           var celda = document.createElement("td");
           var textoCelda = document.createElement("a");
@@ -198,7 +193,6 @@ function genera_tabla(personatges) {
   var nou_personatge = document.getElementById("nou_personatge");
   nou_personatge.addEventListener("click", crear_nou_personatge);
 
-
   set_eliminar_imatge();
   document.getElementById("Taula").classList.add("Taula");
   document.getElementById("Nou_personatge").classList.remove("nou_personatge");
@@ -210,9 +204,8 @@ function genera_tabla(personatges) {
       crear_nou_personatge();
     }
   });
-    //funcio per cambiar el color de les capceleres de cada columna
-    set_multicolor_th();
-
+  //funcio per cambiar el color de les capceleres de cada columna
+  set_multicolor_th();
 }
 
 function generar_add_event_listener_modifcar() {
@@ -234,7 +227,6 @@ function generar_add_event_listener_eliminar() {
     a[i].addEventListener("click", eliminar_personatge);
   }
 }
-
 
 function modificar_personatge(e) {
   buidar_taula(); //primer de tot buidem el primer div on tenem situada la taula
@@ -483,7 +475,6 @@ function crear_formulari() {
         let option = document.createElement("option");
         option.appendChild(document.createTextNode(magia));
         select.appendChild(option);
-        
       }
     } else if (i == id_personatges.length - 2) {
     } else {
@@ -539,14 +530,12 @@ function crear_formulari_modificar(posicio) {
   document.getElementById("Nou_personatge").classList.remove("nou_personatge");
 
   for (let propiedad in personatges[0]) {
-    if(propiedad == "habilitat"){
+    if (propiedad == "habilitat") {
+    } else {
+      let p = document.createElement("p");
+      p.appendChild(document.createTextNode(propiedad.toUpperCase()));
 
-    }
-    else{
-    let p = document.createElement("p");
-    p.appendChild(document.createTextNode(propiedad.toUpperCase()));
-
-    crear_div.appendChild(p);
+      crear_div.appendChild(p);
     }
 
     if (propiedad == "caracteristiques") {
@@ -602,9 +591,8 @@ function crear_formulari_modificar(posicio) {
         }
         select.appendChild(option);
       }
-    } else if(propiedad == "habilitat"){
-
-    }else {
+    } else if (propiedad == "habilitat") {
+    } else {
       let input = document.createElement("input");
       crear_div.appendChild(input);
 
@@ -769,13 +757,15 @@ function acceptar_personatge() {
       edat: edat,
       magia: magia,
       caracteristiques: caractersitcas_marcadas,
-      habilitat: [{
-        id: "0",
-        nom: "exemple",
-        tipus: "Magic",
-        efecte: "Suport",
-      }],
-      
+      habilitat: [
+        {
+          id: "0",
+          nom: "exemple",
+          tipus: "Magic",
+          efecte: "Suport",
+        },
+      ],
+
       //uploaded imatge
       imatge: imgNova,
     });
@@ -844,35 +834,32 @@ function eliminar_imatge(e) {
   personatges[posicio].imatge = "";
 }
 
-function set_multicolor_th(){
+function set_multicolor_th() {
+  let th = document.getElementsByTagName("th");
 
-    let th = document.getElementsByTagName("th");
+  for (let i = 0; i < th.length; i++) {
+    th[i].setAttribute("class", "th");
+  }
 
-    for (let i = 0; i < th.length; i++){
-        th[i].setAttribute("class", "th");
-    }
+  let cc = document.getElementsByClassName("th");
 
-    let cc = document.getElementsByClassName("th");
-
-    for (let i = 0; i < cc.length; i++){
-        cc[i].addEventListener("mouseover", canviColor);
-        cc[i].addEventListener("mouseout", colorDef);
-    }
-
+  for (let i = 0; i < cc.length; i++) {
+    cc[i].addEventListener("mouseover", canviColor);
+    cc[i].addEventListener("mouseout", colorDef);
+  }
 }
 
-function canviColor(e){
+function canviColor(e) {
+  let colors = ["pink", "red", "orange", "yellow", "green", "blue", "violet"];
+  let rand = Math.floor(Math.random() * (colors.length - 0));
 
-    let colors = ["pink", "red", "orange", "yellow", "green", "blue", "violet"];
-    let rand = Math.floor(Math.random() * (colors.length - 0));
-
-    let pos = e.target;
-    pos.style.color = colors[rand];
-
+  let pos = e.target;
+  pos.style.color = colors[rand];
 }
 
-function colorDef(e){ e.target.style.color = "white"; }
-
+function colorDef(e) {
+  e.target.style.color = "white";
+}
 
 // ***** FUNCIONS HABILITATS ******
 
@@ -906,63 +893,63 @@ function generar_add_event_listener_eliminar_hablitat() {
   }
 }
 
-
-function eliminar_habilitat(e){
- 
-    let posicio = 0;
-    for (let i = 0; i < personatges[posicio_global].habilitat.length; i++) {
-      if (
-        parseInt(e.target.parentNode.parentNode.firstChild.innerText) ==
-        personatges[posicio_global].habilitat[i].id
-      ) {
-        posicio = i;
-      }
+function eliminar_habilitat(e) {
+  let posicio = 0;
+  for (let i = 0; i < personatges[posicio_global].habilitat.length; i++) {
+    if (
+      parseInt(e.target.parentNode.parentNode.firstChild.innerText) ==
+      personatges[posicio_global].habilitat[i].id
+    ) {
+      posicio = i;
     }
+  }
   let pregunta = confirm("Estas segur que vols eliminar aquest personatge?");
   if (pregunta) {
-    personatges[posicio_global].habilitat.splice(posicio,1); //eliminem el personatge de la posicio seleccionada
+    personatges[posicio_global].habilitat.splice(posicio, 1); //eliminem el personatge de la posicio seleccionada
+  }
+  if (personatges[posicio_global].habilitat.length == 0) {
+    //comprovem si no tenim cap persontage a l'array
+    let div = document.getElementsByTagName("div")[0]; //
+    sin_registros(div);
+
+    let tabla = document.getElementsByTagName("div")[0].firstChild;
+    tabla.parentNode.removeChild(tabla);
+  } else {
+    let boto = document.getElementById("tornar");
+    boto.parentNode.removeChild(boto);
+    let boto2 = document.getElementById("nova_habilitat");
+    boto2.parentNode.removeChild(boto2);
+    let tabla = document.getElementsByTagName("div")[0].firstChild;
+    tabla.parentNode.removeChild(tabla);
+
+    genera_tabla_habilitat(posicio_global);
+  }
 }
-if (personatges[posicio_global].habilitat.length == 0) {
-  //comprovem si no tenim cap persontage a l'array
-  let div = document.getElementsByTagName("div")[0]; //
-  sin_registros(div);
-
-  let tabla = document.getElementsByTagName("div")[0].firstChild;
-  tabla.parentNode.removeChild(tabla);
-
-}else{
-let boto = document.getElementById("tornar");
-boto.parentNode.removeChild(boto);
-let boto2 = document.getElementById("nova_habilitat");
-boto2.parentNode.removeChild(boto2);
-let tabla = document.getElementsByTagName("div")[0].firstChild;
-tabla.parentNode.removeChild(tabla);
-
-genera_tabla_habilitat(posicio_global);
-}
-
-}
-
 
 //funcion que utilizamos para recoger las claves del objeto JSON y para saber porque id vamos
 function generar_taula_habilitat(e) {
   let contador_habilitat = 0;
   let id_hablitat = [];
   buidar_taula();
-  for (propiedad in personatges[0].habilitat[0]) { //guardamos en un array las claves del objeto JSON habilidad
+  for (propiedad in personatges[0].habilitat[0]) {
+    //guardamos en un array las claves del objeto JSON habilidad
     id_hablitat.push(propiedad);
   }
   posicio_global = aconseguir_posicio(e); //llamamos a la función para conseguir la pos global y saber en que personaje estamos
-  if(personatges[posicio_global].habilitat.length == 0){ //comprovamos si hay algun registro en habilidad, si no hay el contador sera 0
+  if (personatges[posicio_global].habilitat.length == 0) {
+    //comprovamos si hay algun registro en habilidad, si no hay el contador sera 0
     contador_habilitat = 0;
+  } else {
+    //si hay contador, buscaremos el ultimo registro de habilidad y assignaremos su id al contador de habilidad global
+    contador_habilitat = parseInt(
+      personatges[posicio_global].habilitat[
+        personatges[posicio_global].habilitat.length - 1
+      ].id
+    );
   }
-  else{ //si hay contador, buscaremos el ultimo registro de habilidad y assignaremos su id al contador de habilidad global
-  contador_habilitat = parseInt(personatges[posicio_global].habilitat[personatges[posicio_global].habilitat.length-1].id); 
-  }
-  contador_habilitat_global =  contador_habilitat;
+  contador_habilitat_global = contador_habilitat;
   genera_tabla_habilitat(); //llamamos a la función para generar la tabla de las habilidades
 }
-
 
 function genera_tabla_habilitat() {
   // Obtener la referencia del elemento body
@@ -993,18 +980,16 @@ function genera_tabla_habilitat() {
       }
     } else {
       //si no estem en la primera fila, comencem a intruidir les dades de cada paersoantge
-      for (let propiedad in personatges[posicio_global].habilitat[i-1]) {
+      for (let propiedad in personatges[posicio_global].habilitat[i - 1]) {
         //la resta de celes son nomes td amb la informació que esta guardad en l'objecte JSON
         var celda = document.createElement("td");
 
         var textoCelda = document.createTextNode(
-          personatges[posicio_global].habilitat[i-1][propiedad]
+          personatges[posicio_global].habilitat[i - 1][propiedad]
         );
-
 
         celda.appendChild(textoCelda);
         hilera.appendChild(celda);
-
       }
       //creem tambe els enllaços de eliminar
       var celda = document.createElement("td");
@@ -1034,14 +1019,14 @@ function genera_tabla_habilitat() {
   // appends <table> into <body>
   div.appendChild(tabla);
 
-//funcio que serveix per afegir a cada boto de modificar el seu event de click
+  //funcio que serveix per afegir a cada boto de modificar el seu event de click
   generar_add_event_listener_modifcar_habilitat();
 
   //funcio que serveix per afegir a cada boto de eliminar el seu event de click
   generar_add_event_listener_eliminar_hablitat();
 
   //si el contador global es 0, cridem a la funcio que mostra el text de que no hi ha cap registre
-  if(contador_habilitat_global == 0){
+  if (contador_habilitat_global == 0) {
     sin_registros(div);
   }
 
@@ -1052,7 +1037,7 @@ function genera_tabla_habilitat() {
   div.appendChild(boto);
 
   //event listener del boto de tornar
-  boto.addEventListener("click", tornar)
+  boto.addEventListener("click", tornar);
 
   //creem el boto de nova habilitat
   var boto2 = document.createElement("button");
@@ -1064,32 +1049,32 @@ function genera_tabla_habilitat() {
   boto2.addEventListener("click", nova_habilitat);
 }
 
-function nova_habilitat(){
+function nova_habilitat() {
+  //Primer de tot eliminem el boto de tornar, nova habilitat i la taula
+  let boto = document.getElementById("tornar");
+  boto.parentNode.removeChild(boto);
+  let boto2 = document.getElementById("nova_habilitat");
+  boto2.parentNode.removeChild(boto2);
+  let tabla = document.getElementsByTagName("div")[0].firstChild;
+  tabla.parentNode.removeChild(tabla);
 
-let boto = document.getElementById("tornar");
-boto.parentNode.removeChild(boto);
-let boto2 = document.getElementById("nova_habilitat");
-boto2.parentNode.removeChild(boto2);
-let tabla = document.getElementsByTagName("div")[0].firstChild;
-tabla.parentNode.removeChild(tabla);
-
+  //Seguidament creem un div on crearem el formulari
   let crear_div = document.createElement("div");
 
   let div = document.getElementById("Nou_personatge");
-
-
   div.appendChild(crear_div);
-  for (let propiedad in personatges[posicio_global].habilitat[0]){
+  
+  for (let propiedad in personatges[posicio_global].habilitat[0]) {
     let p = document.createElement("p");
     p.appendChild(document.createTextNode(propiedad.toUpperCase()));
     crear_div.appendChild(p);
-    if (propiedad == 'id'){
+    if (propiedad == "id") {
       let input = document.createElement("input");
       input.value = contador_habilitat_global + 1;
       input.setAttribute("id", "formId");
       input.setAttribute("disabled", true);
       crear_div.appendChild(input);
-    }else if(propiedad == "tipus"){
+    } else if (propiedad == "tipus") {
       let tipus = "";
       for (let i = 0; i < 2; i++) {
         switch (i) {
@@ -1104,20 +1089,19 @@ tabla.parentNode.removeChild(tabla);
         input.setAttribute("type", "checkbox");
         input.setAttribute("id", caracteristica);
         input.setAttribute("class", "checkbox");
-    
+
         let label = document.createElement("label");
         label.setAttribute("for", caracteristica);
         label.innerText = caracteristica;
         crear_div.appendChild(input);
         crear_div.appendChild(label);
+      }
+    } else if (propiedad == "efecte") {
+      let select = document.createElement("select");
+      crear_div.appendChild(select);
 
-    }
-  }else if(propiedad == "efecte"){
-    let select = document.createElement("select");
-    crear_div.appendChild(select);
-
-    for (let i = 0; i < 4; i++) {
-      let option = document.createElement("option");
+      for (let i = 0; i < 4; i++) {
+        let option = document.createElement("option");
 
         switch (i) {
           case 0:
@@ -1134,36 +1118,34 @@ tabla.parentNode.removeChild(tabla);
             break;
         }
         option.appendChild(document.createTextNode(tipus));
-        select.appendChild(option); 
-    }
-  }
-    else{
-    let input = document.createElement("input");
-    crear_div.appendChild(input);
+        select.appendChild(option);
+      }
+    } else {
+      let input = document.createElement("input");
+      crear_div.appendChild(input);
     }
   }
 
   let boto3 = document.createElement("button");
   boto3.appendChild(document.createTextNode("Acceptar"));
   boto3.setAttribute("id", "accceptar_habilitat");
-  boto3.addEventListener("click", acceptar_habilitat)
+  boto3.addEventListener("click", acceptar_habilitat);
   crear_div.appendChild(boto3);
 
   let boto4 = document.createElement("button");
   boto4.appendChild(document.createTextNode("Cancelar"));
-  boto4.addEventListener("click", cancelar_habilitat)
+  boto4.addEventListener("click", cancelar_habilitat);
   boto4.setAttribute("id", "cancelar_habilitat");
   crear_div.appendChild(boto4);
 }
 
-function cancelar_habilitat(){
+function cancelar_habilitat() {
   let div = document.getElementById("Nou_personatge").firstChild;
   div.parentNode.removeChild(div);
   genera_tabla_habilitat();
-
 }
 
-function acceptar_habilitat(){
+function acceptar_habilitat() {
   let id = document.getElementsByTagName("input")[0].value;
   let nom = document.getElementsByTagName("input")[1].value;
 
@@ -1174,9 +1156,7 @@ function acceptar_habilitat(){
       tipus_marcados += tipus[i].id + "-";
     }
   }
-  if (
-    tipus_marcados.charAt(tipus_marcados.length - 1) == "-"
-  ) {
+  if (tipus_marcados.charAt(tipus_marcados.length - 1) == "-") {
     tipus_marcados = tipus_marcados.slice(0, -1);
   }
 
@@ -1185,29 +1165,29 @@ function acceptar_habilitat(){
   personatges[posicio_global].habilitat.push({
     id: id,
     nom: nom,
-    tipus: tipus_marcados, 
-    efecte: efecte
+    tipus: tipus_marcados,
+    efecte: efecte,
   });
 
   let taula = document.getElementById("Nou_personatge").firstChild;
-  taula.parentNode.removeChild(taula); 
+  taula.parentNode.removeChild(taula);
 
   contador_habilitat_global++;
 
   genera_tabla_habilitat();
 }
 
-function tornar(){
+function tornar() {
   let boto = document.getElementById("tornar");
   boto.parentNode.removeChild(boto);
   let boto2 = document.getElementById("nova_habilitat");
   boto2.parentNode.removeChild(boto2);
   let taula = document.getElementById("Taula").firstChild;
-  taula.parentNode.removeChild(taula); 
+  taula.parentNode.removeChild(taula);
   genera_tabla(personatges);
 }
 
-function modificar_habilitat(e){
+function modificar_habilitat(e) {
   let posicio = 0;
   for (let i = 0; i < personatges[posicio_global].habilitat.length; i++) {
     if (
@@ -1222,12 +1202,11 @@ function modificar_habilitat(e){
   let boto2 = document.getElementById("nova_habilitat");
   boto2.parentNode.removeChild(boto2);
   let taula = document.getElementById("Taula").firstChild;
-  taula.parentNode.removeChild(taula); 
+  taula.parentNode.removeChild(taula);
   taula_modificar_habilitat(posicio);
 }
 
-
-function taula_modificar_habilitat(posicio){
+function taula_modificar_habilitat(posicio) {
   let crear_div = document.createElement("div");
 
   let div = document.getElementById("Actualitza");
@@ -1235,21 +1214,18 @@ function taula_modificar_habilitat(posicio){
   div.appendChild(crear_div);
   console.log(posicio_global);
 
-  for (let propiedad in personatges[posicio_global].habilitat[posicio]){
+  for (let propiedad in personatges[posicio_global].habilitat[posicio]) {
     let p = document.createElement("p");
     p.appendChild(document.createTextNode(propiedad.toUpperCase()));
     crear_div.appendChild(p);
 
-    if (propiedad == 'id'){
+    if (propiedad == "id") {
       let input = document.createElement("input");
       input.value = personatges[posicio_global].habilitat[posicio][propiedad];
       input.setAttribute("id", "formId");
       input.setAttribute("disabled", true);
       crear_div.appendChild(input);
-
-
-
-    }else if(propiedad == "tipus"){
+    } else if (propiedad == "tipus") {
       for (let i = 0; i < 2; i++) {
         switch (i) {
           case 0:
@@ -1263,29 +1239,30 @@ function taula_modificar_habilitat(posicio){
         input.setAttribute("type", "checkbox");
         input.setAttribute("id", caracteristica);
         input.setAttribute("class", "checkbox");
-    
+
         let label = document.createElement("label");
         label.setAttribute("for", caracteristica);
         label.innerText = caracteristica;
         crear_div.appendChild(input);
         crear_div.appendChild(label);
+      }
+      let tipus_marcados = personatges[posicio_global].habilitat[posicio][
+        propiedad
+      ].split("-");
+      console.log(tipus_marcados);
+      for (let i = 0; i < tipus_marcados.length; i++) {
+        let input = document.getElementById(tipus_marcados[i]);
+        input.setAttribute("checked", true);
+      }
+    } else if (propiedad == "efecte") {
+      let select = document.createElement("select");
+      crear_div.appendChild(select);
 
-    }
-    let tipus_marcados = personatges[posicio_global].habilitat[posicio][propiedad].split("-");
-    console.log(tipus_marcados);
-    for (let i = 0; i<tipus_marcados.length; i++){
-      let input = document.getElementById(tipus_marcados[i]);
-      input.setAttribute("checked", true);
-    }
+      let efecte_seleccionado =
+        personatges[posicio_global].habilitat[posicio][propiedad];
 
-  }else if(propiedad == "efecte"){
-    let select = document.createElement("select");
-    crear_div.appendChild(select);
-
-    let efecte_seleccionado = personatges[posicio_global].habilitat[posicio][propiedad];
-
-    for (let i = 0; i < 4; i++) {
-      let option = document.createElement("option");
+      for (let i = 0; i < 4; i++) {
+        let option = document.createElement("option");
 
         switch (i) {
           case 0:
@@ -1301,17 +1278,16 @@ function taula_modificar_habilitat(posicio){
             efecte = "Defensa";
             break;
         }
-        option.appendChild(document.createTextNode(efecte)); 
-        if(efecte_seleccionado == efecte){
+        option.appendChild(document.createTextNode(efecte));
+        if (efecte_seleccionado == efecte) {
           option.setAttribute("selected", "true");
         }
         select.appendChild(option);
-    }
-  }
-    else{
-    let input = document.createElement("input");
-    input.value = personatges[posicio_global].habilitat[posicio][propiedad];
-    crear_div.appendChild(input);
+      }
+    } else {
+      let input = document.createElement("input");
+      input.value = personatges[posicio_global].habilitat[posicio][propiedad];
+      crear_div.appendChild(input);
     }
   }
 
@@ -1320,7 +1296,7 @@ function taula_modificar_habilitat(posicio){
   boto.appendChild(document.createTextNode("Acceptar"));
   boto.setAttribute("id", "Acceptar");
   crear_div.appendChild(boto);
-  
+
   pos_global = posicio;
 
   boto.addEventListener("click", acceptar_modificacio_habilitat);
@@ -1332,10 +1308,9 @@ function taula_modificar_habilitat(posicio){
   crear_div.appendChild(boto2);
 
   boto2.addEventListener("click", cancelar_modificacio_habilitat);
-
 }
 
-function acceptar_modificacio_habilitat(){
+function acceptar_modificacio_habilitat() {
   let id = document.getElementsByTagName("input")[0].value;
   let nom = document.getElementsByTagName("input")[1].value;
   let tipus = document.getElementsByClassName("checkbox");
@@ -1345,9 +1320,7 @@ function acceptar_modificacio_habilitat(){
       tipus_marcados += tipus[i].id + "-";
     }
   }
-  if (
-    tipus_marcados.charAt(tipus_marcados.length - 1) == "-"
-  ) {
+  if (tipus_marcados.charAt(tipus_marcados.length - 1) == "-") {
     tipus_marcados = tipus_marcados.slice(0, -1);
   }
 
@@ -1359,14 +1332,14 @@ function acceptar_modificacio_habilitat(){
   personatges[posicio_global].habilitat[pos_global].efecte = efecte;
 
   let taula = document.getElementById("Actualitza").firstChild;
-  taula.parentNode.removeChild(taula); 
+  taula.parentNode.removeChild(taula);
 
   genera_tabla_habilitat();
 }
 
-function cancelar_modificacio_habilitat(){
+function cancelar_modificacio_habilitat() {
   let taula = document.getElementById("Actualitza").firstChild;
-  taula.parentNode.removeChild(taula); 
+  taula.parentNode.removeChild(taula);
 
   genera_tabla_habilitat();
 }

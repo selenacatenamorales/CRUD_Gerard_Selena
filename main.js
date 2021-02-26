@@ -277,7 +277,7 @@ function buidar_taula() {
 }
 
 function sin_registros(div) {
-  //funcion que nos muestra por pantalla unt exto cuando no tenemos personajes en el array
+  //funcion que nos muestra por pantalla un texto cuando no tenemos personajes en el array
   var p = document.createElement("p");
   var texto = document.createTextNode(
     "Ens hem quedat sense cap registre per mostrar, perque no proves a crear un nou personatge"
@@ -944,27 +944,24 @@ genera_tabla_habilitat(posicio_global);
 }
 
 
-
+//funcion que utilizamos para recoger las claves del objeto JSON y para saber porque id vamos
 function generar_taula_habilitat(e) {
   let contador_habilitat = 0;
   let id_hablitat = [];
   buidar_taula();
-  for (propiedad in personatges[0].habilitat[0]) {
+  for (propiedad in personatges[0].habilitat[0]) { //guardamos en un array las claves del objeto JSON habilidad
     id_hablitat.push(propiedad);
   }
-  posicio_global = aconseguir_posicio(e);
-  if(personatges[posicio_global].habilitat.length == 0){
+  posicio_global = aconseguir_posicio(e); //llamamos a la función para conseguir la pos global y saber en que personaje estamos
+  if(personatges[posicio_global].habilitat.length == 0){ //comprovamos si hay algun registro en habilidad, si no hay el contador sera 0
     contador_habilitat = 0;
   }
-  else{
+  else{ //si hay contador, buscaremos el ultimo registro de habilidad y assignaremos su id al contador de habilidad global
   contador_habilitat = parseInt(personatges[posicio_global].habilitat[personatges[posicio_global].habilitat.length-1].id); 
   }
   contador_habilitat_global =  contador_habilitat;
-  genera_tabla_habilitat();
+  genera_tabla_habilitat(); //llamamos a la función para generar la tabla de las habilidades
 }
-
-
-
 
 
 function genera_tabla_habilitat() {
@@ -1037,31 +1034,34 @@ function genera_tabla_habilitat() {
   // appends <table> into <body>
   div.appendChild(tabla);
 
+//funcio que serveix per afegir a cada boto de modificar el seu event de click
   generar_add_event_listener_modifcar_habilitat();
 
-  //funcio que serveix per afegir a cada boto de modificar el seu event de click
+  //funcio que serveix per afegir a cada boto de eliminar el seu event de click
   generar_add_event_listener_eliminar_hablitat();
 
+  //si el contador global es 0, cridem a la funcio que mostra el text de que no hi ha cap registre
   if(contador_habilitat_global == 0){
     sin_registros(div);
   }
 
+  //creem el boto de tornar
   var boto = document.createElement("button");
   boto.appendChild(document.createTextNode("Tornar"));
   boto.setAttribute("id", "tornar");
   div.appendChild(boto);
 
+  //event listener del boto de tornar
   boto.addEventListener("click", tornar)
 
+  //creem el boto de nova habilitat
   var boto2 = document.createElement("button");
   boto2.appendChild(document.createTextNode("Nova Habilitat"));
   boto2.setAttribute("id", "nova_habilitat");
   div.appendChild(boto2);
 
+  //event listener del boto de nova habilitat
   boto2.addEventListener("click", nova_habilitat);
-
-  
-  
 }
 
 function nova_habilitat(){

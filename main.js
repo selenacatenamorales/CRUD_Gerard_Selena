@@ -189,7 +189,6 @@ function genera_tabla(personatges) {
   document.getElementById("Taula").classList.add("Taula");
   document.getElementById("Nou_personatge").classList.remove("nou_personatge");
   document.getElementById("Actualitza").classList.remove("actualitza");
-    document.getElementById("TaulaH").classList.remove("Taula");
 
   document.addEventListener("keydown", function (event) {
     if (event.key == "n") {
@@ -402,12 +401,12 @@ function comprovar_dades() {
 
   if (document.getElementsByTagName("input")[1].value == "") {
     document.getElementsByTagName("input")[1].style.borderColor = "red";
-    cadena += "\nEl nom no pot estar en blanc";
+    cadena += "\n El nom no pot estar en blanc";
     errors = true;
   }
   if (document.getElementsByTagName("input")[2].value == "") {
     document.getElementsByTagName("input")[2].style.borderColor = "red";
-    cadena += "\nEl cognom no pot estar en blanc";
+    cadena += "\n El cognom no pot estar en blanc";
     errors = true;
   }
 
@@ -439,30 +438,22 @@ function crear_formulari() {
   console.log(id_personatges.length);
 
   for (let i = 0; i < id_personatges.length; i++) {
-
     if (i == id_personatges.length - 1) {
-
       crear_imagen(crear_div, i);
-
     } else if (i == id_personatges.length - 3) {
-
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
 
       crear_div.appendChild(p);
 
       crear_estadisticas(crear_div);
-
     } else if (i == 0) {
-
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
       crear_div.appendChild(p);
 
       crear_id(contador + 1, crear_div);
-
     } else if (i == id_personatges.length - 4) {
-
       let magia = "";
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
@@ -477,7 +468,7 @@ function crear_formulari() {
         option.appendChild(document.createTextNode(magia));
         select.appendChild(option);
       }
-
+    } else if (i == id_personatges.length - 2) {
     } else {
       let p = document.createElement("p");
       p.appendChild(document.createTextNode(id_personatges[i].toUpperCase()));
@@ -494,14 +485,12 @@ function crear_formulari() {
   boto = document.getElementById("Acceptar");
 
   boto.addEventListener("click", function () {
-
     errors = comprovar_dades();
     if (errors == false) {
       acceptar_personatge();
     } else {
       alert(cadena_errors);
     }
-
   });
 
   let boto2 = document.createElement("button");
@@ -678,7 +667,7 @@ function comrpovar_exprreg(edat, nom) {
   } else if (solo_letra.test(nom) == false) {
     error = true;
     alert(
-      "Indica un nom amb el format correcte. Enrecorda't que la priemra lletra ha der ser majuscula i les següents minúscules"
+      "Indica un nom amb el format correcte. Enrecorda't que la priemra lletra ha der ser majuscula"
     );
   }
   console.log(error);
@@ -726,7 +715,6 @@ function acceptar_modificacio() {
 }
 
 function acceptar_personatge() {
-
   let id = document.getElementsByTagName("input")[0].value;
   let nom = document.getElementsByTagName("input")[1].value;
   let cognom = document.getElementsByTagName("input")[2].value;
@@ -735,13 +723,11 @@ function acceptar_personatge() {
 
   let caracteristicas = document.getElementsByClassName("checkbox");
   let caractersitcas_marcadas = "";
-
   for (let i = 0; i < caracteristicas.length; i++) {
     if (caracteristicas[i].checked == true) {
       caractersitcas_marcadas += caracteristicas[i].id + "-";
     }
   }
-
   if (
     caractersitcas_marcadas.charAt(caractersitcas_marcadas.length - 1) == "-"
   ) {
@@ -925,7 +911,7 @@ let boto = document.getElementById("tornar");
 boto.parentNode.removeChild(boto);
 let boto2 = document.getElementById("nova_habilitat");
 boto2.parentNode.removeChild(boto2);
-let tabla = document.getElementById("TaulaH").firstChild;
+let tabla = document.getElementsByTagName("div")[0].firstChild;
 tabla.parentNode.removeChild(tabla);
 
 genera_tabla_habilitat(posicio_global);
@@ -946,10 +932,7 @@ function generar_taula_habilitat(e) {
 
 function genera_tabla_habilitat() {
   // Obtener la referencia del elemento body
-  var div = document.getElementsByTagName("div")[1];
-
-    div.classList.add("Taula", "flex-col", "cc");
-    document.getElementById("Nou_personatge").classList.remove("nou_personatge");
+  var div = document.getElementsByTagName("div")[0];
 
   // Crea un elemento <table> y un elemento <tbody>
   var tabla = document.createElement("table");
@@ -1021,23 +1004,17 @@ function genera_tabla_habilitat() {
   //funcio que serveix per afegir a cada boto de modificar el seu event de click
   generar_add_event_listener_eliminar_hablitat();
 
-    var divBtns = document.createElement("div");
-    divBtns.setAttribute("id", "divBtns");
-    divBtns.setAttribute("class", "divBtns");
-    divBtns.classList.add("flex-row");
-    div.appendChild(divBtns);
-
   var boto = document.createElement("button");
   boto.appendChild(document.createTextNode("Tornar"));
   boto.setAttribute("id", "tornar");
-  divBtns.appendChild(boto);
+  div.appendChild(boto);
 
   boto.addEventListener("click", tornar)
 
   var boto2 = document.createElement("button");
   boto2.appendChild(document.createTextNode("Nova Habilitat"));
   boto2.setAttribute("id", "nova_habilitat");
-  divBtns.appendChild(boto2);
+  div.appendChild(boto2);
 
   boto2.addEventListener("click", nova_habilitat);
 
@@ -1045,21 +1022,14 @@ function genera_tabla_habilitat() {
 
 function nova_habilitat(){
 
-    document.getElementById("Nou_personatge").classList.add("nou_personatge");
-    document.getElementById("TaulaH").classList.remove("Taula")
+let boto = document.getElementById("tornar");
+boto.parentNode.removeChild(boto);
+let boto2 = document.getElementById("nova_habilitat");
+boto2.parentNode.removeChild(boto2);
+let tabla = document.getElementsByTagName("div")[0].firstChild;
+tabla.parentNode.removeChild(tabla);
 
-    let divb = document.getElementById("divBtns");
-    divb.parentNode.removeChild(divb);
-    let tabla = document.getElementById("TaulaH").firstChild;
-    tabla.parentNode.removeChild(tabla);
-
-    crear_formulari_habilitats();
-
-}
-
-function crear_formulari_habilitats(){
-
-    let crear_div = document.createElement("div");
+  let crear_div = document.createElement("div");
 
   let div = document.getElementById("Nou_personatge");
 
@@ -1071,97 +1041,9 @@ function crear_formulari_habilitats(){
 
     crear_div.appendChild(p);
 
-      if (propiedad == "tipus"){
-
-          let rad1 = document.createElement("input");
-          rad1.setAttribute("type", "radio");
-          rad1.setAttribute("class", "radio");
-          rad1.setAttribute("id", "fisic");
-          crear_div.appendChild(rad1);
-
-          let lab1 = document.createElement("label");
-          lab1.setAttribute("for", "fisic");
-          lab1.appendChild(document.createTextNode("Físic"));
-          crear_div.appendChild(lab1);
-
-          let rad2 = document.createElement("input");
-          rad2.setAttribute("type", "radio");
-          rad2.setAttribute("class", "radio");
-          rad2.setAttribute("id", "magic");
-          crear_div.appendChild(rad2);
-
-          let lab2 = document.createElement("label");
-          lab2.setAttribute("for", "magic");
-          lab2.appendChild(document.createTextNode("Màgic"));
-          crear_div.appendChild(lab2);
-
-
-      } else if (propiedad == "efecte"){
-
-          let check1 = document.createElement("input");
-          check1.setAttribute("type", "checkbox");
-          check1.setAttribute("class", "checkbox");
-          check1.setAttribute("id", "atac");
-          crear_div.appendChild(check1);
-
-          let lab1 = document.createElement("label");
-          lab1.setAttribute("for", "atac");
-          lab1.appendChild(document.createTextNode("Atac"));
-          crear_div.appendChild(lab1);
-
-          let check2 = document.createElement("input");
-          check2.setAttribute("type", "checkbox");
-          check2.setAttribute("class", "checkbox");
-          check2.setAttribute("id", "defensa");
-          crear_div.appendChild(check2);
-
-          let lab2 = document.createElement("label");
-          lab2.setAttribute("for", "defensa");
-          lab2.appendChild(document.createTextNode("Defensa"));
-          crear_div.appendChild(lab2);
-
-          let check3 = document.createElement("input");
-          check3.setAttribute("type", "checkbox");
-          check3.setAttribute("class", "checkbox");
-          check3.setAttribute("id", "suport");
-          crear_div.appendChild(check3);
-
-          let lab3 = document.createElement("label");
-          lab3.setAttribute("for", "suport");
-          lab3.appendChild(document.createTextNode("Suport"));
-          crear_div.appendChild(lab3);
-
-          let check4 = document.createElement("input");
-          check4.setAttribute("type", "checkbox");
-          check4.setAttribute("class", "checkbox");
-          check4.setAttribute("id", "cura");
-          crear_div.appendChild(check4);
-
-          let lab4 = document.createElement("label");
-          lab4.setAttribute("for", "cura");
-          lab4.appendChild(document.createTextNode("Cura"));
-          crear_div.appendChild(lab4);
-
-      } else if (propiedad == "id") {
-
-          let input = document.createElement("input");
-          input.setAttribute("disabled", true);
-          input.classList.add("prohibit");
-          crear_div.appendChild(input);
-
-      } else {
-
-          let input = document.createElement("input");
-          crear_div.appendChild(input);
-
-      }
+    let input = document.createElement("input");
+    crear_div.appendChild(input);
   }
-
-    let br = document.createElement("br");
-    crear_div.appendChild(br);
-
-    let br2 = document.createElement("br");
-    crear_div.appendChild(br2);
 
   let boto3 = document.createElement("button");
   boto3.appendChild(document.createTextNode("Acceptar"));
@@ -1174,47 +1056,6 @@ function crear_formulari_habilitats(){
   boto4.addEventListener("click", cancelar_habilitat)
   boto4.setAttribute("id", "cancelar_habilitat");
   crear_div.appendChild(boto4);
-
-}
-
-function acceptar_habilitat(){
-
-    let id = document.getElementsByTagName("input")[0].value;
-    let nom = document.getElementsByTagName("input")[1].value;
-    let tipus = document.getElementsByClassName("radio");
-
-    let efecte = document.getElementsByClassName("checkbox");
-    let efectes_marcats = "";
-
-    for (let i = 0; i < efecte.length; i++) {
-
-        if (efecte[i].checked == true) {
-            efectes_marcats += efecte[i].id + "-";
-        }
-    }
-
-    if (
-        efectes_marcats.charAt(efectes_marcats.length - 1) == "-"
-    ) {
-        efectes_marcats = efectes_marcats.slice(0, -1);
-    }
-
-
-    contador++;
-    personatges[posicio_global].habilitat.push({
-
-        id: id,
-        nom: nom,
-        tipus: tipus,
-        efecte: efectes_marcats,
-
-    });
-
-    console.log(personatges);
-
-    buidar_personatge();
-    genera_tabla(personatges);
-
 }
 
 function cancelar_habilitat(){
@@ -1244,15 +1085,14 @@ function acceptar_habilitat(){
 }
 
 function tornar(){
-
-    let divb = document.getElementById("divBtns");
-    divb.parentNode.removeChild(divb);
-    let taula = document.getElementById("TaulaH").firstChild;
-    taula.parentNode.removeChild(taula);
-    genera_tabla(personatges);
-
+  let boto = document.getElementById("tornar");
+  boto.parentNode.removeChild(boto);
+  let boto2 = document.getElementById("nova_habilitat");
+  boto2.parentNode.removeChild(boto2);
+  let taula = document.getElementById("Taula").firstChild;
+  taula.parentNode.removeChild(taula); 
+  genera_tabla(personatges);
 }
-
 
 function modificar_habilitat(e){
   let posicio = 0;
@@ -1337,4 +1177,3 @@ function cancelar_modificacio_habilitat(){
 
   genera_tabla_habilitat();
 }
-

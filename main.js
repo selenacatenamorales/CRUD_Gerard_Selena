@@ -189,6 +189,7 @@ function genera_tabla(personatges) {
   document.getElementById("Taula").classList.add("Taula");
   document.getElementById("Nou_personatge").classList.remove("nou_personatge");
   document.getElementById("Actualitza").classList.remove("actualitza");
+    document.getElementById("TaulaH").classList.remove("Taula");
 
   document.addEventListener("keydown", function (event) {
     if (event.key == "n") {
@@ -922,7 +923,10 @@ function generar_taula_habilitat(e) {
 
 function genera_tabla_habilitat() {
   // Obtener la referencia del elemento body
-  var div = document.getElementsByTagName("div")[0];
+  var div = document.getElementsByTagName("div")[1];
+
+    div.classList.add("Taula", "flex-col", "cc");
+    document.getElementById("Nou_personatge").classList.remove("nou_personatge");
 
   // Crea un elemento <table> y un elemento <tbody>
   var tabla = document.createElement("table");
@@ -994,17 +998,23 @@ function genera_tabla_habilitat() {
   //funcio que serveix per afegir a cada boto de modificar el seu event de click
   generar_add_event_listener_eliminar_hablitat();
 
+    var divBtns = document.createElement("div");
+    divBtns.setAttribute("id", "divBtns");
+    divBtns.setAttribute("class", "divBtns");
+    divBtns.classList.add("flex-row");
+    div.appendChild(divBtns);
+
   var boto = document.createElement("button");
   boto.appendChild(document.createTextNode("Tornar"));
   boto.setAttribute("id", "tornar");
-  div.appendChild(boto);
+  divBtns.appendChild(boto);
 
   boto.addEventListener("click", tornar)
 
   var boto2 = document.createElement("button");
   boto2.appendChild(document.createTextNode("Nova Habilitat"));
   boto2.setAttribute("id", "nova_habilitat");
-  div.appendChild(boto2);
+  divBtns.appendChild(boto2);
 
   boto2.addEventListener("click", nova_habilitat);
 
@@ -1012,12 +1022,10 @@ function genera_tabla_habilitat() {
 
 function nova_habilitat(){
 
-let boto = document.getElementById("tornar");
-boto.parentNode.removeChild(boto);
-let boto2 = document.getElementById("nova_habilitat");
-boto2.parentNode.removeChild(boto2);
-let tabla = document.getElementsByTagName("div")[0].firstChild;
-tabla.parentNode.removeChild(tabla);
+    let divb = document.getElementById("divBtns");
+    divb.parentNode.removeChild(divb);
+    let tabla = document.getElementById("TaulaH").firstChild;
+    tabla.parentNode.removeChild(tabla);
 
   let crear_div = document.createElement("div");
 
@@ -1060,23 +1068,22 @@ function acceptar_habilitat(){
 }
 
 function tornar(){
-  let boto = document.getElementById("tornar");
-  boto.parentNode.removeChild(boto);
-  let boto2 = document.getElementById("nova_habilitat");
-  boto2.parentNode.removeChild(boto2);
-  let taula = document.getElementById("Taula").firstChild;
-  taula.parentNode.removeChild(taula); 
-  genera_tabla(personatges);
+
+    let divb = document.getElementById("divBtns");
+    divb.parentNode.removeChild(divb);
+    let taula = document.getElementById("TaulaH").firstChild;
+    taula.parentNode.removeChild(taula);
+    genera_tabla(personatges);
+
 }
+
 
 function modificar_habilitat(e){
   let pos = parseInt(e.target.parentNode.parentNode.firstChild.innerText);
   console.log(pos);
-  let boto = document.getElementById("tornar");
-  boto.parentNode.removeChild(boto);
-  let boto2 = document.getElementById("nova_habilitat");
-  boto2.parentNode.removeChild(boto2);
-  let taula = document.getElementById("Taula").firstChild;
+  let divb = document.getElementById("divBtns");
+    divb.parentNode.removeChild(divb);
+  let taula = document.getElementById("TaulaH").firstChild;
   taula.parentNode.removeChild(taula); 
   taula_modificar_habilitat(pos);
 }

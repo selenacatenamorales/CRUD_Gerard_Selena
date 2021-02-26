@@ -148,8 +148,6 @@ table {
     width: 100%;
 }
 
-i {
-
-    color: aqua;
-
+.prohibit {
+    cursor: no-drop;
 }

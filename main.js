@@ -1022,6 +1022,9 @@ function genera_tabla_habilitat() {
 
 function nova_habilitat(){
 
+    document.getElementById("Nou_personatge").classList.add("nou_personatge");
+    document.getElementById("TaulaH").classList.remove("Taula")
+
     let divb = document.getElementById("divBtns");
     divb.parentNode.removeChild(divb);
     let tabla = document.getElementById("TaulaH").firstChild;
@@ -1039,9 +1042,91 @@ function nova_habilitat(){
 
     crear_div.appendChild(p);
 
-    let input = document.createElement("input");
-    crear_div.appendChild(input);
+      if (propiedad == "tipus"){
+
+          let rad1 = document.createElement("input");
+          rad1.setAttribute("type", "radio");
+          rad1.setAttribute("id", "fisic");
+          crear_div.appendChild(rad1);
+
+          let lab1 = document.createElement("label");
+          lab1.setAttribute("for", "fisic");
+          lab1.appendChild(document.createTextNode("Físic"));
+          crear_div.appendChild(lab1);
+
+          let rad2 = document.createElement("input");
+          rad2.setAttribute("type", "radio");
+          rad2.setAttribute("id", "magic");
+          crear_div.appendChild(rad2);
+
+          let lab2 = document.createElement("label");
+          lab2.setAttribute("for", "magic");
+          lab2.appendChild(document.createTextNode("Màgic"));
+          crear_div.appendChild(lab2);
+
+
+      } else if (propiedad == "efecte"){
+
+          let check1 = document.createElement("input");
+          check1.setAttribute("type", "checkbox");
+          check1.setAttribute("id", "atac");
+          crear_div.appendChild(check1);
+
+          let lab1 = document.createElement("label");
+          lab1.setAttribute("for", "atac");
+          lab1.appendChild(document.createTextNode("Atac"));
+          crear_div.appendChild(lab1);
+
+          let check2 = document.createElement("input");
+          check2.setAttribute("type", "checkbox");
+          check2.setAttribute("id", "defensa");
+          crear_div.appendChild(check2);
+
+          let lab2 = document.createElement("label");
+          lab2.setAttribute("for", "defensa");
+          lab2.appendChild(document.createTextNode("Defensa"));
+          crear_div.appendChild(lab2);
+
+          let check3 = document.createElement("input");
+          check3.setAttribute("type", "checkbox");
+          check3.setAttribute("id", "suport");
+          crear_div.appendChild(check3);
+
+          let lab3 = document.createElement("label");
+          lab3.setAttribute("for", "suport");
+          lab3.appendChild(document.createTextNode("Suport"));
+          crear_div.appendChild(lab3);
+
+          let check4 = document.createElement("input");
+          check4.setAttribute("type", "checkbox");
+          check4.setAttribute("id", "cura");
+          crear_div.appendChild(check4);
+
+          let lab4 = document.createElement("label");
+          lab4.setAttribute("for", "cura");
+          lab4.appendChild(document.createTextNode("Cura"));
+          crear_div.appendChild(lab4);
+
+      } else if (propiedad == "id") {
+
+          let input = document.createElement("input");
+          input.setAttribute("disabled", true);
+          input.classList.add("prohibit");
+          crear_div.appendChild(input);
+
+      } else {
+
+          let input = document.createElement("input");
+          crear_div.appendChild(input);
+
+      }
   }
+
+    let br = document.createElement("br");
+    crear_div.appendChild(br);
+
+    let br2 = document.createElement("br");
+    crear_div.appendChild(br2);
 
   let boto3 = document.createElement("button");
   boto3.appendChild(document.createTextNode("Acceptar"));

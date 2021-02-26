@@ -919,15 +919,18 @@ genera_tabla_habilitat(posicio_global);
 
 }
 
+var contador_habilitat_global = 0;
 
 function generar_taula_habilitat(e) {
+  let contador_habilitat = 0;
   let id_hablitat = [];
   buidar_taula();
   for (propiedad in personatges[0].habilitat[0]) {
     id_hablitat.push(propiedad);
   }
   posicio_global = aconseguir_posicio(e);
-
+  contador_habilitat = parseInt(personatges[posicio_global].habilitat[personatges[posicio_global].habilitat.length-1].id); 
+  contador_habilitat_global =  contador_habilitat;
   genera_tabla_habilitat();
 }
 
@@ -1024,9 +1027,8 @@ function genera_tabla_habilitat() {
 
   boto2.addEventListener("click", nova_habilitat);
 
-  var contador_habilitat = personatges[posicio_global].habilitat
-  console.log(contador_habilitat);
-
+  
+  
 }
 
 function nova_habilitat(){
@@ -1050,7 +1052,9 @@ tabla.parentNode.removeChild(tabla);
     crear_div.appendChild(p);
     if (propiedad == 'id'){
       let input = document.createElement("input");
-      input.value = contador_habilitat + 1;
+      input.value = contador_habilitat_global + 1;
+      input.setAttribute("id", "formId");
+      input.setAttribute("disabled", true);
       crear_div.appendChild(input);
     }else if(propiedad == "tipus"){
       let tipus = "";
@@ -1155,7 +1159,7 @@ function acceptar_habilitat(){
   let taula = document.getElementById("Nou_personatge").firstChild;
   taula.parentNode.removeChild(taula); 
 
-  contador_habilitat++;
+  contador_habilitat_global++;
 
   genera_tabla_habilitat();
 }

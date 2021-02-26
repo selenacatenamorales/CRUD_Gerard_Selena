@@ -1277,6 +1277,7 @@ function taula_modificar_habilitat(posicio){
   }
     else{
     let input = document.createElement("input");
+    input.value = personatges[posicio_global].habilitat[posicio][propiedad];
     crear_div.appendChild(input);
     }
   }
@@ -1304,12 +1305,24 @@ function taula_modificar_habilitat(posicio){
 function acceptar_modificacio_habilitat(){
   let id = document.getElementsByTagName("input")[0].value;
   let nom = document.getElementsByTagName("input")[1].value;
-  let tipus = document.getElementsByTagName("input")[2].value;;
-  let efecte = document.getElementsByTagName("input")[3].value;
+  let tipus = document.getElementsByClassName("checkbox");
+  let tipus_marcados = "";
+  for (let i = 0; i < tipus.length; i++) {
+    if (tipus[i].checked == true) {
+      tipus_marcados += tipus[i].id + "-";
+    }
+  }
+  if (
+    tipus_marcados.charAt(tipus_marcados.length - 1) == "-"
+  ) {
+    tipus_marcados = tipus_marcados.slice(0, -1);
+  }
+
+  let efecte = document.getElementsByTagName("select")[0].value;
 
   personatges[posicio_global].habilitat[pos_global].id = id;
   personatges[posicio_global].habilitat[pos_global].nom = nom;
-  personatges[posicio_global].habilitat[pos_global].tipus = tipus;
+  personatges[posicio_global].habilitat[pos_global].tipus = tipus_marcados;
   personatges[posicio_global].habilitat[pos_global].efecte = efecte;
 
   let taula = document.getElementById("Actualitza").firstChild;

@@ -753,14 +753,12 @@ function acceptar_personatge() {
       edat: edat,
       magia: magia,
       caracteristiques: caractersitcas_marcadas,
-      habilitat: [
-        {
-          id: "0",
-          nom: "----------",
-          tipus: "---------",
-          efecte: "----------",
-        }
-      ],
+      habilitat: [{
+        id: "0",
+        nom: "exemple",
+        tipus: "Magic",
+        efecte: "Suport",
+      }],
       
       //uploaded imatge
       imatge: imgNova,

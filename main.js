@@ -333,7 +333,9 @@ function crear_imagen(crear_div, i) {
 }
 
 function crear_estadisticas(crear_div) {
+
   let caracteristica = "";
+
   for (let i = 0; i < 4; i++) {
     switch (i) {
       case 0:
@@ -895,12 +897,10 @@ function generar_add_event_listener_eliminar_hablitat() {
 }
 
 function eliminar_habilitat(e) {
+
   let posicio = 0;
   for (let i = 0; i < personatges[posicio_global].habilitat.length; i++) {
-    if (
-      parseInt(e.target.parentNode.parentNode.firstChild.innerText) ==
-      personatges[posicio_global].habilitat[i].id
-    ) {
+    if (parseInt(e.target.parentNode.parentNode.firstChild.innerText) == personatges[posicio_global].habilitat[i].id) {
       posicio = i;
     }
   }
@@ -908,19 +908,19 @@ function eliminar_habilitat(e) {
   if (pregunta) {
     personatges[posicio_global].habilitat.splice(posicio, 1); //eliminem el personatge de la posicio seleccionada
   }
+
   if (personatges[posicio_global].habilitat.length == 0) {
     //comprovem si no tenim cap persontage a l'array
-    let div = document.getElementsByTagName("div")[0]; //
+    let div = document.getElementsByTagName("div")[1]; //
     sin_registros(div);
 
-    let tabla = document.getElementsByTagName("div")[0].firstChild;
+    let tabla = document.getElementsByTagName("div")[1].firstChild;
     tabla.parentNode.removeChild(tabla);
   } else {
-    let boto = document.getElementById("tornar");
-    boto.parentNode.removeChild(boto);
-    let boto2 = document.getElementById("nova_habilitat");
-    boto2.parentNode.removeChild(boto2);
-    let tabla = document.getElementsByTagName("div")[0].firstChild;
+
+      let divB = document.getElementById("divBtns");
+      divB.parentNode.removeChild(divB);
+    let tabla = document.getElementsByTagName("div")[1].firstChild;
     tabla.parentNode.removeChild(tabla);
 
     genera_tabla_habilitat(posicio_global);
@@ -957,6 +957,7 @@ function genera_tabla_habilitat() {
   var div = document.getElementsByTagName("div")[1];
     div.classList.add("Taula", "flex-col", "cc");
     document.getElementById("Nou_personatge").classList.remove("nou_personatge");
+    document.getElementById("Actualitza").classList.remove("nou_personatge");
 
   // Crea un elemento <table> y un elemento <tbody>
   var tabla = document.createElement("table");
@@ -1087,6 +1088,7 @@ function nova_habilitat() {
       input.setAttribute("disabled", true);
       crear_div.appendChild(input);
     } else if (propiedad == "tipus") {
+
       let tipus = "";
       for (let i = 0; i < 2; i++) {
         switch (i) {
@@ -1112,7 +1114,7 @@ function nova_habilitat() {
       let select = document.createElement("select");
       crear_div.appendChild(select);
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 3; i++) {
         let option = document.createElement("option");
 
         switch (i) {
@@ -1124,9 +1126,6 @@ function nova_habilitat() {
             break;
           case 2:
             tipus = "Suport";
-            break;
-          case 3:
-            tipus = "Defensa";
             break;
         }
         option.appendChild(document.createTextNode(tipus));
@@ -1208,7 +1207,7 @@ function modificar_habilitat(e) {
 
   let posicio = 0;
   for (let i = 0; i < personatges[posicio_global].habilitat.length; i++) {
-    if (parseInt(e.target.parentNode.parentNode.firstChild.innerText) == personatges[i].id) {
+    if (parseInt(e.target.parentNode.parentNode.firstChild.innerText) == personatges[posicio_global].habilitat[i].id) {
       posicio = i;
     }
   }
@@ -1219,12 +1218,15 @@ function modificar_habilitat(e) {
   let taula = document.getElementById("TaulaH").firstChild;
   taula.parentNode.removeChild(taula);
   taula_modificar_habilitat(posicio);
+
 }
 
 function taula_modificar_habilitat(posicio) {
   let crear_div = document.createElement("div");
 
   let div = document.getElementById("Actualitza");
+    div.classList.add("nou_personatge");
+    document.getElementById("TaulaH").classList.remove("Taula");
 
   div.appendChild(crear_div);
   console.log(posicio_global);
@@ -1240,7 +1242,9 @@ function taula_modificar_habilitat(posicio) {
       input.setAttribute("id", "formId");
       input.setAttribute("disabled", true);
       crear_div.appendChild(input);
+
     } else if (propiedad == "tipus") {
+
       for (let i = 0; i < 2; i++) {
         switch (i) {
           case 0:
@@ -1250,6 +1254,7 @@ function taula_modificar_habilitat(posicio) {
             caracteristica = "Magic";
             break;
         }
+
         let input = document.createElement("input");
         input.setAttribute("type", "checkbox");
         input.setAttribute("id", caracteristica);
@@ -1261,10 +1266,10 @@ function taula_modificar_habilitat(posicio) {
         crear_div.appendChild(input);
         crear_div.appendChild(label);
       }
-      let tipus_marcados = personatges[posicio_global].habilitat[posicio][
-        propiedad
-      ].split("-");
+
+      let tipus_marcados = personatges[posicio_global].habilitat[posicio][propiedad].split("-");
       console.log(tipus_marcados);
+
       for (let i = 0; i < tipus_marcados.length; i++) {
         let input = document.getElementById(tipus_marcados[i]);
         input.setAttribute("checked", true);
@@ -1276,7 +1281,7 @@ function taula_modificar_habilitat(posicio) {
       let efecte_seleccionado =
         personatges[posicio_global].habilitat[posicio][propiedad];
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 3; i++) {
         let option = document.createElement("option");
 
         switch (i) {
@@ -1288,9 +1293,6 @@ function taula_modificar_habilitat(posicio) {
             break;
           case 2:
             efecte = "Suport";
-            break;
-          case 3:
-            efecte = "Defensa";
             break;
         }
         option.appendChild(document.createTextNode(efecte));
@@ -1305,6 +1307,11 @@ function taula_modificar_habilitat(posicio) {
       crear_div.appendChild(input);
     }
   }
+
+    let br = document.createElement("br");
+    crear_div.appendChild(br);
+    let br2 = document.createElement("br");
+    crear_div.appendChild(br2);
 
   let boto = document.createElement("button");
 
@@ -1326,15 +1333,20 @@ function taula_modificar_habilitat(posicio) {
 }
 
 function acceptar_modificacio_habilitat() {
+
   let id = document.getElementsByTagName("input")[0].value;
   let nom = document.getElementsByTagName("input")[1].value;
   let tipus = document.getElementsByClassName("checkbox");
   let tipus_marcados = "";
+
   for (let i = 0; i < tipus.length; i++) {
+
     if (tipus[i].checked == true) {
       tipus_marcados += tipus[i].id + "-";
     }
+
   }
+
   if (tipus_marcados.charAt(tipus_marcados.length - 1) == "-") {
     tipus_marcados = tipus_marcados.slice(0, -1);
   }

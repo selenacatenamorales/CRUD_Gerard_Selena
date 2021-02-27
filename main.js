@@ -12,14 +12,14 @@ var personatges = [
             {
                 id: 1,
                 nom: "Hilo rojo del destino",
-                tipus: "Magic",
-                efecte: "Fisic",
+                efecte: "Defensa",
+                tipus: "Fisic",
             },
             {
                 id: 2,
                 nom: "Espada del destino",
-                tipus: "Fisic-Magic",
-                efecte: "Fisic",
+                efecte: "Atac-Defensa",
+                tipus: "Fisic",
             },
         ],
 
@@ -37,8 +37,8 @@ var personatges = [
             {
                 id: 1,
                 nom: "Corte apagado",
-                tipus: "Magic",
-                efecte: "Fisic",
+                efecte: "Defensa",
+                tipus: "Fisic",
             },
         ],
         imatge: "imagenes/yami.jpg",
@@ -786,8 +786,8 @@ function acceptar_personatge() {
                 {
                     id: "0",
                     nom: "exemple",
-                    tipus: "Magic",
-                    efecte: "Fisic",
+                    efecte: "Defensa",
+                    tipus: "Fisic",
                 },
             ],
 
@@ -1103,23 +1103,32 @@ function nova_habilitat() {
         let p = document.createElement("p");
         p.appendChild(document.createTextNode(propiedad.toUpperCase()));
         crear_div.appendChild(p);
+
         if (propiedad == "id") {
+
             let input = document.createElement("input");
             input.value = contador_habilitat_global + 1;
             input.setAttribute("id", "formId");
             input.setAttribute("disabled", true);
             crear_div.appendChild(input);
+
         } else if (propiedad == "tipus") {
 
-            let tipus = "";
-            for (let i = 0; i < 2; i++) {
+            for (let i = 0; i < 4; i++) {
                 switch (i) {
                     case 0:
-                        caracteristica = "Fisic";
+                        caracteristica = "Atac";
                         break;
                     case 1:
-                        caracteristica = "Magic";
+                        caracteristica = "Defensa";
                         break;
+                    case 2:
+                        caracteristica = "Suport";
+                        break;
+                    case 3:
+                        caracteristica = "Cura";
+                        break;
+
                 }
                 let input = document.createElement("input");
                 input.setAttribute("type", "checkbox");
@@ -1133,6 +1142,7 @@ function nova_habilitat() {
                 crear_div.appendChild(label);
             }
         } else if (propiedad == "efecte") {
+
             let select = document.createElement("select");
             crear_div.appendChild(select);
 
@@ -1144,7 +1154,7 @@ function nova_habilitat() {
                         tipus = "Fisic";
                         break;
                     case 1:
-                        tipus = "Cura";
+                        tipus = "Magic";
                         break;
                 }
                 option.appendChild(document.createTextNode(tipus));
@@ -1200,8 +1210,8 @@ function acceptar_habilitat() {
     personatges[posicio_global].habilitat.push({
         id: id,
         nom: nom,
-        tipus: tipus_marcados,
         efecte: efecte,
+        tipus: tipus_marcados,
     });
 
     let taula = document.getElementById("Nou_personatge").firstChild;
@@ -1264,13 +1274,19 @@ function taula_modificar_habilitat(posicio) {
 
         } else if (propiedad == "tipus") {
 
-            for (let i = 0; i < 2; i++) {
+            for (let i = 0; i < 4; i++) {
                 switch (i) {
                     case 0:
-                        caracteristica = "Fisic";
+                        caracteristica = "Atac";
                         break;
                     case 1:
-                        caracteristica = "Magic";
+                        caracteristica = "Defensa";
+                        break;
+                    case 2:
+                        caracteristica = "Suport";
+                        break;
+                    case 3:
+                        caracteristica = "Cura";
                         break;
                 }
 
@@ -1305,10 +1321,10 @@ function taula_modificar_habilitat(posicio) {
 
                 switch (i) {
                     case 0:
-                        efecte = "Atac";
+                        efecte = "Fisic";
                         break;
                     case 1:
-                        efecte = "Cura";
+                        efecte = "Magic";
                         break;
                 }
                 option.appendChild(document.createTextNode(efecte));

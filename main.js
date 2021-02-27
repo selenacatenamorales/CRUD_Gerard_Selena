@@ -12,14 +12,14 @@ var personatges = [
             {
                 id: 1,
                 nom: "Hilo rojo del destino",
-                efecte: "Defensa",
                 tipus: "Fisic",
+                efecte: "Defensa",
             },
             {
                 id: 2,
                 nom: "Espada del destino",
-                efecte: "Atac-Defensa",
                 tipus: "Fisic",
+                efecte: "Atac-Defensa",
             },
         ],
 
@@ -37,8 +37,8 @@ var personatges = [
             {
                 id: 1,
                 nom: "Corte apagado",
-                efecte: "Defensa",
                 tipus: "Fisic",
+                efecte: "Defensa",
             },
         ],
         imatge: "imagenes/yami.jpg",
@@ -784,10 +784,10 @@ function acceptar_personatge() {
             caracteristiques: caractersitcas_marcadas,
             habilitat: [
                 {
-                    id: "0",
+                    id: 1,
                     nom: "exemple",
-                    efecte: "Defensa",
-                    tipus: "Fisic",
+                    tipus: "Cura-Atac",
+                    efecte: "Fisic",
                 },
             ],
 
@@ -926,18 +926,26 @@ function eliminar_habilitat(e) {
             posicio = i;
         }
     }
-    let pregunta = confirm("Estas segur que vols eliminar aquest personatge?");
+    let pregunta = confirm("Estas segur que vols eliminar aquesta habilitat?");
     if (pregunta) {
-        personatges[posicio_global].habilitat.splice(posicio, 1); //eliminem el personatge de la posicio seleccionada
+
+        if (personatges[posicio_global].habilitat.length == 1){
+            alert("El personatge no es pot quedar sense habilitats");
+        } else {
+            personatges[posicio_global].habilitat.splice(posicio, 1); //eliminem la habilitat de la posicio seleccionada
+        }
     }
 
     if (personatges[posicio_global].habilitat.length == 0) {
-        //comprovem si no tenim cap persontage a l'array
+
+        //comprovem si no tenim cap habilitat a l'array
         let div = document.getElementsByTagName("div")[1]; //
         sin_registros(div);
 
         let tabla = document.getElementsByTagName("div")[1].firstChild;
         tabla.parentNode.removeChild(tabla);
+
+
     } else {
 
         let divB = document.getElementById("divBtns");
@@ -1112,7 +1120,7 @@ function nova_habilitat() {
             input.setAttribute("disabled", true);
             crear_div.appendChild(input);
 
-        } else if (propiedad == "tipus") {
+        } else if (propiedad == "efecte") {
 
             for (let i = 0; i < 4; i++) {
                 switch (i) {
@@ -1141,13 +1149,14 @@ function nova_habilitat() {
                 crear_div.appendChild(input);
                 crear_div.appendChild(label);
             }
-        } else if (propiedad == "efecte") {
+        } else if (propiedad == "tipus") {
 
-            let select = document.createElement("select");
-            crear_div.appendChild(select);
+
+            //let select = document.createElement("select");
+            //crear_div.appendChild(select);
 
             for (let i = 0; i < 2; i++) {
-                let option = document.createElement("option");
+                //let option = document.createElement("option");
 
                 switch (i) {
                     case 0:
@@ -1157,9 +1166,24 @@ function nova_habilitat() {
                         tipus = "Magic";
                         break;
                 }
-                option.appendChild(document.createTextNode(tipus));
-                select.appendChild(option);
+
+                let input = document.createElement("input");
+                input.setAttribute("type", "radio");
+                input.setAttribute("id", tipus);
+                input.setAttribute("class", "radio");
+                input.setAttribute("name", "efecte");
+
+                let label = document.createElement("label");
+                label.setAttribute("for", tipus);
+                label.appendChild(document.createTextNode(tipus));
+                crear_div.appendChild(input);
+                crear_div.appendChild(label);
+
+                //option.appendChild(document.createTextNode(tipus));
+                //select.appendChild(option);
             }
+
+
         } else {
             let input = document.createElement("input");
             crear_div.appendChild(input);
@@ -1191,27 +1215,36 @@ function cancelar_habilitat() {
 }
 
 function acceptar_habilitat() {
+
     let id = document.getElementsByTagName("input")[0].value;
     let nom = document.getElementsByTagName("input")[1].value;
 
-    let tipus = document.getElementsByClassName("checkbox");
-    let tipus_marcados = "";
-    for (let i = 0; i < tipus.length; i++) {
-        if (tipus[i].checked == true) {
-            tipus_marcados += tipus[i].id + "-";
+    let efecte = document.getElementsByClassName("checkbox");
+    let efectes_marcats = "";
+    for (let i = 0; i < efecte.length; i++) {
+        if (efecte[i].checked == true) {
+            efectes_marcats += efecte[i].id + "-";
         }
     }
-    if (tipus_marcados.charAt(tipus_marcados.length - 1) == "-") {
-        tipus_marcados = tipus_marcados.slice(0, -1);
+    if (efectes_marcats.charAt(efectes_marcats.length - 1) == "-") {
+        efectes_marcats = efectes_marcats.slice(0, -1);
     }
 
-    let efecte = document.getElementsByTagName("select")[0].value;
+    //let efecte = document.getElementsByTagName("select")[0].value;
+    let tipus = document.getElementsByClassName("radio");
+    let valTipus = "";
+
+    if (tipus[0].checked){
+        valTipus = tipus[0].id;
+    } else if (tipus[1].checked){
+        valTipus = tipus[1].id;
+    }
 
     personatges[posicio_global].habilitat.push({
         id: id,
         nom: nom,
-        efecte: efecte,
-        tipus: tipus_marcados,
+        tipus: valTipus,
+        efecte: efectes_marcats,
     });
 
     let taula = document.getElementById("Nou_personatge").firstChild;
@@ -1272,7 +1305,7 @@ function taula_modificar_habilitat(posicio) {
             input.setAttribute("disabled", true);
             crear_div.appendChild(input);
 
-        } else if (propiedad == "tipus") {
+        } else if (propiedad == "efecte") {
 
             for (let i = 0; i < 4; i++) {
                 switch (i) {
@@ -1309,15 +1342,14 @@ function taula_modificar_habilitat(posicio) {
                 let input = document.getElementById(tipus_marcados[i]);
                 input.setAttribute("checked", true);
             }
-        } else if (propiedad == "efecte") {
-            let select = document.createElement("select");
-            crear_div.appendChild(select);
 
-            let efecte_seleccionado =
-                personatges[posicio_global].habilitat[posicio][propiedad];
+        } else if (propiedad == "tipus") {
+
+
+            let efecte_seleccionado = personatges[posicio_global].habilitat[posicio][propiedad];
+            console.log("Tipus: " + efecte_seleccionado);
 
             for (let i = 0; i < 2; i++) {
-                let option = document.createElement("option");
 
                 switch (i) {
                     case 0:
@@ -1327,12 +1359,25 @@ function taula_modificar_habilitat(posicio) {
                         efecte = "Magic";
                         break;
                 }
-                option.appendChild(document.createTextNode(efecte));
-                if (efecte_seleccionado == efecte) {
-                    option.setAttribute("selected", "true");
+
+                let input = document.createElement("input");
+                input.setAttribute("type", "radio");
+                input.setAttribute("id", efecte);
+                input.setAttribute("class", "radio");
+                input.setAttribute("name", "efecte");
+
+                if (efecte_seleccionado == efecte){
+                    input.setAttribute("checked", true);
                 }
-                select.appendChild(option);
+
+                let label = document.createElement("label");
+                label.setAttribute("for", efecte);
+                label.innerText = efecte;
+                crear_div.appendChild(input);
+                crear_div.appendChild(label);
+
             }
+
         } else {
             let input = document.createElement("input");
             input.value = personatges[posicio_global].habilitat[posicio][propiedad];
@@ -1368,27 +1413,32 @@ function acceptar_modificacio_habilitat() {
 
     let id = document.getElementsByTagName("input")[0].value;
     let nom = document.getElementsByTagName("input")[1].value;
-    let tipus = document.getElementsByClassName("checkbox");
-    let tipus_marcados = "";
+    let efecte = document.getElementsByClassName("checkbox");
+    let efectes_marcats = "";
 
-    for (let i = 0; i < tipus.length; i++) {
-
-        if (tipus[i].checked == true) {
-            tipus_marcados += tipus[i].id + "-";
+    for (let i = 0; i < efecte.length; i++) {
+        if (efecte[i].checked == true) {
+            efectes_marcats += efecte[i].id + "-";
         }
-
     }
 
-    if (tipus_marcados.charAt(tipus_marcados.length - 1) == "-") {
-        tipus_marcados = tipus_marcados.slice(0, -1);
+    if (efectes_marcats.charAt(efectes_marcats.length - 1) == "-") {
+        efectes_marcats = efectes_marcats.slice(0, -1);
     }
 
-    let efecte = document.getElementsByTagName("select")[0].value;
+    let tipus = document.getElementsByClassName("radio");
+    let valTipus = "";
+
+    if (tipus[0].checked){
+        valTipus = tipus[0].id;
+    } else if (tipus[1].checked){
+        valTipus = tipus[1].id;
+    }
 
     personatges[posicio_global].habilitat[pos_global].id = id;
     personatges[posicio_global].habilitat[pos_global].nom = nom;
-    personatges[posicio_global].habilitat[pos_global].tipus = tipus_marcados;
-    personatges[posicio_global].habilitat[pos_global].efecte = efecte;
+    personatges[posicio_global].habilitat[pos_global].tipus = valTipus;
+    personatges[posicio_global].habilitat[pos_global].efecte = efectes_marcats;
 
     let taula = document.getElementById("Actualitza").firstChild;
     taula.parentNode.removeChild(taula);

@@ -36,8 +36,8 @@ var personatges = [
       {
         id: 1,
         nom: "Corte apagado",
-        tipus: "Magico",
-        efecte: "Ataque",
+        tipus: "Magic",
+        efecte: "Atac",
       },
     ],
     imatge: "imagenes/yami.jpg",
@@ -1208,10 +1208,7 @@ function modificar_habilitat(e) {
 
   let posicio = 0;
   for (let i = 0; i < personatges[posicio_global].habilitat.length; i++) {
-    if (
-      parseInt(e.target.parentNode.parentNode.firstChild.innerText) ==
-      personatges[i].id
-    ) {
+    if (parseInt(e.target.parentNode.parentNode.firstChild.innerText) == personatges[i].id) {
       posicio = i;
     }
   }

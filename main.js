@@ -425,13 +425,13 @@ function comprovar_dades() {
 
     if (document.getElementsByTagName("input")[1].value == "") {
         document.getElementsByTagName("input")[1].style.borderColor = "red";
-        cadena += "\n El nom no pot estar en blanc";
+        cadena += "\nEl nom no pot estar en blanc";
         errors = true;
     }
 
     if (document.getElementsByTagName("input")[2].value == "") {
         document.getElementsByTagName("input")[2].style.borderColor = "red";
-        cadena += "\n El cognom no pot estar en blanc";
+        cadena += "\nEl cognom no pot estar en blanc";
         errors = true;
     }
 
@@ -690,11 +690,16 @@ function buidar_modficacio() {
 }
 
 function comrpovar_exprreg(edat, nom) {
+
     let error = false;
+
     if (solo_num.test(edat) == false) {
+        document.getElementsByTagName("input")[3].style.borderColor = "red";
         alert("Indica un numero amb el format correcte");
         error = true;
+
     } else if (solo_letra.test(nom) == false) {
+        document.getElementsByTagName("input")[1].style.borderColor = "red";
         error = true;
         alert(
             "Indica un nom amb el format correcte. Enrecorda't que la priemra lletra ha der ser majuscula"
@@ -702,6 +707,7 @@ function comrpovar_exprreg(edat, nom) {
     }
     console.log(error);
     return error;
+
 }
 
 function acceptar_modificacio() {
@@ -745,6 +751,11 @@ function acceptar_modificacio() {
 }
 
 function acceptar_personatge() {
+
+    document.getElementsByTagName("input")[1].style.borderColor = null;
+    document.getElementsByTagName("input")[2].style.borderColor = null;
+    document.getElementsByTagName("input")[3].style.borderColor = null;
+
     let id = document.getElementsByTagName("input")[0].value;
     let nom = document.getElementsByTagName("input")[1].value;
     let cognom = document.getElementsByTagName("input")[2].value;
@@ -1148,15 +1159,11 @@ function nova_habilitat() {
                 label.innerText = caracteristica;
                 crear_div.appendChild(input);
                 crear_div.appendChild(label);
+
             }
         } else if (propiedad == "tipus") {
 
-
-            //let select = document.createElement("select");
-            //crear_div.appendChild(select);
-
             for (let i = 0; i < 2; i++) {
-                //let option = document.createElement("option");
 
                 switch (i) {
                     case 0:
@@ -1173,14 +1180,14 @@ function nova_habilitat() {
                 input.setAttribute("class", "radio");
                 input.setAttribute("name", "efecte");
 
+                if (i == 0) input.setAttribute("checked", true);
+
                 let label = document.createElement("label");
                 label.setAttribute("for", tipus);
                 label.appendChild(document.createTextNode(tipus));
                 crear_div.appendChild(input);
                 crear_div.appendChild(label);
 
-                //option.appendChild(document.createTextNode(tipus));
-                //select.appendChild(option);
             }
 
 
@@ -1198,8 +1205,18 @@ function nova_habilitat() {
     let boto3 = document.createElement("button");
     boto3.appendChild(document.createTextNode("Acceptar"));
     boto3.setAttribute("id", "accceptar_habilitat");
-    boto3.addEventListener("click", acceptar_habilitat);
     crear_div.appendChild(boto3);
+
+    boto3.addEventListener("click", function(){
+
+        errors = comprovar_dades_habilitats();
+        if (errors == false){
+            acceptar_habilitat();
+        } else {
+            alert(cadena_errors);
+        }
+
+    });
 
     let boto4 = document.createElement("button");
     boto4.appendChild(document.createTextNode("Cancelar"));
@@ -1451,4 +1468,31 @@ function cancelar_modificacio_habilitat() {
     taula.parentNode.removeChild(taula);
 
     genera_tabla_habilitat();
+}
+
+function comprovar_dades_habilitats(){
+
+    let efectes = document.getElementsByClassName("checkbox");
+    let errors = false;
+    let cadena = "";
+    cadena_errors = "";
+    let contador = 0;
+
+    if (document.getElementsByTagName("input")[1].value == ""){
+        document.getElementsByTagName("input")[1].style.borderColor = "red";
+        cadena += "\nEl nom és obligatori";
+    }
+
+    for (let i = 0; i < efectes.length; i++){
+        if (efectes[i].checked == false) contador++;
+    }
+
+    if (contador == 4){
+        errors = true;
+        cadena += "Has de marcar una efecte mínim";
+    }
+
+    cadena_errors = cadena;
+    return errors;
+
 }

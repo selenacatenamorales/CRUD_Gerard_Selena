@@ -1479,8 +1479,9 @@ function comprovar_dades_habilitats(){
     let contador = 0;
 
     if (document.getElementsByTagName("input")[1].value == ""){
+        errors = true;
         document.getElementsByTagName("input")[1].style.borderColor = "red";
-        cadena += "\nEl nom és obligatori";
+        cadena += "El nom és obligatori";
     }
 
     for (let i = 0; i < efectes.length; i++){
@@ -1489,7 +1490,7 @@ function comprovar_dades_habilitats(){
 
     if (contador == 4){
         errors = true;
-        cadena += "Has de marcar una efecte mínim";
+        cadena += "\nHas de marcar una efecte mínim";
     }
 
     cadena_errors = cadena;

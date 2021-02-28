@@ -1,6 +1,0 @@
-SubJSON:
-
-    Habilitats:
-        - Nom habilitat
-        - Tipus habilitat (físic, màgic)
-        - efecte (atac, cura, suport, defensa)
